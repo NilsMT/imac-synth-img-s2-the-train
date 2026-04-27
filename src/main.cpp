@@ -47,28 +47,7 @@ void onKey(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods
 			break;
 		case GLFW_KEY_P:
 			if (is_pressed) glPolygonMode(GL_FRONT_AND_BACK,GL_FILL); //render filled
-		case GLFW_KEY_UP :
-            angle_phy += 1.0;
             break;
-        case GLFW_KEY_DOWN :
-            angle_phy -= 1.0;
-            break;
-        case GLFW_KEY_LEFT :
-            angle_theta += 1.0;
-            break;
-        case GLFW_KEY_RIGHT :
-            angle_theta -= 1.0;
-        break;
-
-
-		case GLFW_KEY_R :
-			//> EXO 3
-			//< FIN EXO 3
-			break;
-		case GLFW_KEY_T :
-			//> EXO 3
-			//< FIN EXO 3
-			break;
 		default: std::cerr<<"Touche non gérée "<<key<<std::endl;
 	}
 
@@ -80,7 +59,6 @@ void onMouseButton(GLFWwindow* window, int button, int action, int /*mods*/)
 		double xpos, ypos;
 		glfwGetCursorPos(window, &xpos, &ypos);
 		std::cout<<"Pressed in "<<xpos<<" "<<ypos<<std::endl;
-
 	}
 }
 
