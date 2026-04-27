@@ -43,10 +43,10 @@ void onKey(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods
 			glfwSetWindowShouldClose(window, GLFW_TRUE);
 			break;
 		case GLFW_KEY_L:
-			if (is_pressed) glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+			if (is_pressed) glPolygonMode(GL_FRONT_AND_BACK,GL_LINE); //render lines
 			break;
 		case GLFW_KEY_P:
-			if (is_pressed) glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+			if (is_pressed) glPolygonMode(GL_FRONT_AND_BACK,GL_FILL); //render filled
 		case GLFW_KEY_UP :
             angle_phy += 1.0;
             break;
@@ -86,13 +86,21 @@ void onMouseButton(GLFWwindow* window, int button, int action, int /*mods*/)
 
 int main(int /*argc*/, char** /*argv*/)
 {
+    //NOTE: mute looping output of Id VBO
+    DisableMeshOutput();
     //NOTE: json test
     std::ifstream ifs("../src/train_path.json"); //relative path from bin/ folder
     json j = json::parse(ifs);
     std::cout << std::setw(4) << j << std::endl;
 
 
-	/* GLFW initialisation */
+
+    //////////////////////////////////////
+    /* GLFW initialisation */
+    //////////////////////////////////////
+
+
+
 	GLFWwindow* window;
 	if (!glfwInit()) return -1;
 
@@ -117,15 +125,32 @@ int main(int /*argc*/, char** /*argv*/)
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
 
-	std::cout<<"Loading GL extension"<<std::endl;
+    std::cout<<"Loading GL extension"<<std::endl;
+
 	// Intialize glad (loads the OpenGL functions)
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		return -1;
 	}
 
+
+
+    //////////////////////////////////////
+    /* Callback init */
+    //////////////////////////////////////
+
+
+
 	glfwSetWindowSizeCallback(window,onWindowResized);
 	glfwSetKeyCallback(window, onKey);
 	glfwSetMouseButtonCallback(window, onMouseButton);
+    
+
+
+    //////////////////////////////////////
+    /* Engine init */
+    //////////////////////////////////////
+
+
 
 	std::cout<<"Engine init"<<std::endl;
     myEngine.mode2D = false;
@@ -134,6 +159,15 @@ int main(int /*argc*/, char** /*argv*/)
 	CHECK_GL;
 
 	initScene();
+
+
+    
+    //////////////////////////////////////
+    /* Running scene */
+    //////////////////////////////////////
+
+
+
 	double elapsedTime{0.0};
 
 	/* Loop until the user closes the window */
@@ -160,6 +194,7 @@ int main(int /*argc*/, char** /*argv*/)
         myEngine.setViewMatrix(viewMatrix);
         myEngine.updateMvMatrix();
 
+        //draw the whole scene from draw_scene
         drawScene(startTime);
 
         myEngine.mvMatrixStack.loadIdentity();
