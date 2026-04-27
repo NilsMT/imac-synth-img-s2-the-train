@@ -34,7 +34,7 @@ include_directories(lib/glbasimac/)
 set(CMAKE_COLOR_MAKEFILE ON)
 
 # ---Add json---
-include_directories(lib/json)
+include_directories(${CMAKE_SOURCE_DIR}/lib/nlohmann)
 
 add_subdirectory(src)
 

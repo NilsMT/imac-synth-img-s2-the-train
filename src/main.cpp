@@ -4,9 +4,12 @@
 #include "draw_scene.hpp"
 #include "tools/shaders.hpp"
 #include <iostream>
+#include "nlohmann/json.hpp"
+#include <iomanip>
 
 using namespace glbasimac;
 using namespace STP3D;
+using json = nlohmann::json;
 
 /* Window properties */
 static const unsigned int WINDOW_WIDTH = 1200;
@@ -83,6 +86,12 @@ void onMouseButton(GLFWwindow* window, int button, int action, int /*mods*/)
 
 int main(int /*argc*/, char** /*argv*/)
 {
+    //NOTE: json test
+    std::ifstream ifs("../src/train_path.json"); //relative path from bin/ folder
+    json j = json::parse(ifs);
+    std::cout << std::setw(4) << j << std::endl;
+
+
 	/* GLFW initialisation */
 	GLFWwindow* window;
 	if (!glfwInit()) return -1;
