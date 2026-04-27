@@ -10,7 +10,7 @@ Projet initialisé sur la base du TD04 de synthèse d'image, et remaniée de man
 │   ├───main.cpp : moteur de rendus
 │   ├───draw_scene.cpp : les rendus 3D
 │   ├───draw_scene.hpp : header de draw_scene
-│   └───circuit.json : configuration du circuit de train
+│   └───train_path.json : configuration du circuit de train
 └───README.md : ce fichier
 ```
 
