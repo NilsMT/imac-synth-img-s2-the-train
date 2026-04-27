@@ -38,19 +38,37 @@ void onKey(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods
 {
 	int is_pressed = (action == GLFW_PRESS); 
 	switch(key) {
+        //escape shortcut
 		case GLFW_KEY_A :
 		case GLFW_KEY_ESCAPE :
 			glfwSetWindowShouldClose(window, GLFW_TRUE);
 			break;
+
+        //render modes
 		case GLFW_KEY_L:
 			if (is_pressed) glPolygonMode(GL_FRONT_AND_BACK,GL_LINE); //render lines
 			break;
 		case GLFW_KEY_P:
 			if (is_pressed) glPolygonMode(GL_FRONT_AND_BACK,GL_FILL); //render filled
             break;
+        
+        //orbital camera controls
+        case GLFW_KEY_UP :
+            camera_angle_z += 1.0;
+            break;
+        case GLFW_KEY_DOWN :
+            camera_angle_z -= 1.0;
+            break;
+        case GLFW_KEY_LEFT :
+            camera_angle_x += 1.0;
+            break;
+        case GLFW_KEY_RIGHT :
+            camera_angle_x -= 1.0;
+        break;
+
+        //default
 		default: std::cerr<<"Touche non gérée "<<key<<std::endl;
 	}
-
 }
 
 void onMouseButton(GLFWwindow* window, int button, int action, int /*mods*/)
@@ -163,9 +181,9 @@ int main(int /*argc*/, char** /*argv*/)
         /* Fix camera position */
         myEngine.mvMatrixStack.loadIdentity();
         Vector3D pos_camera = 
-        Vector3D(dist_zoom*cos(deg2rad(angle_theta))*cos(deg2rad(angle_phy)),
-        dist_zoom*sin(deg2rad(angle_theta))*cos(deg2rad(angle_phy)),
-        dist_zoom*sin(deg2rad(angle_phy)));
+        Vector3D(dist_zoom*cos(deg2rad(camera_angle_x))*cos(deg2rad(camera_angle_z)),
+        dist_zoom*sin(deg2rad(camera_angle_x))*cos(deg2rad(camera_angle_z)),
+        dist_zoom*sin(deg2rad(camera_angle_z)));
         Vector3D viewed_point = Vector3D(0.0,0.0,0.0);
         Vector3D up_vector = Vector3D(0.0,0.0,1.0);
         Matrix4D viewMatrix = Matrix4D::lookAt(pos_camera,viewed_point,up_vector);
