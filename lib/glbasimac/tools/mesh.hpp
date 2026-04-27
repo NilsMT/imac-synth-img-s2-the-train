@@ -29,15 +29,7 @@
 
 namespace STP3D {
 
-	static bool MeshOutputMuted = false;
-
-	inline void DisableMeshOutput() {
-		MeshOutputMuted = true;
-	}
-
-	inline void EnableMeshOutput() {
-		MeshOutputMuted = false;
-	}
+    inline bool MeshOutput = true;
 
 	/**
 	  * \brief Mesh class allows to store generic informations about a mesh 
@@ -133,7 +125,7 @@ namespace STP3D {
 
 		// Transfer all data for all VBO from CPU to GPU
 		for(std::vector<int>::size_type i = 0; i < buffers.size(); ++i) {
-			if (!MeshOutputMuted) {
+			if (MeshOutput == true) {
 				std::cerr<<"Id VBO for "<<attr_semantic[i]<<" : "<<vbo_id[i]<<std::endl;
 			} 
 			glBindBuffer(GL_ARRAY_BUFFER,vbo_id[i]);

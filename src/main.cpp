@@ -64,8 +64,8 @@ void onMouseButton(GLFWwindow* window, int button, int action, int /*mods*/)
 
 int main(int /*argc*/, char** /*argv*/)
 {
-    //NOTE: mute looping output of Id VBO
-    DisableMeshOutput();
+    //NOTE: mute looping output of "Id VBO ..."
+    MeshOutput = false;
     //NOTE: json test
     std::ifstream ifs("../src/train_path.json"); //relative path from bin/ folder
     json j = json::parse(ifs);
