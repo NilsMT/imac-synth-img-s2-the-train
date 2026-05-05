@@ -15,6 +15,12 @@ extern float camera_angle_x;      // Angle between x axis and viewpoint
 extern float camera_angle_z;      // Angle between z axis and viewpoint
 extern float dist_zoom;           // Distance between origin and viewpoint
 
+//CONSTANTS
+//for the rails
+extern float sr;
+extern float sx;
+extern float rr;
+
 extern IndexedMesh* sphere;
 extern IndexedMesh* cube;
 
@@ -46,5 +52,5 @@ void drawRailCurve(float orientation);
 
 void drawRailStraight(float orientation);
 
-void drawScene(float time, Railways railways);
+void drawScene(float time, Railways* railways);
 

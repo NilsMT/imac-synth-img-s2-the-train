@@ -95,12 +95,11 @@ int main(int /*argc*/, char** /*argv*/)
     json j = json::parse(ifs);
 
     //turn it into a premade class
-    //SOURCE: https://stackoverflow.com/questions/79367716/how-to-initialize-structures-using-fields-names
-    Railways railways = {
-        .size_grid = j["size_grid"],
-        .origin = j["origin"].get<std::vector<float>>(),
-        .path = j["path"].get<std::vector<std::vector<float>>>()
-    };
+    Railways railways;
+    railways.size_grid = j["size_grid"];
+    railways.origin = j["origin"].get<std::vector<float>>();
+    railways.path = j["path"].get<std::vector<std::vector<float>>>();
+    railways.train_position = railways.origin;
 
     /* display train path test */
     std::vector<std::vector<char>> matrix;
@@ -241,7 +240,7 @@ int main(int /*argc*/, char** /*argv*/)
         myEngine.updateMvMatrix();
 
         //draw the whole scene from draw_scene
-        drawScene(startTime,railways);
+        drawScene(startTime, &railways);
 
         myEngine.mvMatrixStack.loadIdentity();
 
