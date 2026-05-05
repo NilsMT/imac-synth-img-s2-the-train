@@ -27,6 +27,7 @@ const float body_size =
     + 2 * wheel_support_size
     + under_wedge_size;
 const float body_height = 2.25;
+const float middle_height = 0.5;
 const float body_rep[2] = {0.8f,0.2f}; //repartition between wedge and main body (%)
 const float main_body_size = body_rep[0] * body_size;
 const float wedge_body_size = body_rep[1] * body_size;
@@ -165,10 +166,18 @@ void drawTrainMainBody() {
         myEngine.mvMatrixStack.popMatrix();
 }
 
+void drawTrainMiddleBody() {
+    myEngine.mvMatrixStack.pushMatrix();
+        moveOrigin(wedge_body_size/2,btwn_rails_out/2,middle_height/2);
+        scaleOrigin(wedge_body_size, btwn_rails_out, middle_height);
+        drawShapeWithColor(cube,0.5,0.3,0.2);
+        myEngine.mvMatrixStack.popMatrix();
+}
+
 void drawTrainWedgeBody() {
     myEngine.mvMatrixStack.pushMatrix();
-        moveOrigin(wedge_body_size/2,btwn_rails_out/2,body_height/2);
-        scaleOrigin(wedge_body_size, btwn_rails_out, body_height);
+        moveOrigin(wedge_body_size/2,btwn_rails_out/2,(body_height-middle_height)/2);
+        scaleOrigin(wedge_body_size, btwn_rails_out, (body_height-middle_height));
         drawShapeWithColor(cube,1,0,0.5);
         myEngine.mvMatrixStack.popMatrix();
 }
@@ -281,6 +290,10 @@ void drawTrain(float time) {
         //main body
         drawTrainMainBody();
         moveOrigin(main_body_size,0,0);
+
+        //
+        drawTrainMiddleBody();
+        moveOrigin(0,0,middle_height);
 
         //wedge body
         drawTrainWedgeBody();
