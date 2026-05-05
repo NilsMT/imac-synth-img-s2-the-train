@@ -134,6 +134,7 @@ void drawGround(int size) {
 
 
 
+//1st layer
 void drawTrainWheelWedge() {
     myEngine.mvMatrixStack.pushMatrix();
         moveOrigin(wheel_wedge_size/2, btwn_rails_out/2, 0.75);
@@ -147,54 +148,6 @@ void drawTrainWheelGuard() {
         moveOrigin(wheel_guard_size/2, btwn_rails_out/2, 0.75);
         scaleOrigin(wheel_guard_size, btwn_rails_out, 1);
         drawShapeWithColor(cube,0,1,0);
-        myEngine.mvMatrixStack.popMatrix();
-}
-
-void drawTrainUnderWedge() {
-    myEngine.mvMatrixStack.pushMatrix();
-        moveOrigin(under_wedge_size/2, btwn_rails_out/2, 0.625);
-        scaleOrigin(under_wedge_size, btwn_rails_out, 0.75);
-        drawShapeWithColor(cube,1,1,1);
-        myEngine.mvMatrixStack.popMatrix();
-}
-
-void drawTrainMainBody() {
-    myEngine.mvMatrixStack.pushMatrix();
-        moveOrigin(main_body_size/2,btwn_rails_out/2,body_height/2);
-        scaleOrigin(main_body_size, btwn_rails_out, body_height);
-        drawShapeWithColor(cube,1,0.5,0);
-        myEngine.mvMatrixStack.popMatrix();
-}
-
-void drawTrainMiddleBody() {
-    myEngine.mvMatrixStack.pushMatrix();
-        moveOrigin(wedge_body_size/2,btwn_rails_out/2,middle_height/2);
-        scaleOrigin(wedge_body_size, btwn_rails_out, middle_height);
-        drawShapeWithColor(cube,0.5,0.3,0.2);
-        myEngine.mvMatrixStack.popMatrix();
-}
-
-void drawTrainWedgeBody() {
-    myEngine.mvMatrixStack.pushMatrix();
-        moveOrigin(wedge_body_size/2,btwn_rails_out/2,(body_height-middle_height)/2);
-        scaleOrigin(wedge_body_size, btwn_rails_out, (body_height-middle_height));
-        drawShapeWithColor(cube,1,0,0.5);
-        myEngine.mvMatrixStack.popMatrix();
-}
-
-void drawTrainWedgeTop() {
-    myEngine.mvMatrixStack.pushMatrix();
-        moveOrigin(wedge_top_size/2,btwn_rails/2,top_height/2);
-        scaleOrigin(wedge_top_size, btwn_rails, top_height);
-        drawShapeWithColor(cube,1,0,1);
-        myEngine.mvMatrixStack.popMatrix();
-}
-
-void drawTrainMainTop() {
-    myEngine.mvMatrixStack.pushMatrix();
-        moveOrigin(main_top_size/2,btwn_rails/2,top_height/2);
-        scaleOrigin(main_top_size, btwn_rails, top_height);
-        drawShapeWithColor(cube,1,1,0);
         myEngine.mvMatrixStack.popMatrix();
 }
 
@@ -235,6 +188,60 @@ void drawTrainWheels() {
             drawShapeWithColor(cube,0,0,1);
             myEngine.mvMatrixStack.popMatrix();
         //end
+        myEngine.mvMatrixStack.popMatrix();
+}
+
+void drawTrainUnderWedge() {
+    myEngine.mvMatrixStack.pushMatrix();
+        moveOrigin(under_wedge_size/2, btwn_rails_out/2, 0.625);
+        scaleOrigin(under_wedge_size, btwn_rails_out, 0.75);
+        drawShapeWithColor(cube,1,1,1);
+        myEngine.mvMatrixStack.popMatrix();
+}
+
+
+
+//2nd layer
+void drawTrainMainBody() {
+    myEngine.mvMatrixStack.pushMatrix();
+        moveOrigin(main_body_size/2,btwn_rails_out/2,body_height/2);
+        scaleOrigin(main_body_size, btwn_rails_out, body_height);
+        drawShapeWithColor(cube,1,0.5,0);
+        myEngine.mvMatrixStack.popMatrix();
+}
+
+void drawTrainMiddleBody() {
+    myEngine.mvMatrixStack.pushMatrix();
+        moveOrigin(wedge_body_size/2,btwn_rails_out/2,middle_height/2);
+        scaleOrigin(wedge_body_size, btwn_rails_out, middle_height);
+        drawShapeWithColor(cube,0.5,0.3,0.2);
+        myEngine.mvMatrixStack.popMatrix();
+}
+
+void drawTrainWedgeBody() {
+    myEngine.mvMatrixStack.pushMatrix();
+        moveOrigin(wedge_body_size/2,btwn_rails_out/2,(body_height-middle_height)/2);
+        scaleOrigin(wedge_body_size, btwn_rails_out, (body_height-middle_height));
+        drawShapeWithColor(cube,1,0,0.5);
+        myEngine.mvMatrixStack.popMatrix();
+}
+
+
+
+//3rd layer
+void drawTrainWedgeTop() {
+    myEngine.mvMatrixStack.pushMatrix();
+        moveOrigin(wedge_top_size/2,btwn_rails/2,top_height/2);
+        scaleOrigin(wedge_top_size, btwn_rails, top_height);
+        drawShapeWithColor(cube,1,0,1);
+        myEngine.mvMatrixStack.popMatrix();
+}
+
+void drawTrainMainTop() {
+    myEngine.mvMatrixStack.pushMatrix();
+        moveOrigin(main_top_size/2,btwn_rails/2,top_height/2);
+        scaleOrigin(main_top_size, btwn_rails, top_height);
+        drawShapeWithColor(cube,1,1,0);
         myEngine.mvMatrixStack.popMatrix();
 }
 
