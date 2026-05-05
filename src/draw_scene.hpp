@@ -4,6 +4,7 @@
 #include "glbasimac/glbi_set_of_points.hpp"
 #include "glbasimac/glbi_convex_2D_shape.hpp"
 #include "tools/basic_mesh.hpp"
+#include "railways.hpp"
 
 using namespace glbasimac;
 
@@ -39,9 +40,11 @@ void drawFrame();
 
 void drawGround();
 
+void drawTrain(float time);
+
 void drawRailCurve(float orientation);
 
 void drawRailStraight(float orientation);
 
-void drawScene(float time);
+void drawScene(float time, Railways railways);
 

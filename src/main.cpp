@@ -2,10 +2,14 @@
 #include "GLFW/glfw3.h"
 #include "glad/glad.h"
 #include "draw_scene.hpp"
+#include "railways.hpp"
 #include "tools/shaders.hpp"
 #include <iostream>
 #include "nlohmann/json.hpp"
 #include <iomanip>
+
+//temporary import
+#include <algorithm>
 
 using namespace glbasimac;
 using namespace STP3D;
@@ -85,11 +89,56 @@ int main(int /*argc*/, char** /*argv*/)
 {
     //NOTE: mute looping output of "Id VBO ..."
     MeshOutput = false;
-    //NOTE: json test
+    
+    //NOTE: json reading
     std::ifstream ifs("../src/train_path.json"); //relative path from bin/ folder
     json j = json::parse(ifs);
-    std::cout << std::setw(4) << j << std::endl;
 
+    //turn it into a premade class
+    //SOURCE: https://stackoverflow.com/questions/79367716/how-to-initialize-structures-using-fields-names
+    Railways railways = {
+        .size_grid = j["size_grid"],
+        .origin = j["origin"].get<std::vector<float>>(),
+        .path = j["path"].get<std::vector<std::vector<float>>>()
+    };
+
+    /* display train path test */
+    std::vector<std::vector<char>> matrix;
+
+    //fill matrix with ' '
+    for (int i = 0; i < railways.size_grid; i++) {
+        std::vector<char> row;
+        for (int j = 0; j < railways.size_grid; j++) {
+            row.push_back('.');
+        }
+        matrix.push_back(row);
+    }
+    
+    //add segment railways
+    for (std::vector<float> path_segment : railways.path) {
+        int x = std::abs(path_segment[0]);
+        int y = std::abs(path_segment[1]);
+
+        matrix[x][y] = '#';
+    }
+
+    //add start
+    matrix[
+        std::abs(railways.origin[0])
+    ]
+    [
+        std::abs(railways.origin[1])
+    ] = 'S';
+
+    //display matrix 
+    //(wrongly because [0,0] should be at the center, which is not the case on the matrix it's in the left top corner)
+    //which is why I'm using std::abs and such
+    for (std::vector<char> r : matrix) {
+        for (char c : r) {
+            std::cout << c;
+        }
+        std::cout << "\n";
+    }
 
 
     //////////////////////////////////////
@@ -192,7 +241,7 @@ int main(int /*argc*/, char** /*argv*/)
         myEngine.updateMvMatrix();
 
         //draw the whole scene from draw_scene
-        drawScene(startTime);
+        drawScene(startTime,railways);
 
         myEngine.mvMatrixStack.loadIdentity();
 

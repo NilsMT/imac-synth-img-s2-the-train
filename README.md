@@ -18,4 +18,4 @@ Projet initialisé sur la base du TD04 de synthèse d'image, et remaniée de man
 
 > Extension pratique pour naviguer dans des endroits du code :<br>
 > [Todo Tree](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree)<br>
-> Avec `NOTE:` d'ajoutée dans [todo-tree.general.tags](vscode://settings/todo-tree.general.tags)
+> Avec `NOTE:` et `SOURCE:` d'ajoutée dans [todo-tree.general.tags](vscode://settings/todo-tree.general.tags)

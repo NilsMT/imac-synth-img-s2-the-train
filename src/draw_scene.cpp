@@ -72,16 +72,21 @@ void drawFrame() {
     somePoints.initSet(points, pointsColor);
 }
 
-void drawGround() {
+void drawGround(int size) {
     std::vector<float> groundBase{
-        -10.0,-10.0,0.0,
-        10.0,-10.0,0.0,
-        10.0,10.0,0.0,
-        -10.0,10.0,0.0
+        -size/2.f, -size/2.f, 0.0,
+        size/2.f, -size/2.f, 0.0,
+        size/2.f, size/2.f, 0.0,
+        -size/2.f, size/2.f, 0.0
     };
 	ground.initShape(groundBase);
 	ground.changeNature(GL_TRIANGLE_FAN);
     drawShapeWithColor(ground,0.2,0.0,0.0);
+}
+
+void drawTrain(float time) {
+    //TODO: draw the train
+    //TODO: draw according to time, following path (later)
 }
 
 void drawRailCurve(float orientation) {
@@ -92,14 +97,14 @@ void drawRailStraight(float orientation) {
 	// TODO: orientate accordingly
 }
 
-void drawScene(float time) {
+void drawScene(float time,Railways railways) {
 	glPointSize(10.0);
 
     /*the origin*/
     drawFrame();
     somePoints.drawSet();
 
-    /*rotating sun thing*/
+    /*example : rotating sun thing*/
     myEngine.mvMatrixStack.pushMatrix();
         rotateOrigin(time,0,0,1);
         moveOrigin(4,0,5);
@@ -109,6 +114,11 @@ void drawScene(float time) {
 
     myEngine.updateMvMatrix();
 
-    /*ground */
-    drawGround();
+    /*ground according to railways size */
+    drawGround(railways.size_grid);
+
+    /*TODO: draw rails according to railways.path*/
+
+    /*Train*/
+    drawTrain(time);
 }
