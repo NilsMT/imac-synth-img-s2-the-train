@@ -5,6 +5,8 @@ float camera_angle_x {45.0};      // Angle between x axis and viewpoint
 float camera_angle_z {30.0};      // Angle between z axis and viewpoint
 float dist_zoom {30.0};      // Distance between origin and viewpoint
 
+const float grid_cell_size = 10.0;
+
 float sr = 1;
 float sx = 1;
 float rr = 1;
@@ -113,7 +115,7 @@ void drawFrame() {
 
 void drawGround(int size) {
 
-    size *= 10; // make it so it can house 10x10 tiles of that size
+    size *= grid_cell_size; // make it so it can house N² tiles of that size
 
     std::vector<float> groundBase{
         -size/2.f, -size/2.f, 0.0,
