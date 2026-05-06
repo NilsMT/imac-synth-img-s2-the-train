@@ -440,8 +440,11 @@ namespace STP3D {
             1.0f,0.0f,0.0f,     1.0f,0.0f,0.0f,     1.0f,0.0f,0.0f,
 			// Face down (y = -width/2) (A,B,F,E)
 			0.0,-1.0,0.0,		0.0,-1.0,0.0,		0.0,-1.0,0.0,		0.0,-1.0,0.0,
-            // Face slope (A,H,G,B) (x and y = width/2)
-            1.0,1.0,0.0,		1.0,1.0,0.0,		1.0,1.0,0.0,		1.0,1.0,0.0,
+            // Face slope (A,H,G,B) (y and z = width/2)
+            // need to be normalized so lenght is = 1
+            // sqrt(0² + 1² + 1²) = sqrt(2) ==> need to divide everything by sqrt(2) to normalize
+            0.0,1.0/sqrt(2),1.0/sqrt(2),		0.0,1.0/sqrt(2),1.0/sqrt(2),
+            0.0,1.0/sqrt(2),1.0/sqrt(2),		0.0,1.0/sqrt(2),1.0/sqrt(2),
         };
 		float uv[2*18] = {
 			// Face back (z = -width/2) (E,F,G,H)
