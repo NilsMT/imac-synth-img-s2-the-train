@@ -48,6 +48,7 @@ IndexedMesh* sphere;
 IndexedMesh* cube;
 IndexedMesh* cylinder;
 IndexedMesh* wedge;
+IndexedMesh* cylinderCover;
 
 /* Helper functions to move, scale, rotate the origin */
 
@@ -88,6 +89,9 @@ void initScene() {
 
     wedge = basicWedge();
     wedge->createVAO();
+
+    cylinderCover = basicCylinderWithCovers(1,0.5,16);
+    cylinderCover->createVAO();
 }
 
 void drawFrame() {
@@ -165,28 +169,28 @@ void drawTrainWheels() {
         myEngine.mvMatrixStack.pushMatrix();
             moveOrigin(1.f/2.f, 0, 1.f/2.f);
             scaleOrigin(1, sr, 1);
-            drawShapeWithColor(cylinder,0,0.5,1);
+            drawShapeWithColor(cylinderCover,0,0.5,1);
             myEngine.mvMatrixStack.popMatrix();
 
         //wh2
         myEngine.mvMatrixStack.pushMatrix();
             moveOrigin(wheel_support_size - sr/2, 0, 1.f/2.f);
             scaleOrigin(1, sr, 1);
-            drawShapeWithColor(cylinder,0,0.5,1);
+            drawShapeWithColor(cylinderCover,0,0.5,1);
             myEngine.mvMatrixStack.popMatrix();
 
         //wh3
         myEngine.mvMatrixStack.pushMatrix();
             moveOrigin(1.f/2.f, btwn_rails + sr, 1.f/2.f);
             scaleOrigin(1, sr, 1);
-            drawShapeWithColor(cylinder,0,0.5,1);
+            drawShapeWithColor(cylinderCover,0,0.5,1);
             myEngine.mvMatrixStack.popMatrix();
 
         //wh4
         myEngine.mvMatrixStack.pushMatrix();
             moveOrigin(wheel_support_size - 1.f/2.f, btwn_rails + sr, 1.f/2.f);
             scaleOrigin(1, sr, 1);
-            drawShapeWithColor(cylinder,0,0.5,1);
+            drawShapeWithColor(cylinderCover,0,0.5,1);
             myEngine.mvMatrixStack.popMatrix();
 
         //base

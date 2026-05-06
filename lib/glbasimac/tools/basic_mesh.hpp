@@ -479,6 +479,106 @@ namespace STP3D {
 		return wedge;
 	}
 
+    IndexedMesh* basicCylinderWithCovers(float h,float radius,unsigned int div_round = 64,unsigned int div_height = 1);;
+
+    inline IndexedMesh* basicCylinderWithCovers(float h, float radius, unsigned int div_round, unsigned int div_height) {
+        //og sides + 2 centers (top and bot)
+        unsigned int nb_points_side = (div_round + 1) * (div_height + 1);
+        unsigned int nb_points = nb_points_side + 2; //+2 for top and bottom centers
+        unsigned int nb_prim_side = 2 * div_round * div_height;
+        unsigned int nb_prim_caps = 2 * div_round; //div_round triangles per covers
+        unsigned int nb_prim = nb_prim_side + nb_prim_caps;
+
+        IndexedMesh* cyl = new IndexedMesh(nb_prim, nb_points, GL_TRIANGLES);
+
+        float* coord = new float[nb_points * 3];
+        float* normals = new float[nb_points * 3];
+        float* uv = new float[nb_points * 2];
+        unsigned int* indexes = new unsigned int[3 * nb_prim];
+
+        //sides
+        double angle = 0.0;
+        double height = 0.0;
+        double incr_angle = 2 * M_PI / div_round;
+        for (unsigned int j = 0; j <= div_height; j++, height += h / div_height) {
+            for (unsigned int i = 0; i <= div_round; i++, angle += incr_angle) {
+                double cos_pt = cos(angle);
+                double sin_pt = sin(angle);
+                unsigned int index = 3 * (j * (div_round + 1) + i);
+                coord[index] = radius * cos_pt;
+                coord[index + 1] = height;
+                coord[index + 2] = radius * sin_pt;
+
+                normals[index] = cos_pt;
+                normals[index + 1] = 0.0;
+                normals[index + 2] = sin_pt;
+
+                uv[2 * (j * (div_round + 1) + i)] = i / (float)div_round;
+                uv[2 * (j * (div_round + 1) + i) + 1] = j / (float)div_height;
+            }
+        }
+
+        //sides index
+        for (unsigned int j = 0; j < div_height; j++) {
+            for (unsigned int i = 0; i < div_round; i++) {
+                unsigned int base_index = j * div_round * 6 + 6 * i;
+                indexes[base_index] = j * (div_round + 1) + i;         // A
+                indexes[base_index + 1] = j * (div_round + 1) + (i + 1); // B
+                indexes[base_index + 2] = (j + 1) * (div_round + 1) + i; // C
+                indexes[base_index + 3] = (j + 1) * (div_round + 1) + i; // C
+                indexes[base_index + 4] = j * (div_round + 1) + (i + 1); // B
+                indexes[base_index + 5] = (j + 1) * (div_round + 1) + (i + 1); // D
+            }
+        }
+
+        /////bot and top cover
+        unsigned int center_top_index = nb_points_side;
+        unsigned int center_bottom_index = nb_points_side + 1;
+
+        //top center
+        coord[3 * center_top_index] = 0.0;
+        coord[3 * center_top_index + 1] = h;
+        coord[3 * center_top_index + 2] = 0.0;
+        normals[3 * center_top_index] = 0.0;
+        normals[3 * center_top_index + 1] = 1.0;
+        normals[3 * center_top_index + 2] = 0.0;
+        uv[2 * center_top_index] = 0.5;
+        uv[2 * center_top_index + 1] = 0.5;
+
+        //bot center
+        coord[3 * center_bottom_index] = 0.0;
+        coord[3 * center_bottom_index + 1] = 0.0;
+        coord[3 * center_bottom_index + 2] = 0.0;
+        normals[3 * center_bottom_index] = 0.0;
+        normals[3 * center_bottom_index + 1] = -1.0;
+        normals[3 * center_bottom_index + 2] = 0.0;
+        uv[2 * center_bottom_index] = 0.5;
+        uv[2 * center_bottom_index + 1] = 0.5;
+
+        //top index
+        unsigned int side_prim_offset = 2 * div_round * div_height;
+        for (unsigned int i = 0; i < div_round; i++) {
+            unsigned int base_index = (side_prim_offset + i) * 3;
+            indexes[base_index] = center_top_index; //center
+            indexes[base_index + 1] = div_height * (div_round + 1) + i; //current
+            indexes[base_index + 2] = div_height * (div_round + 1) + (i + 1); //next
+        }
+
+        //bot index
+        for (unsigned int i = 0; i < div_round; i++) {
+            unsigned int base_index = (side_prim_offset + div_round + i) * 3;
+            indexes[base_index] = center_bottom_index; //center
+            indexes[base_index + 1] = i; //current
+            indexes[base_index + 2] = (i + 1); //next
+        }
+
+        cyl->addOneBuffer(0, 3, coord, "coordinates", false);
+        cyl->addOneBuffer(1, 3, normals, "normals", false);
+        cyl->addOneBuffer(2, 2, uv, "uvs", false);
+        cyl->addIndexBuffer(indexes, false);
+
+        return cyl;
+    }
 };
 
 #endif
