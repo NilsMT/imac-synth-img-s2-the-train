@@ -260,10 +260,6 @@ void drawTrainMainTop() {
 }
 
 void drawTrain(float time) {
-    //TODO: draw the train
-    //TODO: draw according to time, following path (later)
-    //NOTE: use triangles instead of cubes (have to create it in basic_mesh.hpp)
-    
     //1st layer
     myEngine.mvMatrixStack.pushMatrix();
         //guard 1
