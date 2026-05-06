@@ -1,5 +1,20 @@
 Projet initialisé sur la base du TD04 de synthèse d'image, et remaniée de manière archaïque au niveau des `CMakeLists.txt` et de la structure des librairies
 
+# Lancement
+
+Avec les extensions :
+
+Avec [CMake](https://marketplace.visualstudio.com/items?itemName=twxs.cmake) et [CMake Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools) il suffit d'exécuter la cible `[main]`
+
+Avec la ligne de commande (à la racine) :
+
+```
+mkdir -p build && cd build
+cmake .. -G "MinGW Makefiles"
+cd .. && cmake --build ./build --target all --config Debug -j 16
+cd bin && ./main.exe
+```
+
 # Structure
 
 ```
@@ -18,31 +33,29 @@ Projet initialisé sur la base du TD04 de synthèse d'image, et remaniée de man
 
 # Listes des tâches
 
-- Modélisation
-    - Rails
-        - Courbé
-        - Droit
-    - Train ✅
-    - Gare
-- JSON
-    - Lire le JSON ✅ (+ il se sérialise en `Railways`)
-    - Créer le parcours de rail en conséquence
-    - Placer la gare
-    - Placer le train
-    - Permettre le lancement de l'application avec le json (que le nom askip, mais pourquoi pas le chemin direct ?) en argument de la ligne de commande
-- Commandes
-    - Une touche pour quitter l'application ✅ (Q)
-    - Une touche pour activer/désactiver l'éclairage
-    - Caméra FPS (et pas orbitale comme il y a de base ici)
-- Illumination
-    - Éclairage "flat" : celui par défaut sur OpenGL ✅
-    - Éclairage "réaliste"
-    - > vous devrez positionner une lumière directionnelle (orientée selon
-      > votre choix mais qui éclaire la scène comme un soleil), et une source de lumière ponctuelle au
-      > niveau de l’avant de votre train. Par ailleurs au moins un élément de votre application devra être
-      > texturé !
-      >
-      > **Théorie** : c'est le [phong_shading](./assets/shaders/phong_shading.frag) qu'il faut utiliser
+| Status | Catégorie      | Description                            | Commentaire                              | Qui    |
+| ------ | -------------- | -------------------------------------- | ---------------------------------------- | ------ |
+| ✅     | 📁Structure    | Créer la structure du projet           | Reprendre la base du TD04 et la modifier | Nils   |
+| ❌     | ⚒️Modélisation | Faire les Rails                        | Faire Courbé et Droit                    | Yanis  |
+| ✅     | ⚒️Modélisation | Faire le Train                         | + Faire triangle et cylindre fermé       | Nils   |
+| ❌     | ⚒️Modélisation | Faire la gare                          |                                          | -      |
+| ✅     | 📝JSON         | Lire le JSON (Railways)                | Serialisé en `Railways`                  | Nils   |
+| ❌     | 📝JSON         | Créer le parcours                      | Depuis `Railways`                        | Yanis  |
+| ❌     | 📝JSON         | Placer la gare et le train             | ez                                       | -      |
+| ❌     | 📝JSON         | Lancement avec JSON en argument        | ez                                       | -      |
+| ✅     | 🖥️IHM          | Touche pour quitter                    | Touche Q ==> TODO: changer en échap      | Nils   |
+| ❌     | 🖥️IHM          | Touche pour toggle modes d'éclairages  | ez                                       | -      |
+| ❌     | 🖥️IHM          | Caméra FPS                             | (ZQSD + mouse pan ?)                     | -      |
+| ✅     | 👁️Visuel       | Éclairage "flat"                       | Par défaut sur OpenGL                    | OpenGL |
+| ❌     | 👁️Visuel       | Éclairage "réaliste" (Phong Shading ?) | Un soleil et phare du train              | -      |
+| ❌     | 👁️Visuel       | Texturé un truc                        | Le train ?                               | -      |
+
+> vous devrez positionner une lumière directionnelle (orientée selon
+> votre choix mais qui éclaire la scène comme un soleil), et une source de lumière ponctuelle au
+> niveau de l’avant de votre train. Par ailleurs au moins un élément de votre application devra être
+> texturé !
+>
+> **Théorie** : c'est le [phong_shading](./assets/shaders/phong_shading.frag) qu'il faut utiliser
 
 # Informations supplémentaires
 
