@@ -30,7 +30,7 @@ const float body_size =
     + under_wedge_size;
 const float body_height = 2.25;
 const float middle_height = 0.5;
-const float body_rep[2] = {0.8f,0.2f}; //repartition between wedge and main body (%)
+const float body_rep[2] = {0.7f,0.3f}; //repartition between wedge and main body (%)
 const float main_body_size = body_rep[0] * body_size;
 const float wedge_body_size = body_rep[1] * body_size;
 
@@ -141,18 +141,20 @@ void drawGround(int size) {
 
 
 //1st layer
-void drawTrainWheelWedge() {
+void drawTrainWheelWedge(float angle = 0.f) {
     myEngine.mvMatrixStack.pushMatrix();
-        moveOrigin(wheel_wedge_size/2, btwn_rails_out/2, 0.75);
-        scaleOrigin(wheel_wedge_size, btwn_rails_out, 1);
+        moveOrigin(wheel_wedge_size/2, btwn_rails_out/2, 0.625);
+        rotateOrigin(angle,0,0,1);
+        rotateOrigin(deg2rad(180),1,0,0);
+        scaleOrigin(wheel_wedge_size, btwn_rails_out, 0.75);
         drawShapeWithColor(wedge,1,0,0);
         myEngine.mvMatrixStack.popMatrix();
 }
 
 void drawTrainWheelGuard() {
     myEngine.mvMatrixStack.pushMatrix();
-        moveOrigin(wheel_guard_size/2, btwn_rails_out/2, 0.75);
-        scaleOrigin(wheel_guard_size, btwn_rails_out, 1);
+        moveOrigin(wheel_guard_size/2, btwn_rails_out/2, 0.625);
+        scaleOrigin(wheel_guard_size, btwn_rails_out, 0.75);
         drawShapeWithColor(cube,0,1,0);
         myEngine.mvMatrixStack.popMatrix();
 }
@@ -200,6 +202,7 @@ void drawTrainWheels() {
 void drawTrainUnderWedge() {
     myEngine.mvMatrixStack.pushMatrix();
         moveOrigin(under_wedge_size/2, btwn_rails_out/2, 0.625);
+        rotateOrigin(deg2rad(180),1,0,0);
         scaleOrigin(under_wedge_size, btwn_rails_out, 0.75);
         drawShapeWithColor(wedge,1,1,1);
         myEngine.mvMatrixStack.popMatrix();
@@ -235,9 +238,10 @@ void drawTrainWedgeBody() {
 
 
 //3rd layer
-void drawTrainWedgeTop() {
+void drawTrainWedgeTop(float angle = 0.f) {
     myEngine.mvMatrixStack.pushMatrix();
         moveOrigin(wedge_top_size/2,btwn_rails/2,top_height/2);
+        rotateOrigin(angle,0,0,1);
         scaleOrigin(wedge_top_size, btwn_rails, top_height);
         drawShapeWithColor(wedge,1,0,1);
         myEngine.mvMatrixStack.popMatrix();
@@ -270,12 +274,12 @@ void drawTrain(float time) {
         moveOrigin(wheel_support_size,0,0);
         
         //guard 2
-        drawTrainWheelWedge();
+        drawTrainWheelWedge(deg2rad(180));
         moveOrigin(wheel_wedge_size,0,0);
 
         drawTrainWheelGuard();
         moveOrigin(wheel_guard_size,0,0);
-
+        
         drawTrainWheelWedge();
         moveOrigin(wheel_wedge_size,0,0);
 
@@ -284,7 +288,7 @@ void drawTrain(float time) {
         moveOrigin(wheel_support_size,0,0);
 
         //guard 3
-        drawTrainWheelWedge();
+        drawTrainWheelWedge(deg2rad(180));
         moveOrigin(wheel_wedge_size,0,0);
 
         drawTrainWheelGuard();
@@ -319,7 +323,7 @@ void drawTrain(float time) {
         moveOrigin(0,sr,sr + body_height);
 
         //wedge top
-        drawTrainWedgeTop();
+        drawTrainWedgeTop(deg2rad(180));
         moveOrigin(wedge_top_size,0,0);
 
         //main top
@@ -368,5 +372,8 @@ void drawScene(float time, Railways* railways) {
     /*TODO: draw rails according to railways.path*/
 
     /*Train*/
-    drawTrain(time);
+    myEngine.mvMatrixStack.pushMatrix();
+        scaleOrigin(2,2,2);
+        drawTrain(time);
+        myEngine.mvMatrixStack.popMatrix();
 }
