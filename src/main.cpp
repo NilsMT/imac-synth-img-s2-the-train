@@ -7,9 +7,8 @@
 #include <iostream>
 #include "nlohmann/json.hpp"
 #include <iomanip>
-
-//temporary import
-#include <algorithm>
+#include <windows.h>
+#include <cstdlib>
 
 using namespace glbasimac;
 using namespace STP3D;
@@ -23,6 +22,13 @@ static float aspectRatio = 1.0f;
 
 /* Minimal time wanted between two images */
 static const double FRAMERATE_IN_SECONDS = 1. / 30.;
+
+
+//////////////////////////////////////
+/* Callbacks */
+//////////////////////////////////////
+
+
 
 /* Error handling function */
 void onError(int error, const char* description) {
@@ -85,59 +91,85 @@ void onMouseButton(GLFWwindow* window, int button, int action, int /*mods*/)
 	}
 }
 
-int main(int /*argc*/, char** /*argv*/)
+
+//////////////////////////////////////
+/* Custom exception */
+//////////////////////////////////////
+
+
+
+//NOTE: from https://www.geeksforgeeks.org/cpp/how-to-throw-custom-exception-in-cpp/
+class CustomException : public std::exception {
+private:
+    std::string message;
+public:
+
+    // Constructor accepting const char*
+    CustomException(const char* msg) :
+    message(msg) {}
+
+    // Override what() method, marked
+    // noexcept for modern C++
+    const char* what() const noexcept {
+        return message.c_str();
+    }
+};
+
+
+//////////////////////////////////////
+/* Main function */
+//////////////////////////////////////
+
+
+
+int main(int argc, char** argv)
 {
+    //tell Windows console to use UTF-8
+    #ifdef _WIN32
+        SetConsoleOutputCP(CP_UTF8);
+        SetConsoleCP(CP_UTF8);
+    #endif
+    //enable ANSI Coloring
+    HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+    DWORD mode;
+    GetConsoleMode(h, &mode);
+    SetConsoleMode(h, mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+
     //mute looping output of "Id VBO ..."
     MeshOutput = false;
-    
-    //json reading
-    std::ifstream ifs("../src/train_path.json"); //relative path from bin/ folder
-    json j = json::parse(ifs);
+
+    //NOTE: https://www.pointerlab.fr/blog/cpp-argc-argv
+    if ((argc == 2 && std::string(argv[1]) == "--help") || argc == 1) {
+        std::cout << "\033[33m<> sont des arguments\n\n";
+        std::cout << "./main.exe --help                                 Affiche ce message\n";
+        std::cout << "./main.exe <chemin/vers/un/fichier.json>          Lit le fichier JSON\033[0m\n";
+        return 0;
+    }
 
     //turn it into a premade class
     Railways railways;
-    railways.size_grid = j["size_grid"];
-    railways.origin = j["origin"].get<std::vector<float>>();
-    railways.path = j["path"].get<std::vector<std::vector<float>>>();
-    railways.train_position = railways.origin;
+    try {
+        //json reading
+        std::ifstream ifs(argv[1]); //lit le json
 
-    /* display train path test */
-    std::vector<std::vector<char>> matrix;
-
-    //fill matrix with ' '
-    for (int i = 0; i < railways.size_grid; i++) {
-        std::vector<char> row;
-        for (int j = 0; j < railways.size_grid; j++) {
-            row.push_back('.');
+        if (!ifs) {
+            throw CustomException("Erreur: Fichier inexistant ou impossible à ouvrir\n");
         }
-        matrix.push_back(row);
-    }
-    
-    //add segment railways
-    for (std::vector<float> path_segment : railways.path) {
-        int x = std::abs(path_segment[0]);
-        int y = std::abs(path_segment[1]);
 
-        matrix[x][y] = '#';
+        json j = json::parse(ifs);
+
+        //serialization
+        railways.size_grid = j["size_grid"];
+        railways.origin = j["origin"].get<std::vector<float>>();
+        railways.path = j["path"].get<std::vector<std::vector<float>>>();
+        railways.train_position = railways.origin;
+    } catch (std::exception& ex) {
+        std::cout << "\033[31mUne erreur est survenu pendant la lecture du fichier JSON:\n";
+        std::cout << ex.what();
+        std::cout << "\033[0m";
+        return 1;
     }
 
-    //add start
-    matrix[
-        std::abs(railways.origin[0])
-    ]
-    [
-        std::abs(railways.origin[1])
-    ] = 'S';
-
-    //display matrix 
-    //(wrongly because [0,0] should be at the center, which is not the case on the matrix it's in the left top corner)
-    //which is why I'm using std::abs and such
-    for (std::vector<char> r : matrix) {
-        for (char c : r) {
-            std::cout << c;
-        }
-        std::cout << "\n";
-    }
 
 
     //////////////////////////////////////

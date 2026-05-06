@@ -15,6 +15,9 @@ cd .. && cmake --build ./build --target all --config Debug -j 16
 cd bin && ./main.exe
 ```
 
+> ⚠️ Vous devez exécuter **IMPÉRATIVEMENT** le .exe depuis `/bin` autrement OpenGL donnera cette erreur :
+> ERROR GL : erreur dans le fichier E:\IMAC\S2\Synthese Image\imac-synth-img-s2-the-train\src\main.cpp ├á la ligne 204 : INVALID_VALUE (A numeric argument is out of range)
+
 # Structure
 
 ```
