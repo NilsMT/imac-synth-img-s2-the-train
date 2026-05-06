@@ -47,6 +47,7 @@ GLBI_Convex_2D_Shape ground{3};
 IndexedMesh* sphere;
 IndexedMesh* cube;
 IndexedMesh* cylinder;
+IndexedMesh* triangle;
 
 /* Helper functions to move, scale, rotate the origin */
 
@@ -84,6 +85,9 @@ void initScene() {
 
     cylinder = basicCylinder(1.f,0.5f);
     cylinder->createVAO();
+
+    triangle = basicTriangle();
+    triangle->createVAO();
 }
 
 void drawFrame() {
@@ -365,4 +369,11 @@ void drawScene(float time, Railways* railways) {
 
     /*Train*/
     drawTrain(time);
+
+    //triangle test
+    myEngine.mvMatrixStack.pushMatrix();
+        moveOrigin(20,0,3);
+        scaleOrigin(4,4,4);
+        drawShapeWithColor(triangle,0.5,0.5,0.5);
+        myEngine.mvMatrixStack.popMatrix();
 }
