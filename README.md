@@ -45,7 +45,7 @@ cd bin && ./main.exe
 | ✅     | 📝JSON         | Lire le JSON (Railways)                | Serialisé en `Railways`                  | Nils   |
 | ❌     | 📝JSON         | Créer le parcours                      | Depuis `Railways`                        | Yanis  |
 | ❌     | 📝JSON         | Placer la gare et le train             | ez                                       | -      |
-| ❌     | 📝JSON         | Lancement avec JSON en argument        | ez                                       | -      |
+| ✅     | 📝JSON         | Lancement avec JSON en argument        | ez                                       | Nils   |
 | ✅     | 🖥️IHM          | Touche pour quitter                    | Touche Q ==> TODO: changer en échap      | Nils   |
 | ❌     | 🖥️IHM          | Touche pour toggle modes d'éclairages  | ez                                       | -      |
 | ❌     | 🖥️IHM          | Caméra FPS                             | (ZQSD + mouse pan ?)                     | -      |
