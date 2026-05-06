@@ -400,80 +400,80 @@ namespace STP3D {
 
     //NOTE: added shapes
 
-    IndexedMesh* basicTriangle(float width = 1.0f);
+    IndexedMesh* basicWedge(float width = 1.0f);
 
-    inline IndexedMesh* basicTriangle(float width) {
+    inline IndexedMesh* basicWedge(float width) {
 		unsigned int nb_points = 18;
 		unsigned int nb_prim = 8;
-		IndexedMesh* triangle = new IndexedMesh(nb_prim,nb_points,GL_TRIANGLES);
+		IndexedMesh* wedge = new IndexedMesh(nb_prim,nb_points,GL_TRIANGLES);
 		float coord[3*18] = {
 			// Face back (z = -width/2) (E,F,G,H)
 			-width/2.0f,-width/2.0f,-width/2.0f,        // E
-			-width/2.0f,width/2.0f,-width/2.0f,         // H
-			width/2.0f,width/2.0f,-width/2.0f,          // G
-			width/2.0f,-width/2.0f,-width/2.0f,         // F
-			// Face left (x = -width/2) (E,A,H)
-			-width/2.0f,-width/2.0f,-width/2.0f,        // E
-			-width/2.0f,-width/2.0f,width/2.0f,         // A
-			-width/2.0f,width/2.0f,-width/2.0f,         // H
-			// Face right (x = +width/2) (F,B,G)
-			width/2.0f,-width/2.0f,-width/2.0f,         // F
-            width/2.0f,-width/2.0f,width/2.0f,          // B
-			width/2.0f,width/2.0f,-width/2.0f,			// G
+			-width/2.0f, -width/2.0f,width/2.0f,        // H
+			-width/2.0f,width/2.0f,width/2.0f,          // G
+			-width/2.0f,width/2.0f,-width/2.0f,         // F
+			// Face left (A,E,H)
+            width/2.0f,-width/2.0f,-width/2.0f,         // A
+            -width/2.0f,-width/2.0f,-width/2.0f,        // E
+            -width/2.0f,-width/2.0f,width/2.0f,          // H
+			// Face right (B,F,G)
+            width/2.0f,width/2.0f,-width/2.0f,           // B
+            -width/2.0f, width/2.0f,-width/2.0f,        // F
+            -width/2.0f,width/2.0f,width/2.0f,          // G
 			// Face down (y = -width/2) (A,B,F,E)
-			-width/2.0f,-width/2.0f,width/2.0f,         // A
+			width/2.0f,-width/2.0f,-width/2.0f,         // A
 			-width/2.0f,-width/2.0f,-width/2.0f,        // E
-			width/2.0f,-width/2.0f,-width/2.0f,         // F
-			width/2.0f,-width/2.0f,width/2.0f,           // B
-            // Face slope (G,H,A,B)
-            width/2.0f,width/2.0f,-width/2.0f,			// G
-            -width/2.0f,width/2.0f,-width/2.0f,         // H
-            -width/2.0f,-width/2.0f,width/2.0f,         // A
-            width/2.0f,-width/2.0f,width/2.0f,           // B
+			-width/2.0f,width/2.0f,-width/2.0f,         // F
+			width/2.0f,width/2.0f,-width/2.0f,           // B
+            // Face slope (A,H,G,B)
+            width/2.0f,-width/2.0f,-width/2.0f,        // A
+            -width/2.0f,-width/2.0f,width/2.0f,          // H
+            -width/2.0f,width/2.0f,width/2.0f,          // G
+            width/2.0f,width/2.0f,-width/2.0f,           // B
 		};
 		float normals[3*18] = {
 			// Face back (z = -width/2) (E,H,G,F)
 			0.0f,0.0f,-1.0f,	0.0f,0.0f,-1.0f,	0.0f,0.0f,-1.0f,	0.0f,0.0f,-1.0f,
-			// Face left (x = -width/2) (E,A,H)
-			-1.0,0.0,0.0,		-1.0,0.0,0.0,		-1.0,0.0,0.0,
-			// Face right (x = +width/2) (F,B,G)
-			1.0,0.0,0.0,        1.0,0.0,0.0,		1.0,0.0,0.0,
+			// Face left (x = -width/2) (A,E,H)
+            -1.0f,0.0f,0.0f,	-1.0f,0.0f,0.0f,	-1.0f,0.0f,0.0f,
+			// Face right (x = width/2) (B,F,G)
+            1.0f,0.0f,0.0f,     1.0f,0.0f,0.0f,     1.0f,0.0f,0.0f,
 			// Face down (y = -width/2) (A,B,F,E)
 			0.0,-1.0,0.0,		0.0,-1.0,0.0,		0.0,-1.0,0.0,		0.0,-1.0,0.0,
-            // Face slope (G,H,A,B)
-            1.0,0.0,0.0,    1.0,0.0,0.0,    1.0,0.0,0.0,    1.0,0.0,0.0,
-		};
+            // Face slope (A,H,G,B) (x and y = width/2)
+            1.0,1.0,0.0,		1.0,1.0,0.0,		1.0,1.0,0.0,		1.0,1.0,0.0,
+        };
 		float uv[2*18] = {
 			// Face back (z = -width/2) (E,F,G,H)
 			1.0,0.0,		0.0,0.0,		0.0,1.0,		1.0,1.0,
-			// Face left (x = -width/2) (E,A,H)
-			1.0,0.0,		0.0,0.0,		1.0,1.0,
-			// Face right (x = +width/2) (F,B,G)
-			0.0,0.0,        1.0,0.0,		0.0,1.0,
+			// Face left (x = -width/2) (A,E,H)
+            1.0,0.0,		0.0,0.0,		0.0,1.0,
+			// Face right (x = width/2) (B,F,G)
+            1.0,0.0,		0.0,0.0,		0.0,1.0,
 			// Face down (y = -width/2) (A,B,F,E)
 			0.0,0.0,		1.0,0.0,		1.0,1.0,		0.0,1.0,
-            // Face slope (G,H,A,B)
-            1.0,0.0,    0.0,0.0,    0.0,1.0,    1.0,1.0,
+            // Face slope
 		};
 		unsigned int indexes[3*8] = {
 			// Face back (z = -width/2) (E,H,G,F)
             0,1,2,		0,2,3,
-			// Face left (x = -width/2) (E,A,H)
+			// Face left
             4,5,6,
-			// Face right (x = +width/2) (F,B,G)
+			// Face right
             7,8,9,
 			// Face down (y = -width/2) (A,B,F,E)
             10,11,12,   10,12,13,
-            // Face slope (G,H,A,B)
-            14,15,16,   14,16,17,
-		};
+            // Face slope
+            14, 15, 16,
+            14, 16, 17,
+        };
 
 
-		triangle->addOneBuffer(0,3,coord,"coordinates",true);
-		triangle->addOneBuffer(1,3,normals,"normals",true);
-		triangle->addOneBuffer(2,2,uv,"uvs",true);
-		triangle->addIndexBuffer(indexes,true);
-		return triangle;
+		wedge->addOneBuffer(0,3,coord,"coordinates",true);
+		wedge->addOneBuffer(1,3,normals,"normals",true);
+		wedge->addOneBuffer(2,2,uv,"uvs",true);
+		wedge->addIndexBuffer(indexes,true);
+		return wedge;
 	}
 
 };

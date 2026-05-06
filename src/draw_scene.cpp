@@ -47,7 +47,7 @@ GLBI_Convex_2D_Shape ground{3};
 IndexedMesh* sphere;
 IndexedMesh* cube;
 IndexedMesh* cylinder;
-IndexedMesh* triangle;
+IndexedMesh* wedge;
 
 /* Helper functions to move, scale, rotate the origin */
 
@@ -86,8 +86,8 @@ void initScene() {
     cylinder = basicCylinder(1.f,0.5f);
     cylinder->createVAO();
 
-    triangle = basicTriangle();
-    triangle->createVAO();
+    wedge = basicWedge();
+    wedge->createVAO();
 }
 
 void drawFrame() {
@@ -145,7 +145,7 @@ void drawTrainWheelWedge() {
     myEngine.mvMatrixStack.pushMatrix();
         moveOrigin(wheel_wedge_size/2, btwn_rails_out/2, 0.75);
         scaleOrigin(wheel_wedge_size, btwn_rails_out, 1);
-        drawShapeWithColor(cube,1,0,0);
+        drawShapeWithColor(wedge,1,0,0);
         myEngine.mvMatrixStack.popMatrix();
 }
 
@@ -201,7 +201,7 @@ void drawTrainUnderWedge() {
     myEngine.mvMatrixStack.pushMatrix();
         moveOrigin(under_wedge_size/2, btwn_rails_out/2, 0.625);
         scaleOrigin(under_wedge_size, btwn_rails_out, 0.75);
-        drawShapeWithColor(cube,1,1,1);
+        drawShapeWithColor(wedge,1,1,1);
         myEngine.mvMatrixStack.popMatrix();
 }
 
@@ -228,7 +228,7 @@ void drawTrainWedgeBody() {
     myEngine.mvMatrixStack.pushMatrix();
         moveOrigin(wedge_body_size/2,btwn_rails_out/2,(body_height-middle_height)/2);
         scaleOrigin(wedge_body_size, btwn_rails_out, (body_height-middle_height));
-        drawShapeWithColor(cube,1,0,0.5);
+        drawShapeWithColor(wedge,1,0,0.5);
         myEngine.mvMatrixStack.popMatrix();
 }
 
@@ -239,7 +239,7 @@ void drawTrainWedgeTop() {
     myEngine.mvMatrixStack.pushMatrix();
         moveOrigin(wedge_top_size/2,btwn_rails/2,top_height/2);
         scaleOrigin(wedge_top_size, btwn_rails, top_height);
-        drawShapeWithColor(cube,1,0,1);
+        drawShapeWithColor(wedge,1,0,1);
         myEngine.mvMatrixStack.popMatrix();
 }
 
@@ -369,11 +369,4 @@ void drawScene(float time, Railways* railways) {
 
     /*Train*/
     drawTrain(time);
-
-    //triangle test
-    myEngine.mvMatrixStack.pushMatrix();
-        moveOrigin(20,0,3);
-        scaleOrigin(4,4,4);
-        drawShapeWithColor(triangle,0.5,0.5,0.5);
-        myEngine.mvMatrixStack.popMatrix();
 }
