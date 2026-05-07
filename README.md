@@ -8,15 +8,18 @@ Avec [CMake](https://marketplace.visualstudio.com/items?itemName=twxs.cmake) et 
 
 Avec la ligne de commande (à la racine) :
 
-```
+```sh
 mkdir -p build && cd build
 cmake .. -G "MinGW Makefiles"
 cd .. && cmake --build ./build --target all --config Debug -j 16
-cd bin && ./main.exe
+cd bin && ./main.exe fichier/a/lire.json
 ```
 
-> ⚠️ Vous devez exécuter **IMPÉRATIVEMENT** le .exe depuis `/bin` autrement OpenGL donnera cette erreur :
-> ERROR GL : erreur dans le fichier E:\IMAC\S2\Synthese Image\imac-synth-img-s2-the-train\src\main.cpp ├á la ligne 204 : INVALID_VALUE (A numeric argument is out of range)
+> ⚠️ Vous devez **IMPÉRATIVEMENT** exécuter le .exe depuis `/bin` autrement OpenGL donnera cette erreur :
+> `ERROR GL : erreur dans le fichier E:\IMAC\S2\Synthese Image\imac-synth-img-s2-the-train\src\main.cpp ├á la ligne 204 : INVALID_VALUE (A numeric argument is out of range)`
+>
+> ℹ️ L'erreur `terminate called after throwing an instance of 'nlohmann::detail::parse_error'
+  what():  [json.exception.parse_error.101] parse error at line 1, column 1: syntax error while parsing value - unexpected end of input; expected '[', '{', or a literal` signifie que le fichier JSON est inexistant ou invalide
 
 # Structure
 
