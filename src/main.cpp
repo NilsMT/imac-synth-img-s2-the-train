@@ -20,7 +20,7 @@ static const unsigned int WINDOW_HEIGHT = 800;
 static const char WINDOW_TITLE[] = "The Train - SNCF";
 static float aspectRatio = 1.0f;
 
-auto renderMode = GL_LINE;
+auto renderMode = GL_FILL;
 
 /* Minimal time wanted between two images */
 static const double FRAMERATE_IN_SECONDS = 1. / 30.;
@@ -60,7 +60,7 @@ void onKey(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods
 		case GLFW_KEY_R:
 			if (is_pressed) {
                 renderMode = (renderMode == GL_LINE ? GL_FILL : GL_LINE);
-                 glPolygonMode(GL_FRONT_AND_BACK,renderMode); //render mode
+                glPolygonMode(GL_FRONT_AND_BACK,renderMode); //render mode
             }
 			break;
 
