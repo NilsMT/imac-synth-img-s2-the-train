@@ -69,3 +69,10 @@ cd bin && ./main.exe fichier/a/lire.json
 > Extension pratique pour naviguer dans des endroits du code :<br>
 > [Todo Tree](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree)<br>
 > Avec `NOTE:` et `SOURCE:` d'ajoutée dans [todo-tree.general.tags](vscode://settings/todo-tree.general.tags)
+
+> Temps passée Nils :
+>
+> - Structure : 8h
+> - Modélisation du train : 3h30
+> - Création des primitives + utilisation sur le train : 5h
+> - Lecture du JSON + en ligne de commande : 2h
