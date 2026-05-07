@@ -20,6 +20,8 @@ static const unsigned int WINDOW_HEIGHT = 800;
 static const char WINDOW_TITLE[] = "The Train - SNCF";
 static float aspectRatio = 1.0f;
 
+auto renderMode = GL_LINE;
+
 /* Minimal time wanted between two images */
 static const double FRAMERATE_IN_SECONDS = 1. / 30.;
 
@@ -50,18 +52,24 @@ void onKey(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods
 	int is_pressed = (action == GLFW_PRESS); 
 	switch(key) {
         //escape shortcut
-		case GLFW_KEY_A :
 		case GLFW_KEY_ESCAPE :
 			glfwSetWindowShouldClose(window, GLFW_TRUE);
 			break;
 
         //render modes
-		case GLFW_KEY_L:
-			if (is_pressed) glPolygonMode(GL_FRONT_AND_BACK,GL_LINE); //render lines
+		case GLFW_KEY_R:
+			if (is_pressed) {
+                renderMode = (renderMode == GL_LINE ? GL_FILL : GL_LINE);
+                 glPolygonMode(GL_FRONT_AND_BACK,renderMode); //render mode
+            }
 			break;
-		case GLFW_KEY_P:
-			if (is_pressed) glPolygonMode(GL_FRONT_AND_BACK,GL_FILL); //render filled
-            break;
+
+        //lighting modes
+		case GLFW_KEY_F:
+			if (is_pressed) {
+                //TODO: toggle shader change
+            }
+			break;
         
         //orbital camera controls
         case GLFW_KEY_UP :

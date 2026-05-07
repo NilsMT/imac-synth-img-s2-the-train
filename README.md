@@ -39,22 +39,23 @@ cd bin && ./main.exe fichier/a/lire.json
 
 # Listes des tâches
 
-| Status | Catégorie      | Description                            | Commentaire                              | Qui    |
-| ------ | -------------- | -------------------------------------- | ---------------------------------------- | ------ |
-| ✅     | 📁Structure    | Créer la structure du projet           | Reprendre la base du TD04 et la modifier | Nils   |
-| ❌     | ⚒️Modélisation | Faire les Rails                        | Faire Courbé et Droit                    | Yanis  |
-| ✅     | ⚒️Modélisation | Faire le Train                         | + Faire triangle et cylindre fermé       | Nils   |
-| ❌     | ⚒️Modélisation | Faire la gare                          |                                          | -      |
-| ✅     | 📝JSON         | Lire le JSON (Railways)                | Serialisé en `Railways`                  | Nils   |
-| ❌     | 📝JSON         | Créer le parcours                      | Depuis `Railways`                        | Yanis  |
-| ❌     | 📝JSON         | Placer la gare et le train             | ez                                       | -      |
-| ✅     | 📝JSON         | Lancement avec JSON en argument        | ez                                       | Nils   |
-| ✅     | 🖥️IHM          | Touche pour quitter                    | Touche Q ==> TODO: changer en échap      | Nils   |
-| ❌     | 🖥️IHM          | Touche pour toggle modes d'éclairages  | ez                                       | -      |
-| ❌     | 🖥️IHM          | Caméra FPS                             | (ZQSD + mouse pan ?)                     | -      |
-| ✅     | 👁️Visuel       | Éclairage "flat"                       | Par défaut sur OpenGL                    | OpenGL |
-| ❌     | 👁️Visuel       | Éclairage "réaliste" (Phong Shading ?) | Un soleil et phare du train              | -      |
-| ❌     | 👁️Visuel       | Texturé un truc                        | Le train ?                               | -      |
+| Status | Catégorie      | Description                               | Commentaire                              | Qui    |
+| ------ | -------------- | ----------------------------------------- | ---------------------------------------- | ------ |
+| ✅     | 📁Structure    | Créer la structure du projet              | Reprendre la base du TD04 et la modifier | Nils   |
+| ❌     | ⚒️Modélisation | Faire les Rails                           | Faire Courbé et Droit                    | Yanis  |
+| ✅     | ⚒️Modélisation | Faire le Train                            | + Faire triangle et cylindre fermé       | Nils   |
+| ❌     | ⚒️Modélisation | Faire la gare                             |                                          | -      |
+| ✅     | 📝JSON         | Lire le JSON (Railways)                   | Serialisé en `Railways`                  | Nils   |
+| ❌     | 📝JSON         | Créer le parcours                         | Depuis `Railways`                        | Yanis  |
+| ❌     | 📝JSON         | Placer la gare et le train                | ez                                       | -      |
+| ✅     | 📝JSON         | Lancement avec JSON en argument           | ez                                       | Nils   |
+| ✅     | 🖥️IHM          | Touche pour quitter                       | Touche Échap                             | Nils   |
+| ✅     | 🖥️IHM          | Touche pour toggle modes le mode de rendu | Touche R                                 | Nils   |
+| ❌     | 🖥️IHM          | Touche pour toggle modes d'éclairages     | Touche F                                 | -      |
+| ❌     | 🖥️IHM          | Caméra FPS                                | (ZQSD + mouse pan ?)                     | -      |
+| ✅     | 👁️Visuel       | Éclairage "flat"                          | Par défaut sur OpenGL                    | OpenGL |
+| ❌     | 👁️Visuel       | Éclairage "réaliste" (Phong Shading ?)    | Un soleil et phare du train              | -      |
+| ❌     | 👁️Visuel       | Texturé un truc                           | Le train ?                               | -      |
 
 > vous devrez positionner une lumière directionnelle (orientée selon
 > votre choix mais qui éclaire la scène comme un soleil), et une source de lumière ponctuelle au
