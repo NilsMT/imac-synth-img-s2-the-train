@@ -201,25 +201,26 @@ void drawGrid(int grid_size) {
 
     float off = (grid_size * grid_cell_size) / 2.0f; //offset
 
-    //Z lines
-    for (int i = 0; i <= grid_size; i++) {
-        float inc = (i * grid_cell_size) - off;
+    for (int i = 0; i <= grid_size * grid_cell_size; i++) {
+        float inc = (i * 1.0f) - off;  //step by 1
 
-        //line z start
+        //= is a main grid line (every grid_cell_size units)
+        bool isMainLine = (fmod(i,grid_cell_size) == 0); //fmod because gird_cell_size is float, regular mod won't work
+
+        //line Z (front to back)
         points.push_back(-off); points.push_back(0.0); points.push_back(inc);
-        //line z end
         points.push_back(off); points.push_back(0.0); points.push_back(inc);
 
-        //line x start
+        //line X (left to right)
         points.push_back(inc); points.push_back(0.0); points.push_back(-off);
-        //line x end
         points.push_back(inc); points.push_back(0.0); points.push_back(off);
 
-        //line colors
-        for(int c=0; c < 4; c++) {
-            pointsColor.push_back(1.0f);
-            pointsColor.push_back(1.0f);
-            pointsColor.push_back(1.0f);
+        //color
+        float color = isMainLine ? 1.0f : 0.25f;
+        for(int c = 0; c < 4; c++) {
+            pointsColor.push_back(color);
+            pointsColor.push_back(color);
+            pointsColor.push_back(color);
         }
     }
 
