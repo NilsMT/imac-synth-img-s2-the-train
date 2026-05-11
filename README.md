@@ -71,9 +71,11 @@ cd bin && ./main.exe fichier/a/lire.json
 
 # Informations supplémentaires
 
-> Extension pratique pour naviguer dans des endroits du code :<br>
+> Extension pratique pour naviguer dans des endroits du code sur `VS Code` :<br>
 > [Todo Tree](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree)<br>
 > Avec `NOTE:` et `SOURCE:` d'ajoutée dans [todo-tree.general.tags](vscode://settings/todo-tree.general.tags)
+>
+> Il est aussi recommandé d'utiliser l'`Outline` dans le panneau de droite de `VS Code`
 
 > La refactorisation des coordonnées a été effectué pour plus de clarté car le système était en **Right-handed Z-up**
 > (X+ derrière, Y+ droite, Z+ haut), ce qui n'est pas standard, en **Right-handed Y-up** (X+ gauche, Y+ haut, Z+ avant)

@@ -202,18 +202,18 @@ void drawGrid(int grid_size) {
     float off = (grid_size * grid_cell_size) / 2.0f; //offset
 
     //Z lines
-    for (int i = 0; i < grid_size; i++) {
+    for (int i = 0; i <= grid_size; i++) {
         float inc = (i * grid_cell_size) - off;
 
         //line z start
-        points.push_back(-off); points.push_back(0.1); points.push_back(inc);
+        points.push_back(-off); points.push_back(0.0); points.push_back(inc);
         //line z end
-        points.push_back(off); points.push_back(0.1); points.push_back(inc);
+        points.push_back(off); points.push_back(0.0); points.push_back(inc);
 
         //line x start
-        points.push_back(inc); points.push_back(0.1); points.push_back(-off);
+        points.push_back(inc); points.push_back(0.0); points.push_back(-off);
         //line x end
-        points.push_back(inc); points.push_back(0.1); points.push_back(off);
+        points.push_back(inc); points.push_back(0.0); points.push_back(off);
 
         //line colors
         for(int c=0; c < 4; c++) {
