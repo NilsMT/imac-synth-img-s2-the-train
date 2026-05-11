@@ -11,9 +11,13 @@ using namespace glbasimac;
 /* Camera parameters and functions */
 static const float Z_NEAR {0.1f};
 static const float Z_FAR {500.f};
-extern float camera_angle_x;      // Angle between x axis and viewpoint
-extern float camera_angle_z;      // Angle between z axis and viewpoint
-extern float dist_zoom;           // Distance between origin and viewpoint
+extern float camera_dist_zoom;      // Distance between origin and viewpoint
+extern float camera_angle_x;        // Angle between x axis and viewpoint
+extern float camera_angle_z;        // Angle between z axis and viewpoint
+extern float camera_target_x;       // Viewed point x position
+extern float camera_target_y;       // Viewed point y position
+extern float camera_target_z;       // Viewed point z position
+
 
 //CONSTANTS
 //for the rails

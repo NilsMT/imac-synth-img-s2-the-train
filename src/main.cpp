@@ -20,7 +20,16 @@ static const unsigned int WINDOW_HEIGHT = 800;
 static const char WINDOW_TITLE[] = "The Train - SNCF";
 static float aspectRatio = 1.0f;
 
+/* modes n stuff */
 auto renderMode = GL_FILL;
+
+enum CAMERA_MODE {
+    ORBITAL,
+    TOP,
+    FPS,
+};
+int cameraMode = CAMERA_MODE::ORBITAL;
+
 bool isGridShown = false;
 
 /* Minimal time wanted between two images */
@@ -50,14 +59,15 @@ void onWindowResized(GLFWwindow* /*window*/, int width, int height)
 
 void onKey(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods*/)
 {
-	int is_pressed = (action == GLFW_PRESS); 
+	int is_pressed = (action == GLFW_PRESS);
+
 	switch(key) {
-        //escape shortcut
+        //escape shortcut (Esc)
 		case GLFW_KEY_ESCAPE :
 			glfwSetWindowShouldClose(window, GLFW_TRUE);
 			break;
 
-        //render modes
+        //render toggle (R)
 		case GLFW_KEY_R:
 			if (is_pressed) {
                 renderMode = (renderMode == GL_LINE ? GL_FILL : GL_LINE);
@@ -65,7 +75,7 @@ void onKey(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods
             }
 			break;
 
-        //lighting modes
+        //lighting toggle (F)
 		case GLFW_KEY_F:
 			if (is_pressed) {
                 if (myEngine.currentShader == 0) {
@@ -76,25 +86,74 @@ void onKey(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods
             }
 			break;
         
-        //grid shown or not
+        //grid toggle (G)
 		case GLFW_KEY_G:
 			if (is_pressed) {
                 isGridShown = !isGridShown;
             }
 			break;
         
-        //orbital camera controls
-        case GLFW_KEY_UP :
-            camera_angle_z += 1.0;
+        //camera cycle (C)
+        case GLFW_KEY_C:
+            if (is_pressed) {
+                cameraMode = (cameraMode + 1) % 3;
+                
+                if (cameraMode == CAMERA_MODE::ORBITAL) {
+                    camera_dist_zoom = 30.0;
+                    camera_angle_x = 45.0f;
+                    camera_angle_z = 25.0f;
+                    camera_target_x = 0.0f;
+                    camera_target_y = 0.0f;
+                    camera_target_z = 0.0f;
+                } else if (cameraMode == CAMERA_MODE::TOP) {
+                    camera_dist_zoom = 30.0;
+                    camera_angle_x = 0.0f;
+                    camera_angle_z = 90.0f;
+                    camera_target_x = 0.0f;
+                    camera_target_y = 0.0f;
+                    camera_target_z = 0.0f;
+                } else if (cameraMode == CAMERA_MODE::FPS) {
+
+                }
+            }
             break;
-        case GLFW_KEY_DOWN :
-            camera_angle_z -= 1.0;
+
+        //Camera controls (ZSQD / WASD)
+        case GLFW_KEY_W :
+            if (cameraMode == CAMERA_MODE::ORBITAL) {
+                camera_angle_z += 1.0;
+            } else if (cameraMode == CAMERA_MODE::TOP) {
+                camera_target_y += 1.0;
+            } else if (cameraMode == CAMERA_MODE::FPS) {
+                //TODO: move it from where you are facing
+            }
             break;
-        case GLFW_KEY_LEFT :
-            camera_angle_x += 1.0;
+        case GLFW_KEY_S :
+            if (cameraMode == CAMERA_MODE::ORBITAL) {
+                camera_angle_z -= 1.0;
+            } else if (cameraMode == CAMERA_MODE::TOP) {
+                camera_target_y -= 1.0;
+            } else if (cameraMode == CAMERA_MODE::FPS) {
+                //TODO: move it from where you are facing
+            }
             break;
-        case GLFW_KEY_RIGHT :
-            camera_angle_x -= 1.0;
+        case GLFW_KEY_D :
+            if (cameraMode == CAMERA_MODE::ORBITAL) {
+                camera_angle_x += 1.0;
+            } else if (cameraMode == CAMERA_MODE::TOP) {
+                camera_target_x += 1.0;
+            } else if (cameraMode == CAMERA_MODE::FPS) {
+                //TODO: move it from where you are facing
+            }
+            break;
+        case GLFW_KEY_A :
+            if (cameraMode == CAMERA_MODE::ORBITAL) {
+                camera_angle_x -= 1.0;
+            } else if (cameraMode == CAMERA_MODE::TOP) {
+                camera_target_x -= 1.0;
+            } else if (cameraMode == CAMERA_MODE::FPS) {
+                //TODO: move it from where you are facing
+            }
         break;
 
         //default
@@ -110,6 +169,13 @@ void onMouseButton(GLFWwindow* window, int button, int action, int /*mods*/)
 		std::cout<<"Pressed in "<<xpos<<" "<<ypos<<std::endl;
 	}
 }
+
+void onScroll(GLFWwindow* window, double xoffset, double yoffset) {
+    std::cout << yoffset <<"\n";
+    camera_dist_zoom += (yoffset < 0 ? 1 : -1);
+    camera_dist_zoom = std::max(Z_NEAR, std::min(camera_dist_zoom, Z_FAR)); //clamp between Z_NEAR and Z_FAR
+}
+
 
 
 
@@ -197,6 +263,7 @@ int main(int argc, char** argv)
 	glfwSetWindowSizeCallback(window,onWindowResized);
 	glfwSetKeyCallback(window, onKey);
 	glfwSetMouseButtonCallback(window, onMouseButton);
+    glfwSetScrollCallback(window, onScroll);
     
 
 
@@ -237,16 +304,40 @@ int main(int argc, char** argv)
         glEnable(GL_DEPTH_TEST);
 
         /* Fix camera position */
-        myEngine.mvMatrixStack.loadIdentity();
-        Vector3D pos_camera = 
-        Vector3D(dist_zoom*cos(deg2rad(camera_angle_x))*cos(deg2rad(camera_angle_z)),
-        dist_zoom*sin(deg2rad(camera_angle_x))*cos(deg2rad(camera_angle_z)),
-        dist_zoom*sin(deg2rad(camera_angle_z)));
-        Vector3D viewed_point = Vector3D(0.0,0.0,0.0);
-        Vector3D up_vector = Vector3D(0.0,0.0,1.0);
-        Matrix4D viewMatrix = Matrix4D::lookAt(pos_camera,viewed_point,up_vector);
-        myEngine.setViewMatrix(viewMatrix);
-        myEngine.updateMvMatrix();
+
+        if (cameraMode == CAMERA_MODE::ORBITAL) {
+            myEngine.mvMatrixStack.loadIdentity();
+
+            //camera def
+            Vector3D pos_camera = Vector3D(
+                camera_dist_zoom * cos(deg2rad(camera_angle_x)) * cos(deg2rad(camera_angle_z)),
+                camera_dist_zoom * sin(deg2rad(camera_angle_x)) * cos(deg2rad(camera_angle_z)),
+                camera_dist_zoom * sin(deg2rad(camera_angle_z))
+            );
+            Vector3D viewed_point = Vector3D(camera_target_x,camera_target_y,camera_target_z);
+            Vector3D up_vector = Vector3D(0.0,0.0,1.0);
+            Matrix4D viewMatrix = Matrix4D::lookAt(pos_camera,viewed_point,up_vector);
+            //
+            
+            myEngine.setViewMatrix(viewMatrix);
+            myEngine.updateMvMatrix();
+        } else if (cameraMode == CAMERA_MODE::TOP) {
+            myEngine.mvMatrixStack.loadIdentity();
+
+            //camera def
+            Vector3D pos_camera = Vector3D(camera_target_x,camera_target_y,camera_dist_zoom);
+            Vector3D viewed_point = Vector3D(camera_target_x,camera_target_y,0.0f);
+            Vector3D up_vector = Vector3D(0.0, 1.0, 0.0);  // Up is Y-axis (since we're looking down)
+            Matrix4D viewMatrix = Matrix4D::lookAt(pos_camera, viewed_point, up_vector);
+            //
+
+            myEngine.setViewMatrix(viewMatrix);
+            myEngine.updateMvMatrix();
+        } else if (cameraMode == CAMERA_MODE::TOP) {
+            //TODO: Don't do it yet
+        }
+
+        
 
         //draw the whole scene from draw_scene
         drawScene(startTime, &railways, isGridShown);

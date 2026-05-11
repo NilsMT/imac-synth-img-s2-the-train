@@ -1,17 +1,33 @@
 #include "draw_scene.hpp"
 
-/// Camera parameters
-float camera_angle_x {45.0};      // Angle between x axis and viewpoint
-float camera_angle_z {30.0};      // Angle between z axis and viewpoint
-float dist_zoom {30.0};      // Distance between origin and viewpoint
+//////////////////////////////////////
+/* Camera settings */
+//////////////////////////////////////
 
-const float grid_cell_size = 10.0;
+float camera_dist_zoom = 30.0;
+float camera_angle_x = 45.0f;
+float camera_angle_z = 25.0f;
+float camera_target_x = 0.0f;
+float camera_target_y = 0.0f;
+float camera_target_z = 0.0f;
+
+//////////////////////////////////////
+/* Grid settings */
+//////////////////////////////////////
+
+const float grid_cell_size = 10.0; //number of cells on X and Y
+
+//////////////////////////////////////
+/* Global units */
+//////////////////////////////////////
 
 float sr = 1;
 float sx = 1;
 float rr = 1;
 
-//for train
+//////////////////////////////////////
+/* Train settings */
+//////////////////////////////////////
 
 //1st layer
 const float btwn_rails = 10.f - (2*3 + 2*sr);
@@ -39,9 +55,13 @@ const float top_height = 0.5;
 const float wedge_top_size = 1;
 const float main_top_size = 6;
 
+//////////////////////////////////////
+/* Engine stuffs */
+//////////////////////////////////////
 
 GLBI_Engine myEngine;
-GLBI_Set_Of_Points somePoints(3);
+GLBI_Set_Of_Points somePointsFrame(3);
+GLBI_Set_Of_Points somePointsGrid(3);
 GLBI_Convex_2D_Shape ground{3};
 
 IndexedMesh* sphere;
@@ -50,7 +70,13 @@ IndexedMesh* cylinder;
 IndexedMesh* wedge;
 IndexedMesh* cylinderCover;
 
-/* Helper functions to move, scale, rotate the origin */
+
+
+//////////////////////////////////////
+/* Helpers */
+//////////////////////////////////////
+
+
 
 void moveOrigin(float x, float y, float z) {
     myEngine.mvMatrixStack.addTranslation({x,y,z});
@@ -77,6 +103,14 @@ void drawShapeWithColor(GLBI_Convex_2D_Shape shape, float r, float g, float b) {
     shape.drawShape();
 }
 
+
+
+//////////////////////////////////////
+/* Init */
+//////////////////////////////////////
+
+
+
 void initScene() {
     sphere = basicSphere();
     sphere->createVAO();
@@ -93,6 +127,14 @@ void initScene() {
     cylinderCover = basicCylinderWithCovers(1,0.5,16);
     cylinderCover->createVAO();
 }
+
+
+
+//////////////////////////////////////
+/* Frame */
+//////////////////////////////////////
+
+
 
 void drawFrame() {
     std::vector<float> points {
@@ -115,11 +157,19 @@ void drawFrame() {
         0.0f, 0.0f, 1.0f,
     };
 
-    somePoints.changeNature(GL_LINES);
-    somePoints.initSet(points, pointsColor);
+    somePointsFrame.changeNature(GL_LINES);
+    somePointsFrame.initSet(points, pointsColor);
 
-    somePoints.drawSet();
+    somePointsFrame.drawSet();
 }
+
+
+
+//////////////////////////////////////
+/* Ground */
+//////////////////////////////////////
+
+
 
 void drawGround(int grid_size) {
 
@@ -135,6 +185,14 @@ void drawGround(int grid_size) {
 	ground.changeNature(GL_TRIANGLE_FAN);
     drawShapeWithColor(ground,0.2,0.0,0.0);
 }
+
+
+
+//////////////////////////////////////
+/* Grid */
+//////////////////////////////////////
+
+
 
 void drawGrid(int grid_size) {
     std::vector<float> points;
@@ -157,14 +215,17 @@ void drawGrid(int grid_size) {
         points.push_back(off); points.push_back(inc); points.push_back(0.1);
 
         //line colors
-        for(int c=0; c < 4*3; c++) {
-            pointsColor.push_back(1.0f); //single color channel
+        for(int c=0; c < 4; c++) {
+            pointsColor.push_back(1.0f);
+            pointsColor.push_back(1.0f);
+            pointsColor.push_back(1.0f);
         }
     }
 
-    somePoints.changeNature(GL_LINES);
-    somePoints.initSet(points, pointsColor);
-    somePoints.drawSet();
+    somePointsGrid.changeNature(GL_LINES);
+    somePointsGrid.initSet(points, pointsColor);
+
+    somePointsGrid.drawSet();
 }
 
 
