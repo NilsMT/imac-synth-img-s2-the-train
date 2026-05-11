@@ -54,7 +54,7 @@ cd bin && ./main.exe fichier/a/lire.json
 | ✅     | 🖥️IHM          | Touche pour toggle modes d'éclairages     | Touche F                                 | Nils   |
 | ✅     | 🖥️IHM          | Touche pour toggle la grille              | Touche G                                 | Nils   |
 | ❌     | 🖥️IHM          | Caméra FPS                                | ZQSD/WASD to move, Pan to rotate         | -      |
-| ❌     | 🖥️IHM          | Caméra TOP                                | ZQSD/WASD to move, Scroll to zoom        | -      |
+| ✅     | 🖥️IHM          | Caméra TOP                                | ZQSD/WASD to move, Scroll to zoom        | -      |
 | ✅     | 🖥️IHM          | Caméra ORBITAL                            | ZQSD/WASD to rotate, Scroll to zoom      | -      |
 | ❌     | 🖥️IHM          | Touche pour toggle modes camera           | Touche C                                 | -      |
 | ✅     | 👁️Visuel       | Éclairage "flat"                          | Par défaut sur OpenGL                    | OpenGL |
