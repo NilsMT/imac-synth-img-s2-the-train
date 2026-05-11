@@ -21,6 +21,7 @@ static const char WINDOW_TITLE[] = "The Train - SNCF";
 static float aspectRatio = 1.0f;
 
 auto renderMode = GL_FILL;
+bool isGridShown = false;
 
 /* Minimal time wanted between two images */
 static const double FRAMERATE_IN_SECONDS = 1. / 30.;
@@ -67,7 +68,18 @@ void onKey(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods
         //lighting modes
 		case GLFW_KEY_F:
 			if (is_pressed) {
-                //TODO: toggle shader change
+                if (myEngine.currentShader == 0) {
+                    myEngine.switchToPhongShading();
+                } else {
+	                myEngine.switchToFlatShading();
+                }
+            }
+			break;
+        
+        //grid shown or not
+		case GLFW_KEY_G:
+			if (is_pressed) {
+                isGridShown = !isGridShown;
             }
 			break;
         
@@ -237,7 +249,7 @@ int main(int argc, char** argv)
         myEngine.updateMvMatrix();
 
         //draw the whole scene from draw_scene
-        drawScene(startTime, &railways);
+        drawScene(startTime, &railways, isGridShown);
 
         myEngine.mvMatrixStack.loadIdentity();
 

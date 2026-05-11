@@ -118,24 +118,54 @@ void drawFrame() {
     somePoints.changeNature(GL_LINES);
     somePoints.initSet(points, pointsColor);
 
-    //NOTE: could've used createRepere() from STP3D
+    somePoints.drawSet();
 }
 
-void drawGround(int size) {
+void drawGround(int grid_size) {
 
-    size *= grid_cell_size; // make it so it can house N² tiles of that size
+    float ground_size = grid_size * grid_cell_size; // make it so it can house N² tiles of that size
 
     std::vector<float> groundBase{
-        -size/2.f, -size/2.f, 0.0,
-        size/2.f, -size/2.f, 0.0,
-        size/2.f, size/2.f, 0.0,
-        -size/2.f, size/2.f, 0.0
+        -ground_size/2.f, -ground_size/2.f, 0.0,
+        ground_size/2.f, -ground_size/2.f, 0.0,
+        ground_size/2.f, ground_size/2.f, 0.0,
+        -ground_size/2.f, ground_size/2.f, 0.0
     };
 	ground.initShape(groundBase);
 	ground.changeNature(GL_TRIANGLE_FAN);
     drawShapeWithColor(ground,0.2,0.0,0.0);
 }
 
+void drawGrid(int grid_size) {
+    std::vector<float> points;
+    std::vector<float> pointsColor;
+
+    float off = (grid_size * grid_cell_size) / 2.0f; //offset
+
+    //X lines
+    for (int i = 0; i < grid_size; i++) {
+        float inc = (i * grid_cell_size) - off;
+
+        //line x start
+        points.push_back(inc); points.push_back(-off); points.push_back(0.1);
+        //line x end
+        points.push_back(inc); points.push_back(off); points.push_back(0.1);
+
+        //line y start
+        points.push_back(-off); points.push_back(inc); points.push_back(0.1);
+        //line y end
+        points.push_back(off); points.push_back(inc); points.push_back(0.1);
+
+        //line colors
+        for(int c=0; c < 4*3; c++) {
+            pointsColor.push_back(1.0f); //single color channel
+        }
+    }
+
+    somePoints.changeNature(GL_LINES);
+    somePoints.initSet(points, pointsColor);
+    somePoints.drawSet();
+}
 
 
 //////////////////////////////////////
@@ -359,12 +389,16 @@ void drawRailStraight(float orientation) {
 
 
 
-void drawScene(float time, Railways* railways) {
+void drawScene(float time, Railways* railways, bool isGridShown) {
 	glPointSize(10.0);
 
     /*the origin*/
     drawFrame();
-    somePoints.drawSet();
+
+    /* ground grid */
+    if (isGridShown) {
+        drawGrid((*railways).size_grid);
+    }
 
     /*ground according to railways size */
     drawGround((*railways).size_grid);

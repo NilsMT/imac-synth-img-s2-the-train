@@ -44,6 +44,8 @@ void initScene();
 
 void drawFrame();
 
+void drawGrid(int grid_size);
+
 void drawGround();
 
 void drawTrain(float time);
@@ -52,5 +54,5 @@ void drawRailCurve(float orientation);
 
 void drawRailStraight(float orientation);
 
-void drawScene(float time, Railways* railways);
+void drawScene(float time, Railways* railways, bool isGridShown);
 
