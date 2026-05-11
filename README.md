@@ -42,9 +42,11 @@ cd bin && ./main.exe fichier/a/lire.json
 | Status | Catégorie      | Description                               | Commentaire                              | Qui    |
 | ------ | -------------- | ----------------------------------------- | ---------------------------------------- | ------ |
 | ✅     | 📁Structure    | Créer la structure du projet              | Reprendre la base du TD04 et la modifier | Nils   |
+| ✅     | 📁Structure    | Refactorisation des coordonnées           | X -> Z, Y -> X, Z -> Y (comme minecraft) | Nils   |
 | ❌     | ⚒️Modélisation | Faire les Rails                           | Faire Courbé et Droit                    | Yanis  |
 | ✅     | ⚒️Modélisation | Faire le Train                            | + Faire triangle et cylindre fermé       | Nils   |
 | ❌     | ⚒️Modélisation | Faire la gare                             | Avec horloge                             | -      |
+| ❌     | ⚒️Modélisation | Grille des cellules de rails              | Pour visualiser le placement             | Nils   |
 | ✅     | 📝JSON         | Lire le JSON (Railways)                   | Serialisé en `Railways`                  | Nils   |
 | ❌     | 📝JSON         | Créer le parcours                         | Depuis `Railways`                        | Yanis  |
 | ❌     | 📝JSON         | Placer la gare et le train                | ez                                       | -      |
@@ -54,11 +56,11 @@ cd bin && ./main.exe fichier/a/lire.json
 | ✅     | 🖥️IHM          | Touche pour toggle modes d'éclairages     | Touche F                                 | Nils   |
 | ✅     | 🖥️IHM          | Touche pour toggle la grille              | Touche G                                 | Nils   |
 | ❌     | 🖥️IHM          | Caméra FPS                                | ZQSD/WASD to move, Pan to rotate         | -      |
-| ✅     | 🖥️IHM          | Caméra TOP                                | ZQSD/WASD to move, Scroll to zoom        | -      |
-| ✅     | 🖥️IHM          | Caméra ORBITAL                            | ZQSD/WASD to rotate, Scroll to zoom      | -      |
-| ❌     | 🖥️IHM          | Touche pour toggle modes camera           | Touche C                                 | -      |
+| ✅     | 🖥️IHM          | Caméra TOP                                | ZQSD/WASD to move, Scroll to zoom        | Nils   |
+| ✅     | 🖥️IHM          | Caméra ORBITAL                            | ZQSD/WASD to rotate, Scroll to zoom      | Nils   |
+| ✅     | 🖥️IHM          | Touche pour toggle modes camera           | Touche C                                 | -      |
 | ✅     | 👁️Visuel       | Éclairage "flat"                          | Par défaut sur OpenGL                    | OpenGL |
-| ❌     | 👁️Visuel       | Éclairage "réaliste" (Phong Shading ?)    | Un soleil et phare du train              | -      |
+| 🚧     | 👁️Visuel       | Éclairage "réaliste" (Phong Shading ?)    | Un soleil et phare du train              | -      |
 | ❌     | 👁️Visuel       | Texturé un truc                           | Le train ?                               | -      |
 | ✅     | 👁️Visuel       | Animer un truc                            | Horloge de la gare                       | -      |
 
@@ -73,9 +75,16 @@ cd bin && ./main.exe fichier/a/lire.json
 > [Todo Tree](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree)<br>
 > Avec `NOTE:` et `SOURCE:` d'ajoutée dans [todo-tree.general.tags](vscode://settings/todo-tree.general.tags)
 
+> La refactorisation des coordonnées a été effectué pour plus de clarté car le système était en **Right-handed Z-up**
+> (X+ derrière, Y+ droite, Z+ haut), ce qui n'est pas standard, en **Right-handed Y-up** (X+ gauche, Y+ haut, Z+ avant)
+> Comme dans Minecraft !
+
 > Temps passée Nils :
 >
 > - Structure : 8h
 > - Modélisation du train : 3h30
 > - Création des primitives + utilisation sur le train : 5h
 > - Lecture du JSON + en ligne de commande : 2h
+> - Refactorisation des coordonnées : 7h30
+>
+> Total : 26h

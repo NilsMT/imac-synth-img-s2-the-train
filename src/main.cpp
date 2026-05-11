@@ -21,15 +21,19 @@ static const char WINDOW_TITLE[] = "The Train - SNCF";
 static float aspectRatio = 1.0f;
 
 /* modes n stuff */
+//render mode
 auto renderMode = GL_FILL;
 
+//camera
 enum CAMERA_MODE {
     ORBITAL,
     TOP,
     FPS,
 };
 int cameraMode = CAMERA_MODE::ORBITAL;
+double xpos, ypos;
 
+//grid
 bool isGridShown = false;
 
 /* Minimal time wanted between two images */
@@ -97,60 +101,50 @@ void onKey(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods
         case GLFW_KEY_C:
             if (is_pressed) {
                 cameraMode = (cameraMode + 1) % 3;
-                
-                if (cameraMode == CAMERA_MODE::ORBITAL) {
-                    camera_dist_zoom = 30.0;
-                    camera_angle_x = 45.0f;
-                    camera_angle_z = 25.0f;
-                    camera_target_x = 0.0f;
-                    camera_target_y = 0.0f;
-                    camera_target_z = 0.0f;
-                } else if (cameraMode == CAMERA_MODE::TOP) {
-                    camera_dist_zoom = 30.0;
-                    camera_angle_x = 0.0f;
-                    camera_angle_z = 90.0f;
-                    camera_target_x = 0.0f;
-                    camera_target_y = 0.0f;
-                    camera_target_z = 0.0f;
-                } else if (cameraMode == CAMERA_MODE::FPS) {
 
-                }
+                camera_dist_zoom = 30.0;
+                yaw = 0.0f; // horizontal rotation (on y)
+                pitch = 10.0f; // vertical rotation (on x) 
+                camera_sensitivity = 0.1f;
+                camera_target_x = 0.0f;
+                camera_target_y = 0.0f;
+                camera_target_z = 0.0f;
             }
             break;
 
         //Camera controls (ZSQD / WASD)
         case GLFW_KEY_W :
             if (cameraMode == CAMERA_MODE::ORBITAL) {
-                camera_angle_z += 1.0;
+                pitch += 1.0;
             } else if (cameraMode == CAMERA_MODE::TOP) {
-                camera_target_y += 1.0;
+                camera_target_z += 1.0;
             } else if (cameraMode == CAMERA_MODE::FPS) {
                 //TODO: move it from where you are facing
             }
             break;
         case GLFW_KEY_S :
             if (cameraMode == CAMERA_MODE::ORBITAL) {
-                camera_angle_z -= 1.0;
+                pitch -= 1.0;
             } else if (cameraMode == CAMERA_MODE::TOP) {
-                camera_target_y -= 1.0;
+                camera_target_z -= 1.0;
             } else if (cameraMode == CAMERA_MODE::FPS) {
                 //TODO: move it from where you are facing
             }
             break;
         case GLFW_KEY_D :
             if (cameraMode == CAMERA_MODE::ORBITAL) {
-                camera_angle_x += 1.0;
+                yaw -= 1.0;
             } else if (cameraMode == CAMERA_MODE::TOP) {
-                camera_target_x += 1.0;
+                camera_target_x -= 1.0;
             } else if (cameraMode == CAMERA_MODE::FPS) {
                 //TODO: move it from where you are facing
             }
             break;
         case GLFW_KEY_A :
             if (cameraMode == CAMERA_MODE::ORBITAL) {
-                camera_angle_x -= 1.0;
+                yaw += 1.0;
             } else if (cameraMode == CAMERA_MODE::TOP) {
-                camera_target_x -= 1.0;
+                camera_target_x += 1.0;
             } else if (cameraMode == CAMERA_MODE::FPS) {
                 //TODO: move it from where you are facing
             }
@@ -161,13 +155,12 @@ void onKey(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods
 	}
 }
 
-void onMouseButton(GLFWwindow* window, int button, int action, int /*mods*/)
+void onCursorPos(GLFWwindow* window, double xpos, double ypos)
 {
-	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-		double xpos, ypos;
-		glfwGetCursorPos(window, &xpos, &ypos);
-		std::cout<<"Pressed in "<<xpos<<" "<<ypos<<std::endl;
-	}
+    if (cameraMode == CAMERA_MODE::FPS) {
+        double nxpos,nypos;
+        glfwGetCursorPos(window, &nxpos, &nypos);
+    }
 }
 
 void onScroll(GLFWwindow* window, double xoffset, double yoffset) {
@@ -197,12 +190,17 @@ int main(int argc, char** argv)
     DWORD mode;
     GetConsoleMode(h, &mode);
     SetConsoleMode(h, mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
-
-
-
     //mute looping output of "Id VBO ..."
     MeshOutput = false;
-    
+
+
+
+    //////////////////////////////////////
+    /* JSON Reading */
+    //////////////////////////////////////
+
+
+
     Railways railways;
     std::ifstream ifs(argv[1]); //NOTE: https://www.pointerlab.fr/blog/cpp-argc-argv
     json j = json::parse(ifs);
@@ -262,7 +260,7 @@ int main(int argc, char** argv)
 
 	glfwSetWindowSizeCallback(window,onWindowResized);
 	glfwSetKeyCallback(window, onKey);
-	glfwSetMouseButtonCallback(window, onMouseButton);
+	glfwSetCursorPosCallback(window, onCursorPos);
     glfwSetScrollCallback(window, onScroll);
     
 
@@ -304,40 +302,42 @@ int main(int argc, char** argv)
         glEnable(GL_DEPTH_TEST);
 
         /* Fix camera position */
+        myEngine.mvMatrixStack.loadIdentity();
+
+        //camera definition depending on the mode
+        Vector3D pos_camera = {};
+        Vector3D viewed_point = {};
+        Vector3D up_vector = {};
 
         if (cameraMode == CAMERA_MODE::ORBITAL) {
-            myEngine.mvMatrixStack.loadIdentity();
+            //clamp to avoid inversion
+            if (pitch < 0.0f) pitch = 0.0f;
+            if (pitch > 89.0f) pitch = 89.0f;
 
-            //camera def
-            Vector3D pos_camera = Vector3D(
-                camera_dist_zoom * cos(deg2rad(camera_angle_x)) * cos(deg2rad(camera_angle_z)),
-                camera_dist_zoom * sin(deg2rad(camera_angle_x)) * cos(deg2rad(camera_angle_z)),
-                camera_dist_zoom * sin(deg2rad(camera_angle_z))
+            pos_camera = Vector3D(
+                camera_dist_zoom * sin(deg2rad(yaw)) * cos(deg2rad(pitch)),
+                camera_dist_zoom * sin(deg2rad(pitch)),
+                -camera_dist_zoom * cos(deg2rad(yaw)) * cos(deg2rad(pitch))
             );
-            Vector3D viewed_point = Vector3D(camera_target_x,camera_target_y,camera_target_z);
-            Vector3D up_vector = Vector3D(0.0,0.0,1.0);
-            Matrix4D viewMatrix = Matrix4D::lookAt(pos_camera,viewed_point,up_vector);
-            //
-            
-            myEngine.setViewMatrix(viewMatrix);
-            myEngine.updateMvMatrix();
-        } else if (cameraMode == CAMERA_MODE::TOP) {
-            myEngine.mvMatrixStack.loadIdentity();
 
-            //camera def
-            Vector3D pos_camera = Vector3D(camera_target_x,camera_target_y,camera_dist_zoom);
-            Vector3D viewed_point = Vector3D(camera_target_x,camera_target_y,0.0f);
-            Vector3D up_vector = Vector3D(0.0, 1.0, 0.0);  // Up is Y-axis (since we're looking down)
-            Matrix4D viewMatrix = Matrix4D::lookAt(pos_camera, viewed_point, up_vector);
-            //
-
-            myEngine.setViewMatrix(viewMatrix);
-            myEngine.updateMvMatrix();
+            viewed_point = Vector3D(camera_target_x, camera_target_y, camera_target_z);
+            up_vector = Vector3D(0.0, 1.0, 0.0);  // Y is up
         } else if (cameraMode == CAMERA_MODE::TOP) {
-            //TODO: Don't do it yet
+            pos_camera = Vector3D(
+                camera_target_x,
+                camera_dist_zoom,
+                camera_target_z
+            );
+
+            viewed_point = Vector3D(camera_target_x, camera_target_y, camera_target_z);
+            up_vector = Vector3D(0.0, 0.0, 1.0);  // Z is up
+        } else if (cameraMode == CAMERA_MODE::FPS) {
+            //TODO: FPS camera
         }
-
-        
+        //
+        Matrix4D viewMatrix = Matrix4D::lookAt(pos_camera, viewed_point, up_vector);
+        myEngine.setViewMatrix(viewMatrix);
+        myEngine.updateMvMatrix();
 
         //draw the whole scene from draw_scene
         drawScene(startTime, &railways, isGridShown);

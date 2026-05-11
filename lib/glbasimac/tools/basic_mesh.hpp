@@ -52,8 +52,8 @@ namespace STP3D {
 	  */
 	StandardMesh* basicRect(float sizex,float sizez);
 
-	/** Create a basic cone on the y axis
-	  * This function create a mesh for a basic cone along the y axis.
+	/** Create a basic cone on the z axis
+	  * This function create a mesh for a basic cone along the z axis.
 	  * The mesh stores only the coordinates, leaving all material properties to the application
 	  * The top of the cone is at height \a h.
 	  * The problem reside in the fact that each triangle is dependant of the following one 
@@ -65,8 +65,8 @@ namespace STP3D {
 	  */
 	StandardMesh* basicCone(float h,float radius,float radius_up = 0.0,unsigned int nb_div = 64);
 
-	/** Create a basic cylinder on the y axis
-	  * This function create a mesh for a basic cylinder along the y axis without top and bottom closure.
+	/** Create a basic cylinder on the z axis
+	  * This function create a mesh for a basic cylinder along the z axis without top and bottom closure.
 	  * The mesh stores only the coordinates, leaving all material properties to the application
 	  * The height of the cylinder is \a h.
 	  * \param h height of the cylinder
@@ -129,18 +129,18 @@ namespace STP3D {
 		double cos_pt,sin_pt;
 		double angle=0;
 		// 
-		double angle_to_axis_y = atan(radius/h);
-		double cos_to_xz = cos(angle_to_axis_y);
-		double sin_to_xz = sin(angle_to_axis_y);
-		//std::cerr<<"P : "<<angle_to_axis_y*180.0/M_PI<<" ("<<cos_to_xz<<") "<<std::endl;
+		double angle_to_axis_z = atan(radius/h);
+		double cos_to_xy = cos(angle_to_axis_z);
+		double sin_to_xy = sin(angle_to_axis_z);
+		//std::cerr<<"P : "<<angle_to_axis_z*180.0/M_PI<<" ("<<cos_to_xy<<") "<<std::endl;
 		for(unsigned int i=0;i<=nb_div;i++,angle+=2*M_PI/nb_div) {
 			// Head of the cone (repeated)
 			cos_pt = cos(angle);
 			sin_pt = sin(angle);
-			coord[6*i  ] = radius*cos_pt; coord[6*i+1] = 0.0; coord[6*i+2] = radius*sin_pt;
-			coord[6*i+3] = r_up*cos_pt;           coord[6*i+4] = h;   coord[6*i+5] =  r_up*sin_pt;
-			normals[6*i  ] = cos_pt*cos_to_xz; normals[6*i+1] = sin_to_xz; normals[6*i+2] = sin_pt*cos_to_xz;
-			normals[6*i+3] = cos_pt*cos_to_xz; normals[6*i+4] = sin_to_xz; normals[6*i+5] = sin_pt*cos_to_xz;
+			coord[6*i  ] = radius*cos_pt; coord[6*i+1] = radius*sin_pt; coord[6*i+2] = 0.0;
+			coord[6*i+3] = r_up*cos_pt;   coord[6*i+4] = r_up*sin_pt;   coord[6*i+5] = h;
+			normals[6*i  ] = cos_pt*cos_to_xy; normals[6*i+1] = sin_pt*cos_to_xy; normals[6*i+2] = sin_to_xy;
+			normals[6*i+3] = cos_pt*cos_to_xy; normals[6*i+4] = sin_pt*cos_to_xy; normals[6*i+5] = sin_to_xy;
 			uv[4*i  ] = (float)i/nb_div; uv[4*i+1] = 0.0;
 			uv[4*i+2] = (float)i/nb_div; uv[4*i+3] = 1.0;
 		}
@@ -168,11 +168,11 @@ namespace STP3D {
 				cos_pt = cos(angle);
 				sin_pt = sin(angle);
 				coord[3*j*(div_round+1)+3*i  ] = radius*cos_pt;
-				coord[3*j*(div_round+1)+3*i+1] = height;
-				coord[3*j*(div_round+1)+3*i+2] = radius*sin_pt;
+				coord[3*j*(div_round+1)+3*i+1] = radius*sin_pt;
+				coord[3*j*(div_round+1)+3*i+2] = height;
 				normals[3*j*(div_round+1)+3*i  ] = cos_pt;
-				normals[3*j*(div_round+1)+3*i+1] = 0.0;
-				normals[3*j*(div_round+1)+3*i+2] = sin_pt;
+				normals[3*j*(div_round+1)+3*i+1] = sin_pt;
+				normals[3*j*(div_round+1)+3*i+2] = 0.0;
 				uv[2*j*(div_round+1)+2*i  ] = i/(float)div_round;
 				uv[2*j*(div_round+1)+2*i+1] = j/(float)div_height;
 			}
@@ -298,11 +298,11 @@ namespace STP3D {
 		float* pt_uv = uv;
 		
 		// Bottom of the sphere
-		pt_coord[0] = pt_coord[2] = 0.0;
-		pt_coord[1] = -radius;
+		pt_coord[0] = pt_coord[1] = 0.0;
+		pt_coord[2] = -radius;
 		
-		pt_nml[0] = pt_nml[2] = 0.0;
-		pt_nml[1] = -1.0;
+		pt_nml[0] = pt_nml[1] = 0.0;
+		pt_nml[2] = -1.0;
 		
 		pt_uv[0] = 0.0;
 		pt_uv[1] = 0.0;
@@ -312,21 +312,21 @@ namespace STP3D {
 		pt_uv += 2;
 
 		// All other slices
-		float inner_radius,y_value;
+		float inner_radius,z_value;
 		float step_y_angle = M_PI/(float)nb_div_h;
 		float step_circle_angle = 2*M_PI/(float)nb_div_circle;
 		for(unsigned int i = 1; i <= (nb_div_h-1) ; i++) {
-			y_value = sin(-(M_PI/2.0)+i*step_y_angle);
+			z_value = sin(-(M_PI/2.0)+i*step_y_angle);
 			inner_radius = cos(-M_PI/2.0+i*step_y_angle);
 			for(unsigned int j=0; j <= nb_div_circle ; j++) {
 				pt_coord[0] = radius*inner_radius*cos(j*step_circle_angle);
-				pt_coord[2] = -radius*inner_radius*sin(j*step_circle_angle);
-				pt_coord[1] = radius*y_value;
+				pt_coord[1] = radius*inner_radius*sin(j*step_circle_angle);
+				pt_coord[2] = radius*z_value;
 				pt_coord+=3;
 
 				pt_nml[0] = inner_radius*cos(j*step_circle_angle);
-				pt_nml[2] = -inner_radius*sin(j*step_circle_angle);
-				pt_nml[1] = y_value;
+				pt_nml[1] = inner_radius*sin(j*step_circle_angle);
+				pt_nml[2] = z_value;
 				pt_nml+=3;
 				
 				pt_uv[0] = (float)j/(float)nb_div_circle;
@@ -335,12 +335,12 @@ namespace STP3D {
 			}
 		}
 		// Top of the sphere 
-		pt_coord[0] = pt_coord[2] = 0.0;
-		pt_coord[1] = radius; 
+		pt_coord[0] = pt_coord[1] = 0.0;
+		pt_coord[2] = radius; 
 		pt_coord+=3;
 		
-		pt_nml[0] = pt_nml[2] = 0.0;
-		pt_nml[1] = 1.0;
+		pt_nml[0] = pt_nml[1] = 0.0;
+		pt_nml[2] = 1.0;
 		pt_nml+=2;
 		
 		pt_uv[0] = 0.0;
@@ -407,45 +407,43 @@ namespace STP3D {
 		unsigned int nb_prim = 8;
 		IndexedMesh* wedge = new IndexedMesh(nb_prim,nb_points,GL_TRIANGLES);
 		float coord[3*18] = {
-			// Face back (z = -width/2) (E,F,G,H)
+			// Face back (x = -width/2) (E,H,G',F')
 			-width/2.0f,-width/2.0f,-width/2.0f,        // E
-			-width/2.0f, -width/2.0f,width/2.0f,        // H
-			-width/2.0f,width/2.0f,width/2.0f,          // G
-			-width/2.0f,width/2.0f,-width/2.0f,         // F
-			// Face left (A,E,H)
-            width/2.0f,-width/2.0f,-width/2.0f,         // A
-            -width/2.0f,-width/2.0f,-width/2.0f,        // E
-            -width/2.0f,-width/2.0f,width/2.0f,          // H
-			// Face right (B,F,G)
-            width/2.0f,width/2.0f,-width/2.0f,           // B
-            -width/2.0f, width/2.0f,-width/2.0f,        // F
-            -width/2.0f,width/2.0f,width/2.0f,          // G
-			// Face down (y = -width/2) (A,B,F,E)
-			width/2.0f,-width/2.0f,-width/2.0f,         // A
+			-width/2.0f,width/2.0f,-width/2.0f,        // H
+			width/2.0f,width/2.0f,-width/2.0f,          // G'
+			width/2.0f,-width/2.0f,-width/2.0f,         // F'
+			// Face left (x = -width/2) (A',E,H)
+			-width/2.0f,-width/2.0f,width/2.0f,         // A'
 			-width/2.0f,-width/2.0f,-width/2.0f,        // E
-			-width/2.0f,width/2.0f,-width/2.0f,         // F
-			width/2.0f,width/2.0f,-width/2.0f,           // B
-            // Face slope (A,H,G,B)
-            width/2.0f,-width/2.0f,-width/2.0f,        // A
-            -width/2.0f,-width/2.0f,width/2.0f,          // H
-            -width/2.0f,width/2.0f,width/2.0f,          // G
-            width/2.0f,width/2.0f,-width/2.0f,           // B
+			-width/2.0f,width/2.0f,-width/2.0f,          // H
+			// Face right (x = width/2) (B,F',G')
+			width/2.0f,-width/2.0f,width/2.0f,           // B
+			width/2.0f,-width/2.0f,-width/2.0f,        // F'
+			width/2.0f,width/2.0f,-width/2.0f,          // G'
+			// Face down (z = -width/2) (A',E,F',B)
+			-width/2.0f,-width/2.0f,width/2.0f,         // A'
+			-width/2.0f,-width/2.0f,-width/2.0f,        // E
+			width/2.0f,-width/2.0f,-width/2.0f,         // F'
+			width/2.0f,-width/2.0f,width/2.0f,           // B
+			// Face slope (A',H,G',B)
+			-width/2.0f,-width/2.0f,width/2.0f,        // A'
+			-width/2.0f,width/2.0f,-width/2.0f,          // H
+			width/2.0f,width/2.0f,-width/2.0f,          // G'
+			width/2.0f,-width/2.0f,width/2.0f,           // B
 		};
 		float normals[3*18] = {
-			// Face back (z = -width/2) (E,H,G,F)
-			0.0f,0.0f,-1.0f,	0.0f,0.0f,-1.0f,	0.0f,0.0f,-1.0f,	0.0f,0.0f,-1.0f,
-			// Face left (x = -width/2) (A,E,H)
-            -1.0f,0.0f,0.0f,	-1.0f,0.0f,0.0f,	-1.0f,0.0f,0.0f,
-			// Face right (x = width/2) (B,F,G)
-            1.0f,0.0f,0.0f,     1.0f,0.0f,0.0f,     1.0f,0.0f,0.0f,
-			// Face down (y = -width/2) (A,B,F,E)
-			0.0,-1.0,0.0,		0.0,-1.0,0.0,		0.0,-1.0,0.0,		0.0,-1.0,0.0,
-            // Face slope (A,H,G,B) (y and z = width/2)
-            // need to be normalized so lenght is = 1
-            // sqrt(0² + 1² + 1²) = sqrt(2) ==> need to divide everything by sqrt(2) to normalize
-            0.0,1.0/sqrt(2),1.0/sqrt(2),		0.0,1.0/sqrt(2),1.0/sqrt(2),
-            0.0,1.0/sqrt(2),1.0/sqrt(2),		0.0,1.0/sqrt(2),1.0/sqrt(2),
-        };
+			// Face back (x = -width/2) (E,H,G',F')
+			0.0f,-1.0f,0.0f,	0.0f,-1.0f,0.0f,    0.0f,-1.0f,0.0f,    0.0f,-1.0f,0.0f,
+			// Face left (x = -width/2) (A',E,H)
+			0.0f,0.0f,-1.0f,	0.0f,0.0f,-1.0f,	0.0f,0.0f,-1.0f,
+			// Face right (x = width/2) (B,F',G')
+			0.0f,0.0f,1.0f,     0.0f,0.0f,1.0f,     0.0f,0.0f,1.0f,
+			// Face down (z = -width/2) (A',E,F',B)
+			-1.0,0.0,0.0,		-1.0,0.0,0.0,       -1.0,0.0,0.0,       -1.0,0.0,0.0,
+			// Face slope (A',H,G',B) (y and x = width/2)
+			1.0/sqrt(2),1.0/sqrt(2),0.0,		1.0/sqrt(2),1.0/sqrt(2),0.0,
+			1.0/sqrt(2),1.0/sqrt(2),0.0,		1.0/sqrt(2),1.0/sqrt(2),0.0,
+		};
 		float uv[2*18] = {
 			// Face back (z = -width/2) (E,F,G,H)
 			1.0,0.0,		0.0,0.0,		0.0,1.0,		1.0,1.0,
@@ -506,12 +504,12 @@ namespace STP3D {
                 double sin_pt = sin(angle);
                 unsigned int index = 3 * (j * (div_round + 1) + i);
                 coord[index] = radius * cos_pt;
-                coord[index + 1] = height;
-                coord[index + 2] = radius * sin_pt;
+                coord[index + 1] = radius * sin_pt;
+                coord[index + 2] = height;
 
                 normals[index] = cos_pt;
-                normals[index + 1] = 0.0;
-                normals[index + 2] = sin_pt;
+                normals[index + 1] = sin_pt;
+                normals[index + 2] = 0.0;
 
                 uv[2 * (j * (div_round + 1) + i)] = i / (float)div_round;
                 uv[2 * (j * (div_round + 1) + i) + 1] = j / (float)div_height;
@@ -537,11 +535,11 @@ namespace STP3D {
 
         //top center
         coord[3 * center_top_index] = 0.0;
-        coord[3 * center_top_index + 1] = h;
-        coord[3 * center_top_index + 2] = 0.0;
+        coord[3 * center_top_index + 1] = 0.0;
+        coord[3 * center_top_index + 2] = h;
         normals[3 * center_top_index] = 0.0;
-        normals[3 * center_top_index + 1] = 1.0;
-        normals[3 * center_top_index + 2] = 0.0;
+        normals[3 * center_top_index + 1] = 0.0;
+        normals[3 * center_top_index + 2] = 1.0;
         uv[2 * center_top_index] = 0.5;
         uv[2 * center_top_index + 1] = 0.5;
 
@@ -550,8 +548,8 @@ namespace STP3D {
         coord[3 * center_bottom_index + 1] = 0.0;
         coord[3 * center_bottom_index + 2] = 0.0;
         normals[3 * center_bottom_index] = 0.0;
-        normals[3 * center_bottom_index + 1] = -1.0;
-        normals[3 * center_bottom_index + 2] = 0.0;
+        normals[3 * center_bottom_index + 1] = 0.0;
+        normals[3 * center_bottom_index + 2] = -1.0;
         uv[2 * center_bottom_index] = 0.5;
         uv[2 * center_bottom_index + 1] = 0.5;
 
