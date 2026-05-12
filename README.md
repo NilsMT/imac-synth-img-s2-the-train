@@ -41,13 +41,15 @@ cd bin && ./main.exe fichier/a/lire.json
 ├───📁 docs : des documents
 ├───📁 lib : les librairies externes
 ├───📁 src : les fichiers sources
-│   ├───📄 main.cpp : moteur de rendus
-│   ├───📄 draw_scene.cpp : les rendus 3D
 │   ├───📁 draw : les fichiers individuels des rendus 3D
 │   │   ├───📄 base.cpp : contient le dessin du sol, de la grille et du repère
 │   │   ├───📄 rail.cpp : contient le dessin des morceaux de rails
 │   │   ├───📄 shared.cpp : contient les valeurs globales utilisées par les autres (dont les unités sr, sx, rr et myEngine)
+│   │   ├───📄 train_station.cpp : contient le dessin de la gare
 │   │   └───📄 train.cpp : contient le dessin du train
+│   ├───📄 camera.cpp : variables et fonctions pour la camera
+│   ├───📄 draw_scene.cpp : les rendus 3D
+│   ├───📄 main.cpp : moteur de rendus
 │   ├───📄 railways.cpp : structure de sérialisation du JSON
 │   └───📄 train_path.json : configuration du circuit de train
 └───📄 README.md : ce fichier
