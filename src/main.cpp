@@ -204,15 +204,16 @@ int main(int argc, char** argv)
 
 
 
-    Railways railways;
     std::ifstream ifs(argv[1]); //NOTE: https://www.pointerlab.fr/blog/cpp-argc-argv
-    json j = json::parse(ifs);
+    json data = json::parse(ifs);
 
     //serialization
-    railways.size_grid = j["size_grid"];
-    railways.origin = j["origin"].get<std::vector<float>>();
-    railways.path = j["path"].get<std::vector<std::vector<float>>>();
 
+    Railways railways = {
+        data["size_grid"],
+        data["origin"].get<std::vector<float>>(),
+        data["path"].get<std::vector<std::vector<float>>>()
+    };
 
 
     //////////////////////////////////////
