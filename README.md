@@ -126,7 +126,7 @@ Comme dans Minecraft !
 
 ## Identification des bugs
 
-Deux accès à des `std::vector` dans `glbasimac/tools/basic_mesh.hpp` faisait crash le programme car il y avait un accès à des données inexistantes (par le temps que la frame prend à s'exécuter)
+Deux accès à des `std::vector` dans `glbasimac/tools/mesh.hpp` faisait crash le programme car il y avait un accès à des données inexistantes (par le temps que la frame prend à s'exécuter)
 
 ---
 
