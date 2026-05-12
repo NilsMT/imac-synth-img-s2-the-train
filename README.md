@@ -94,7 +94,8 @@ Exemple : `./main.exe ../data/path_1.json`
 | ✅     | 👁️Rendu        |      | Éclairage "flat"                      | Par défaut sur OpenGL                    | OpenGL |
 | ❌     | 👁️Rendu        |      | Éclairage "réaliste" `*`              | Un soleil et phares du train             | -      |
 | ❌     | 👁️Rendu        |      | Texturé un truc                       | Avant du train                           | -      |
-| ✅     | 📁Structure    | ♒   | Refactorisation des coordonnées       | Voir informations supplémentaires        | Nils   |
+| ✅     | 📁Structure    | ♒   | Refactorisation des coordonnées       | Voir Informations supplémentaires        | Nils   |
+| ✅     | 📁Structure    | ♒   | Correction des bugs                   | Voir Informations supplémentaires        | Nils   |
 | ✅     | 🖥️IHM          | ♒   | Touche pour toggle modes de rendu     | Touche R                                 | Nils   |
 | ✅     | 🖥️IHM          | ♒   | Caméra TOP                            | ZQSD to move (X,Z), Scroll to zoom (Y)   | Nils   |
 | ✅     | 🖥️IHM          | ♒   | Touche pour toggle grille             | Touche G                                 | Nils   |
