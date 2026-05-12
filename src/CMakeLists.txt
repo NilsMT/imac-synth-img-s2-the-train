@@ -13,7 +13,7 @@ set(OUTPUT main)
 add_executable(${OUTPUT} ${SRC_FILES} ${HEADER_FILES})
 target_link_libraries(${OUTPUT} ${ALL_LIBRARIES})
 set_target_properties(${OUTPUT} PROPERTIES
-    CXX_STANDARD 11
+    CXX_STANDARD 17
     CXX_STANDARD_REQUIRED YES
     CXX_EXTENSIONS NO
 )

@@ -4,7 +4,7 @@
 #include "glbasimac/glbi_set_of_points.hpp"
 #include "glbasimac/glbi_convex_2D_shape.hpp"
 #include "tools/basic_mesh.hpp"
-#include "../railways.hpp"
+#include "../railways.cpp"
 
 using namespace glbasimac;
 

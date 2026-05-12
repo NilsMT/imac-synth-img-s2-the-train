@@ -10,7 +10,7 @@
 #include "nlohmann/json.hpp"
 #include "tools/shaders.hpp"
 #include "draw_scene.hpp"
-#include "railways.hpp"
+#include "railways.cpp"
 
 using namespace glbasimac;
 using namespace STP3D;
@@ -212,7 +212,6 @@ int main(int argc, char** argv)
     railways.size_grid = j["size_grid"];
     railways.origin = j["origin"].get<std::vector<float>>();
     railways.path = j["path"].get<std::vector<std::vector<float>>>();
-    railways.train_position = railways.origin;
 
 
 
