@@ -1,15 +1,6 @@
 #include "rails.hpp"
 
 namespace Draw {
-    
-
-
-    //////////////////////////////////////
-    /* Functions */
-    //////////////////////////////////////
-
-
-
     void drawRailCurve(float orientation) {
         // TODO: orientate accordingly
     }

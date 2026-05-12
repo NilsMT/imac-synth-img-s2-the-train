@@ -1,16 +1,7 @@
 #include "base.hpp"
 
 namespace Draw
-{  
-    
-    
-
-    //////////////////////////////////////
-    /* Functions */
-    //////////////////////////////////////
-
-
-
+{
     void drawFrame() {
         std::vector<float> points {
             0.0,0.0,0.0,

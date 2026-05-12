@@ -11,6 +11,7 @@
 #include "tools/shaders.hpp"
 #include "draw_scene.hpp"
 #include "railways.cpp"
+#include "camera.cpp"
 
 using namespace glbasimac;
 using namespace STP3D;
@@ -26,15 +27,6 @@ static float aspectRatio = 1.0f;
 /* modes n stuff */
 //render mode
 auto renderMode = GL_FILL;
-
-//camera
-enum CAMERA_MODE {
-    ORBITAL,
-    TOP,
-    FPS,
-};
-int cameraMode = CAMERA_MODE::ORBITAL;
-double xpos, ypos;
 
 //grid
 bool isGridShown = false;
@@ -128,14 +120,7 @@ void onKey(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods
         case GLFW_KEY_C:
             if (is_pressed) {
                 cameraMode = (cameraMode + 1) % 3;
-
-                camera_dist_zoom = 30.0;
-                yaw = 0.0f; // horizontal rotation (on y)
-                pitch = 10.0f; // vertical rotation (on x) 
-                camera_sensitivity = 0.1f;
-                camera_target_x = 0.0f;
-                camera_target_y = 0.0f;
-                camera_target_z = 0.0f;
+                resetCamera();
             }
             break;
         case GLFW_KEY_W:
@@ -160,6 +145,7 @@ void onCursorPos(GLFWwindow* window, double xpos, double ypos)
 }
 
 void onScroll(GLFWwindow* window, double xoffset, double yoffset) {
+    if (cameraMode == CAMERA_MODE::ORBITAL || cameraMode == CAMERA_MODE::FPS)
     camera_dist_zoom += yoffset;
     camera_dist_zoom = std::max(Z_NEAR, std::min(camera_dist_zoom, Z_FAR)); //clamp between Z_NEAR and Z_FAR
 }

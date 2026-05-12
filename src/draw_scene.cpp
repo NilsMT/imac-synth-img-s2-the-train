@@ -1,26 +1,6 @@
 #include "draw_scene.hpp"
 
 namespace Draw {
-    //////////////////////////////////////
-    /* Camera settings */
-    //////////////////////////////////////
-
-    const float Z_NEAR {0.1f};
-    const float Z_FAR {500.f};
-    float camera_dist_zoom = 30.0;
-    float yaw = 0.0f;
-    float pitch = 10.0f;
-    float camera_sensitivity = 0.1f;
-    float camera_target_x = 0.0f;
-    float camera_target_y = 0.0f;
-    float camera_target_z = 0.0f;
-
-    //////////////////////////////////////
-    /* Init */
-    //////////////////////////////////////
-
-
-
     void initScene() {
         sphere = basicSphere();
         sphere->createVAO();
@@ -37,14 +17,6 @@ namespace Draw {
         cylinderCover = basicCylinderWithCovers(1,0.5,16);
         cylinderCover->createVAO();
     }
-
-
-
-    //////////////////////////////////////
-    /* Scene drawing */
-    //////////////////////////////////////
-
-
 
     void drawScene(float time, Railways* railways, bool isGridShown) {
         glPointSize(10.0);

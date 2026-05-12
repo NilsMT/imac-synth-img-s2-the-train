@@ -14,19 +14,6 @@
 using namespace glbasimac;
 
 namespace Draw {
-    /* Camera parameters and functions */
-    extern const float Z_NEAR; //the closest you can zoom in
-    extern const float Z_FAR; //the farthest you can zoom out
-    extern float camera_dist_zoom; // Distance between origin and viewpoint
-    extern float yaw; // Angle between x axis and viewpoint
-    extern float pitch; // Angle between y axis and viewpoint
-    extern float camera_sensitivity; // Mouse control sensitivity For the FPS view
-    extern float camera_target_x; // Viewed point x position
-    extern float camera_target_y; // Viewed point y position
-    extern float camera_target_z; // Viewed point z position
-
-    /* main stuffs */
-
     void initScene();
 
     void drawScene(float time, Railways* railways, bool isGridShown);
