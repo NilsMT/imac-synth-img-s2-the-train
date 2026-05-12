@@ -180,18 +180,34 @@ int main(int argc, char** argv)
     /* JSON Reading */
     //////////////////////////////////////
 
+    Railways railways;
 
+    //check if not enough argument
+    if (argc < 2) {
+        std::cerr << "Usage: " << argv[0] << " <file_path>" << std::endl;
+        return 1;
+    }
 
-    std::ifstream ifs(argv[1]); //NOTE: https://www.pointerlab.fr/blog/cpp-argc-argv
-    json data = json::parse(ifs);
+    //check if not a correct file path
+    std::ifstream ifs(argv[1]);
+    if (!ifs.is_open()) {
+        std::cerr << "Error: File not found or unable to open: " << argv[1] << std::endl;
+        return 1;
+    }
 
-    //serialization
-
-    Railways railways = {
-        data["size_grid"],
-        data["origin"].get<std::vector<float>>(),
-        data["path"].get<std::vector<std::vector<float>>>()
-    };
+    //check if it can parse it then serialize (or fail)
+    try {
+        json data = json::parse(ifs);
+        //serialization (NOTE: ty Enguerrand <3)
+        railways = {
+            data["size_grid"],
+            data["origin"].get<std::vector<float>>(),
+            data["path"].get<std::vector<std::vector<float>>>()
+        };
+    } catch (const json::parse_error& e) {
+        std::cerr << "Error: Failed to parse JSON: " << e.what() << std::endl;
+        return 1;
+    }
 
 
     //////////////////////////////////////
