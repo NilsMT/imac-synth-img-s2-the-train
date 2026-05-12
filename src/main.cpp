@@ -271,7 +271,10 @@ int main(int argc, char** argv)
 
 
     //compute assets path
-    assetsPath = (fs::canonical(fs::path(argv[0])).parent_path() / "../assets/").string();
+    //this does : <exe path>/../../assets
+    assetsPath = (
+        fs::path(argv[0]).parent_path() / "../assets/"
+    ).string();
 
 	std::cout<<"Engine init"<<std::endl;
     myEngine.mode2D = false;

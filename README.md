@@ -133,12 +133,11 @@ Les chemins pour les shaders étaient en relatif (depuis le dossier `bin`) ce qu
 
 J'ai donc modifié `glbi_engine.cpp` pour avoir une variable de chemin pointant vers `assets/` que je met à jour depuis le `main.cpp`
 
-> Avec `assetsPath = (fs::canonical(fs::path(argv[0])).parent_path() / "../assets/").string();` qui :
+> Avec `assetsPath = (fs::path(argv[0]).parent_path() / "../assets/").string();` qui :
 >
 > 1. Converti l'argument 0 (chemin du .exe) en objet `fs::path`
 > 2. Récupère son dossier parent (`bin/`)
 > 3. Va vers `../assets`
-> 4. Nettoie le chemin pour le rendre absolue avec `fs::canonical`
 >
 > Merci la documentation de filesystem
 
