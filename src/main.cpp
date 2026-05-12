@@ -145,8 +145,8 @@ void onCursorPos(GLFWwindow* window, double xpos, double ypos)
 }
 
 void onScroll(GLFWwindow* window, double xoffset, double yoffset) {
-    if (cameraMode == CAMERA_MODE::ORBITAL || cameraMode == CAMERA_MODE::FPS)
-    camera_dist_zoom += yoffset;
+    if (cameraMode == CAMERA_MODE::ORBITAL || cameraMode == CAMERA_MODE::TOP)
+    camera_dist_zoom -= yoffset;
     camera_dist_zoom = std::max(Z_NEAR, std::min(camera_dist_zoom, Z_FAR)); //clamp between Z_NEAR and Z_FAR
 }
 
