@@ -5,19 +5,40 @@ using namespace glbasimac;
 using namespace STP3D;
 
 namespace glbasimac {
+    //resolve path of shaders from where the exe is (so we can run the .exe from everywhere, not just in bin folder)
+    std::string assetsPath = "";
+    //NOTE: init in /src/main.cpp
+    std::string shadersPath = "";
+    std::string texturesPath = "";
 
 	void GLBI_Engine::initGL() {
 		std::cout<<"Initialisation of GL Engine"<<std::endl;
 
+        shadersPath = assetsPath + "shaders/";
+        texturesPath = assetsPath + "texture/";
+
 		if (mode2D) {
 			std::cerr<<"Flat 2D"<<std::endl;
-			idShader[0] = ShaderManager::loadShader("../assets/shaders/flat_shading_2D.vert","../assets/shaders/flat_shading.frag",true);
+			idShader[0] = ShaderManager::loadShader(
+                (shadersPath + "flat_shading_2D.vert").c_str(),
+                (shadersPath + "flat_shading.frag").c_str()
+                ,true
+            );
 		}
 		else {
 			std::cerr<<"Flat 3D"<<std::endl;
-			idShader[0] = ShaderManager::loadShader("../assets/shaders/flat_shading_3D.vert","../assets/shaders/flat_shading.frag",true);
+			idShader[0] = ShaderManager::loadShader(
+                (shadersPath + "flat_shading_3D.vert").c_str(),
+                (shadersPath + "flat_shading.frag").c_str(),
+                true
+            );
+
 			std::cerr<<"Phong 3D"<<std::endl;
-			idShader[1] = ShaderManager::loadShader("../assets/shaders/phong_shading.vert","../assets/shaders/phong_shading.frag",true);
+			idShader[1] = ShaderManager::loadShader(
+                (shadersPath + "phong_shading.vert").c_str(),
+                (shadersPath + "phong_shading.frag").c_str(),
+                true
+            );
 		}
 		mvMatrixStack.loadIdentity();
 		glUseProgram(idShader[0]);

@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <windows.h>
 #include <cstdlib>
+#include <filesystem>
 
 #include "nlohmann/json.hpp"
 #include "tools/shaders.hpp"
@@ -17,6 +18,7 @@ using namespace glbasimac;
 using namespace STP3D;
 using namespace Draw;
 using json = nlohmann::json;
+namespace fs = std::filesystem;
 
 /* Window properties */
 static const unsigned int WINDOW_WIDTH = 1200;
@@ -268,6 +270,8 @@ int main(int argc, char** argv)
     //////////////////////////////////////
 
 
+    //compute assets path
+    assetsPath = (fs::canonical(fs::path(argv[0])).parent_path() / "../assets/").string();
 
 	std::cout<<"Engine init"<<std::endl;
     myEngine.mode2D = false;

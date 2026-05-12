@@ -4,22 +4,26 @@ Projet initialisé sur la base du TD04 de synthèse d'image, et remaniée de man
 
 - [Sommaire](#sommaire)
 - [Lancement](#lancement)
+    - [Avec les extensions :](#avec-les-extensions-)
+    - [Avec la ligne de commande :](#avec-la-ligne-de-commande-)
 - [Structure](#structure)
 - [Guide des touches](#guide-des-touches)
 - [Listes des tâches](#listes-des-tâches)
 - [Informations supplémentaires](#informations-supplémentaires)
     - [Informations utiles](#informations-utiles)
     - [Explication de la refactorisation des coordonnées](#explication-de-la-refactorisation-des-coordonnées)
-    - [Identification d'un bug](#identification-dun-bug)
+    - [Identification des bugs](#identification-des-bugs)
     - [Temps passé Nils](#temps-passé-nils)
 
 # Lancement
 
-Avec les extensions :
+## Avec les extensions :
 
 Avec [CMake](https://marketplace.visualstudio.com/items?itemName=twxs.cmake) et [CMake Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools) il suffit d'exécuter la cible `[main]`
 
-Avec la ligne de commande (à la racine) :
+## Avec la ligne de commande :
+
+Depuis la racine faire :
 
 ```sh
 mkdir -p build && cd build
@@ -28,8 +32,9 @@ cd .. && cmake --build ./build --target all --config Debug -j 16
 cd bin && ./main.exe fichier/a/lire.json
 ```
 
-> ⚠️ Vous devez **IMPÉRATIVEMENT** exécuter le .exe depuis `/bin` autrement OpenGL donnera cette erreur :
-> `ERROR GL : erreur dans le fichier E:\IMAC\S2\Synthese Image\imac-synth-img-s2-the-train\src\main.cpp ├á la ligne 204 : INVALID_VALUE (A numeric argument is out of range)`
+Exemple : `./main.exe ../data/path_1.json`
+
+> Les commandes précédent l'exécution peuvent ne pas marcher ou être différentes selon l'ordinateur
 
 # Structure
 
@@ -94,7 +99,8 @@ cd bin && ./main.exe fichier/a/lire.json
 | ✅     | 🖥️IHM          | ♒   | Caméra TOP                            | ZQSD to move (X,Z), Scroll to zoom (Y)   | Nils   |
 | ✅     | 🖥️IHM          | ♒   | Touche pour toggle grille             | Touche G                                 | Nils   |
 | ✅     | ⚒️Modélisation | ♒   | Grille des cellules de rails          | Pour visualiser le placement             | Nils   |
-| ❌     | ⚒️Modélisation | ☑️   | Modéliser (+ placer) du décors        | Genre un arbre                           | -      |
+| ✅     | ⚒️Modélisation | ☑️   | Modéliser (+ placer) du décors        | Genre un arbre                           | -      |
+| ❌     | ⚒️Modélisation | ☑️   | Primitives supplémentaires            | Triangle reactangle et cylindre fermé    | Nils   |
 | ❌     | 📝JSON         | ☑️   | Ajouter des trucs dans le JSON        |                                          | Nils   |
 | ❌     | 👁️Rendu        | ☑️   | Animer le train                       |                                          | -      |
 | ❌     | 👁️Rendu        | ☑️   | Ajouter des lumières                  | Genre à la gare                          | -      |
@@ -117,9 +123,24 @@ La refactorisation des coordonnées a été effectué pour plus de clarté car l
 (X+ derrière, Y+ droite, Z+ haut), ce qui n'est pas standard, en **Right-handed Y-up** (X+ gauche, Y+ haut, Z+ avant)
 Comme dans Minecraft !
 
-## Identification d'un bug
+## Identification des bugs
 
 Deux accès à des `std::vector` dans `glbasimac/tools/basic_mesh.hpp` faisait crash le programme car il y avait un accès à des données inexistantes (par le temps que la frame prend à s'exécuter)
+
+---
+
+Les chemins pour les shaders étaient en relatif (depuis le dossier `bin`) ce qui contraignait l'exécution depuis EXCLUSIVEMENT bin, si l'on exécutait le .exe sans être placé dans le dossier `bin` cela donnais l'erreur suivante : `ERROR GL : erreur dans le fichier [...]]\src\main.cpp à la ligne 276 : INVALID_VALUE (A numeric argument is out of range)`
+
+J'ai donc modifié `glbi_engine.cpp` pour avoir une variable de chemin pointant vers `assets/` que je met à jour depuis le `main.cpp`
+
+> Avec `assetsPath = (fs::canonical(fs::path(argv[0])).parent_path() / "../assets/").string();` qui :
+>
+> 1. Converti l'argument 0 (chemin du .exe) en objet `fs::path`
+> 2. Récupère son dossier parent (`bin/`)
+> 3. Va vers `../assets`
+> 4. Nettoie le chemin pour le rendre absolue avec `fs::canonical`
+>
+> Merci la documentation de filesystem
 
 ## Temps passé Nils
 

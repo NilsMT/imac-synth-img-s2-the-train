@@ -10,6 +10,10 @@ using namespace STP3D;
 
 namespace glbasimac {
 
+    extern std::string assetsPath;
+    extern std::string shadersPath;
+    extern std::string texturesPath;
+
 struct GLBI_Engine {
 	GLBI_Engine():mode2D(true),useTexture(0),currentShader(0),numberOfLight(1),attFactors({1.0,0.0,1.0}) {
 		lightPos.push_back({0.0,0.0,0.0,0.0});
