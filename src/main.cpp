@@ -1,3 +1,5 @@
+#pragma once
+
 #define GLFW_INCLUDE_NONE
 #include "GLFW/glfw3.h"
 #include "glad/glad.h"
@@ -12,7 +14,7 @@
 #include "tools/shaders.hpp"
 #include "draw_scene.hpp"
 #include "railways.cpp"
-#include "camera.cpp"
+#include "camera.hpp"
 
 using namespace glbasimac;
 using namespace STP3D;
@@ -122,7 +124,7 @@ void onKey(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods
         case GLFW_KEY_C:
             if (is_pressed) {
                 cameraMode = (cameraMode + 1) % 3;
-                resetCamera();
+                //resetCamera();
             }
             break;
         case GLFW_KEY_W:
