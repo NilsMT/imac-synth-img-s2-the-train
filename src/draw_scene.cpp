@@ -63,17 +63,17 @@ namespace Draw {
         /*TODO: draw rails according to railways.path*/
 
         /*Train*/
-        // drawTrain(time);
+        drawTrain(time);
 
         /*Primitive test*/
-        myEngine.mvMatrixStack.pushMatrix();
-            moveOrigin(0,1,1);
-            drawShapeWithColor(wedge,1,1,1);
-            moveOrigin(0,0,2);
-            drawShapeWithColor(cylinder,1,1,1);
-            moveOrigin(0,0,2);
-            drawShapeWithColor(cylinderCover,1,1,1);
-            moveOrigin(0,0,2);
-            drawShapeWithColor(cube,1,1,1);
+        // myEngine.mvMatrixStack.pushMatrix();
+        //     moveOrigin(0,1,1);
+        //     drawShapeWithColor(wedge,1,1,1);
+        //     moveOrigin(0,0,2);
+        //     drawShapeWithColor(cylinder,1,1,1);
+        //     moveOrigin(0,0,2);
+        //     drawShapeWithColor(cylinderCover,1,1,1);
+        //     moveOrigin(0,0,2);
+        //     drawShapeWithColor(cube,1,1,1);
     }
 }

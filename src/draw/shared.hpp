@@ -13,7 +13,7 @@ namespace Draw {
     extern float sx;
     extern float rr;
 
-    extern float grid_cell_size;
+    extern float cell_size;
 
     extern GLBI_Engine myEngine;
     extern GLBI_Set_Of_Points somePointsFrame;

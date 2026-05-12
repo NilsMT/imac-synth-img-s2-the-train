@@ -10,7 +10,7 @@ namespace Draw {
     float sx = 1;
     float rr = 1;
 
-    float grid_cell_size = 10.0; //number of cells on X and Y
+    float cell_size = 10.0; //size of cells on X and Y
 
     GLBI_Engine myEngine;
     GLBI_Set_Of_Points somePointsFrame(3);

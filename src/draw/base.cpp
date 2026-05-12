@@ -40,7 +40,7 @@ namespace Draw
 
     void drawGround(int grid_size) {
 
-        float ground_size = grid_size * grid_cell_size; // make it so it can house N² tiles of that size
+        float ground_size = grid_size * cell_size; // make it so it can house N² tiles of that size
 
         std::vector<float> groundBase{
             -ground_size/2.f, 0.0, -ground_size/2.f,
@@ -57,13 +57,13 @@ namespace Draw
         std::vector<float> points;
         std::vector<float> pointsColor;
 
-        float off = (grid_size * grid_cell_size) / 2.0f; //offset
+        float off = (grid_size * cell_size) / 2.0f; //offset
 
-        for (int i = 0; i <= grid_size * grid_cell_size; i++) {
+        for (int i = 0; i <= grid_size * cell_size; i++) {
             float inc = (i * 1.0f) - off;  //step by 1
 
-            //= is a main grid line (every grid_cell_size units)
-            bool isMainLine = (fmod(i,grid_cell_size) == 0); //fmod because gird_cell_size is float, regular mod won't work
+            //= is a main grid line (every cell_size units)
+            bool isMainLine = (fmod(i,cell_size) == 0); //fmod because gird_cell_size is float, regular mod won't work
 
             //line Z (front to back)
             points.push_back(-off); points.push_back(0.0); points.push_back(inc);
