@@ -1,17 +1,20 @@
 #define GLFW_INCLUDE_NONE
 #include "GLFW/glfw3.h"
 #include "glad/glad.h"
-#include "draw_scene.hpp"
-#include "railways.hpp"
-#include "tools/shaders.hpp"
+
 #include <iostream>
-#include "nlohmann/json.hpp"
 #include <iomanip>
 #include <windows.h>
 #include <cstdlib>
 
+#include "nlohmann/json.hpp"
+#include "tools/shaders.hpp"
+#include "draw_scene.hpp"
+#include "railways.hpp"
+
 using namespace glbasimac;
 using namespace STP3D;
+using namespace Draw;
 using json = nlohmann::json;
 
 /* Window properties */

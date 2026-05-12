@@ -6,58 +6,28 @@
 #include "tools/basic_mesh.hpp"
 #include "railways.hpp"
 
+#include "draw/base.hpp"
+#include "draw/rails.hpp"
+#include "draw/train.hpp"
+#include "draw/shared.hpp"
+
 using namespace glbasimac;
 
-/* Camera parameters and functions */
-static const float Z_NEAR {0.1f};
-static const float Z_FAR {500.f};
-extern float camera_dist_zoom;      // Distance between origin and viewpoint
-extern float yaw;        // Angle between x axis and viewpoint
-extern float pitch;        // Angle between y axis and viewpoint
-extern float camera_sensitivity;
-extern float camera_target_x;       // Viewed point x position
-extern float camera_target_y;       // Viewed point y position
-extern float camera_target_z;       // Viewed point z position
+namespace Draw {
+    /* Camera parameters and functions */
+    extern const float Z_NEAR; //the closest you can zoom in
+    extern const float Z_FAR; //the farthest you can zoom out
+    extern float camera_dist_zoom; // Distance between origin and viewpoint
+    extern float yaw; // Angle between x axis and viewpoint
+    extern float pitch; // Angle between y axis and viewpoint
+    extern float camera_sensitivity; // Mouse control sensitivity For the FPS view
+    extern float camera_target_x; // Viewed point x position
+    extern float camera_target_y; // Viewed point y position
+    extern float camera_target_z; // Viewed point z position
 
+    /* main stuffs */
 
-//CONSTANTS
-//for the rails
-extern float sr;
-extern float sx;
-extern float rr;
+    void initScene();
 
-extern IndexedMesh* sphere;
-extern IndexedMesh* cube;
-
-/* OpenGL Engine */
-extern GLBI_Engine myEngine;
-
-/* helpers */
-void moveOrigin(float x, float y, float z);
-
-void rotateOrigin(float angle, float x, float y, float z);
-
-void scaleOrigin(float x, float y, float z);
-
-void drawShapeWithColor(IndexedMesh* shape, float r, float g, float b);
-
-void drawShapeWithColor(GLBI_Convex_2D_Shape shape, float r, float g, float b);
-
-/* main stuffs */
-
-void initScene();
-
-void drawFrame();
-
-void drawGrid(int grid_size);
-
-void drawGround();
-
-void drawTrain(float time);
-
-void drawRailCurve(float orientation);
-
-void drawRailStraight(float orientation);
-
-void drawScene(float time, Railways* railways, bool isGridShown);
-
+    void drawScene(float time, Railways* railways, bool isGridShown);
+}

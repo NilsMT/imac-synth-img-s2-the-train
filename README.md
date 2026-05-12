@@ -24,17 +24,16 @@ cd bin && ./main.exe fichier/a/lire.json
 # Structure
 
 ```
-├───assets : shaders & textures
-├───docs : des documents
-├───lib : les librairies externes
-├───src : les fichiers sources
-│   ├───main.cpp : moteur de rendus
-│   ├───draw_scene.cpp : les rendus 3D
-│   ├───draw_scene.hpp : header de draw_scene
-│   ├───railways.hpp : header de railways
-│   ├───railways.cpp : structure de sérialisation du JSON
-│   └───train_path.json : configuration du circuit de train
-└───README.md : ce fichier
+├───📁 assets : shaders & textures
+├───📁 docs : des documents
+├───📁 lib : les librairies externes
+├───📁 src : les fichiers sources
+│   ├───📄 main.cpp : moteur de rendus
+│   ├───📄 draw_scene.cpp : les rendus 3D
+│   ├───📁 draw : les fichiers individuels des rendus 3D
+│   ├───📄 railways.cpp : structure de sérialisation du JSON
+│   └───📄 train_path.json : configuration du circuit de train
+└───📄 README.md : ce fichier
 ```
 
 # Listes des tâches
@@ -42,6 +41,7 @@ cd bin && ./main.exe fichier/a/lire.json
 | Status | Catégorie      | En + | Description                            | Commentaire                         | Qui    |
 | ------ | -------------- | ---- | -------------------------------------- | ----------------------------------- | ------ |
 | ✅     | 📁Structure    |      | Créer la structure du projet           | Reprendre la base du TD04           | Nils   |
+| ✅     | 📁Structure    |      | Fragmentation du draw_scene            |                                     | Nils   |
 | ❌     | ⚒️Modélisation |      | Faire les Rails                        | Faire Courbé et Droit               | Yanis  |
 | ✅     | ⚒️Modélisation |      | Faire le Train                         | + Faire triangle et cylindre fermé  | Nils   |
 | ❌     | ⚒️Modélisation |      | Faire la Gare                          |                                     | -      |
@@ -93,5 +93,5 @@ cd bin && ./main.exe fichier/a/lire.json
 > - Grille : 1h
 > - Camera TOP + Refactorisation : 2h
 > - Refactorisation des coordonnées : 4h30
->
-> Total : 26h
+> - Fragmentation : 1h
+>   Total : 27h

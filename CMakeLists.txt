@@ -36,6 +36,7 @@ set(CMAKE_COLOR_MAKEFILE ON)
 # ---Add json---
 include_directories(${CMAKE_SOURCE_DIR}/lib/nlohmann)
 
+# ---Add src files---
 add_subdirectory(src)
 
 add_custom_target(src_custom
