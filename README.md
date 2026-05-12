@@ -1,5 +1,18 @@
 Projet initialisé sur la base du TD04 de synthèse d'image, et remaniée de manière archaïque au niveau des `CMakeLists.txt` et de la structure des librairies
 
+# Sommaire
+
+- [Sommaire](#sommaire)
+- [Lancement](#lancement)
+- [Structure](#structure)
+- [Guide des touches](#guide-des-touches)
+- [Listes des tâches](#listes-des-tâches)
+- [Informations supplémentaires](#informations-supplémentaires)
+    - [Informations utiles](#informations-utiles)
+    - [Explication de la refactorisation des coordonnées](#explication-de-la-refactorisation-des-coordonnées)
+    - [Identification d'un bug](#identification-dun-bug)
+    - [Temps passé Nils](#temps-passé-nils)
+
 # Lancement
 
 Avec les extensions :
@@ -55,43 +68,42 @@ cd bin && ./main.exe fichier/a/lire.json
 
 # Listes des tâches
 
-> ☑️ Bonus énuméré dans l'énoncé ♒ Bonus supplémentaire
+> ☑️ = Bonus énuméré dans l'énoncé ♒ = Bonus supplémentaire
 
-| Status | Catégorie      | En + | Description                            | Commentaire                         | Qui    |
-| ------ | -------------- | ---- | -------------------------------------- | ----------------------------------- | ------ |
-| ✅     | 📁Structure    |      | Créer la structure du projet           | Reprendre la base du TD04           | Nils   |
-| ✅     | 📁Structure    |      | Fragmentation du draw_scene            |                                     | Nils   |
-| ❌     | ⚒️Modélisation |      | Faire les Rails                        | Faire Courbé et Droit               | Yanis  |
-| ✅     | ⚒️Modélisation |      | Faire le Train                         | + Faire triangle et cylindre fermé  | Nils   |
-| ❌     | ⚒️Modélisation |      | Faire la Gare                          |                                     | -      |
-| ✅     | 📝JSON         |      | Lire le JSON (Railways)                | Serialisé en `Railways`             | Nils   |
-| ❌     | 📝JSON         |      | Créer le parcours                      | Depuis `Railways`                   | Yanis  |
-| ❌     | 📝JSON         |      | Placer la gare et le train             |                                     | -      |
-| ✅     | 📝JSON         |      | Lancement avec JSON en argument        |                                     | Nils   |
-| ✅     | 🖥️IHM          |      | Touche pour quitter                    | Touche Échap                        | Nils   |
-| ✅     | 🖥️IHM          |      | Touche pour toggle modes d'éclairages  | Touche F                            | Nils   |
-| ❌     | 🖥️IHM          |      | Caméra FPS                             | ZQSD/WASD to move, Pan to rotate    | -      |
-| ✅     | 🖥️IHM          |      | Caméra ORBITAL                         | ZQSD/WASD to rotate, Scroll to zoom | Nils   |
-| ✅     | 🖥️IHM          |      | Touche pour toggle modes camera        | Touche C                            | -      |
-| ✅     | 👁️Rendu        |      | Éclairage "flat"                       | Par défaut sur OpenGL               | OpenGL |
-| ❌     | 👁️Rendu        |      | Éclairage "réaliste" (Phong Shading ?) | Un soleil et phares du train        | -      |
-| ❌     | 👁️Rendu        |      | Texturé un truc                        | Avant du train                      | -      |
-| ✅     | 📁Structure    | ♒   | Refactorisation des coordonnées        | Voir informations supplémentaires   | Nils   |
-| ✅     | 🖥️IHM          | ♒   | Touche pour toggle modes de rendu      | Touche R                            | Nils   |
-| ✅     | 🖥️IHM          | ♒   | Caméra TOP                             | ZQSD/WASD to move, Scroll to zoom   | Nils   |
-| ✅     | 🖥️IHM          | ♒   | Touche pour toggle grille              | Touche G                            | Nils   |
-| ✅     | ⚒️Modélisation | ☑️   | Grille des cellules de rails           | Pour visualiser le placement        | Nils   |
-| ❌     | ⚒️Modélisation | ☑️   | Modéliser (+ placer) du décors         | Genre un arbre                      | -      |
-| ❌     | 📝JSON         | ☑️   | Ajouter des trucs dans le JSON         |                                     | Nils   |
-| ❌     | 👁️Rendu        | ☑️   | Animer le train                        |                                     | -      |
-| ❌     | 👁️Rendu        | ☑️   | Ajouter des lumières                   | Genre à la gare                     | -      |
+| Status | Catégorie      | En + | Description                           | Commentaire                              | Qui    |
+| ------ | -------------- | ---- | ------------------------------------- | ---------------------------------------- | ------ |
+| ✅     | 📁Structure    |      | Créer la structure du projet          | Reprendre la base du TD04                | Nils   |
+| ✅     | 📁Structure    |      | Fragmentation du draw_scene           |                                          | Nils   |
+| ❌     | ⚒️Modélisation |      | Faire les Rails                       | Faire Courbé et Droit                    | Yanis  |
+| ✅     | ⚒️Modélisation |      | Faire le Train                        | + Faire triangle et cylindre fermé       | Nils   |
+| ❌     | ⚒️Modélisation |      | Faire la Gare                         |                                          | -      |
+| ✅     | 📝JSON         |      | Lire le JSON (Railways)               | Serialisé en `Railways`                  | Nils   |
+| ❌     | 📝JSON         |      | Créer le parcours                     | Depuis `Railways`                        | Yanis  |
+| ❌     | 📝JSON         |      | Placer la gare et le train            |                                          | -      |
+| ✅     | 📝JSON         |      | Lancement avec JSON en argument       |                                          | Nils   |
+| ✅     | 🖥️IHM          |      | Touche pour quitter                   | Touche Échap                             | Nils   |
+| ✅     | 🖥️IHM          |      | Touche pour toggle modes d'éclairages | Touche F                                 | Nils   |
+| ❌     | 🖥️IHM          |      | Caméra FPS                            | ZQSD to move (X,Y), Scroll to move (Z)   | -      |
+| ✅     | 🖥️IHM          |      | Caméra ORBITAL                        | ZQSD to rotate (X,Y), Scroll to zoom (Z) | Nils   |
+| ✅     | 🖥️IHM          |      | Touche pour toggle modes camera       | Touche C                                 | -      |
+| ✅     | 👁️Rendu        |      | Éclairage "flat"                      | Par défaut sur OpenGL                    | OpenGL |
+| ❌     | 👁️Rendu        |      | Éclairage "réaliste" `*`              | Un soleil et phares du train             | -      |
+| ❌     | 👁️Rendu        |      | Texturé un truc                       | Avant du train                           | -      |
+| ✅     | 📁Structure    | ♒   | Refactorisation des coordonnées       | Voir informations supplémentaires        | Nils   |
+| ✅     | 🖥️IHM          | ♒   | Touche pour toggle modes de rendu     | Touche R                                 | Nils   |
+| ✅     | 🖥️IHM          | ♒   | Caméra TOP                            | ZQSD to move (X,Z), Scroll to zoom (Y)   | Nils   |
+| ✅     | 🖥️IHM          | ♒   | Touche pour toggle grille             | Touche G                                 | Nils   |
+| ✅     | ⚒️Modélisation | ♒   | Grille des cellules de rails          | Pour visualiser le placement             | Nils   |
+| ❌     | ⚒️Modélisation | ☑️   | Modéliser (+ placer) du décors        | Genre un arbre                           | -      |
+| ❌     | 📝JSON         | ☑️   | Ajouter des trucs dans le JSON        |                                          | Nils   |
+| ❌     | 👁️Rendu        | ☑️   | Animer le train                       |                                          | -      |
+| ❌     | 👁️Rendu        | ☑️   | Ajouter des lumières                  | Genre à la gare                          | -      |
 
-> vous devrez positionner une lumière directionnelle (orientée selon
-> votre choix mais qui éclaire la scène comme un soleil), et une source de lumière ponctuelle au
-> niveau de l’avant de votre train. Par ailleurs au moins un élément de votre application devra être
-> texturé !
+> `*` = D'après le PDF : _"vous devrez positionner une lumière directionnelle (orientée selon votre choix mais qui éclaire la scène comme un soleil), et une source de lumière ponctuelle au niveau de l’avant de votre train. Par ailleurs au moins un élément de votre application devra être texturé !"_
 
 # Informations supplémentaires
+
+## Informations utiles
 
 > Extension pratique pour naviguer dans des endroits du code sur `VS Code` :<br>
 > [Todo Tree](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree)<br>
@@ -99,20 +111,24 @@ cd bin && ./main.exe fichier/a/lire.json
 >
 > Il est aussi recommandé d'utiliser l'`Outline` dans le panneau de droite de `VS Code`
 
-> La refactorisation des coordonnées a été effectué pour plus de clarté car le système était en **Right-handed Z-up**
-> (X+ derrière, Y+ droite, Z+ haut), ce qui n'est pas standard, en **Right-handed Y-up** (X+ gauche, Y+ haut, Z+ avant)
-> Comme dans Minecraft !
+## Explication de la refactorisation des coordonnées
 
-> Deux accès à des `std::vector` dans `glbasimac/tools/basic_mesh.hpp` faisait crash le programme car il y avait un accès à des données inexistantes (par le temps que la frame prend à s'exécuter)
+La refactorisation des coordonnées a été effectué pour plus de clarté car le système était en **Right-handed Z-up**
+(X+ derrière, Y+ droite, Z+ haut), ce qui n'est pas standard, en **Right-handed Y-up** (X+ gauche, Y+ haut, Z+ avant)
+Comme dans Minecraft !
 
-> Temps passée Nils :
->
-> - Structure : 8h
-> - Modélisation du train : 3h30
-> - Création des primitives + utilisation sur le train : 5h
-> - Lecture du JSON + en ligne de commande : 2h
-> - Grille : 1h
-> - Camera TOP + Refactorisation : 2h
-> - Refactorisation des coordonnées : 4h30
-> - Fragmentation : 1h
->   Total : 27h
+## Identification d'un bug
+
+Deux accès à des `std::vector` dans `glbasimac/tools/basic_mesh.hpp` faisait crash le programme car il y avait un accès à des données inexistantes (par le temps que la frame prend à s'exécuter)
+
+## Temps passé Nils
+
+- Structure : 8h
+- Modélisation du train : 3h30
+- Création des primitives + utilisation sur le train : 5h
+- Lecture du JSON + en ligne de commande : 2h
+- Grille : 1h
+- Camera TOP + Refactorisation : 2h
+- Refactorisation des coordonnées : 4h30
+- Fragmentation : 1h
+  Total : 27h
