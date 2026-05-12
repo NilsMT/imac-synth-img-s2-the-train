@@ -98,7 +98,9 @@ namespace STP3D {
  		size_one_elt.clear();
 		attr_id.clear();
 		attr_semantic.clear();
-		glDeleteBuffers(vbo_id.size(),&(vbo_id[0]));
+		if (!vbo_id.empty()) {
+			glDeleteBuffers(static_cast<GLsizei>(vbo_id.size()), vbo_id.data());
+		}
 		vbo_id.clear();
 		glDeleteVertexArrays(1,&id_vao);
 	}
@@ -177,7 +179,9 @@ namespace STP3D {
  		size_one_elt.clear();
 		attr_id.clear();
 		attr_semantic.clear();
-		glDeleteBuffers(vbo_id.size(),&(vbo_id[0]));
+		if (!vbo_id.empty()) {
+			glDeleteBuffers(static_cast<GLsizei>(vbo_id.size()), vbo_id.data());
+		}
 		vbo_id.clear();
 		glDeleteVertexArrays(1,&id_vao);
 	}

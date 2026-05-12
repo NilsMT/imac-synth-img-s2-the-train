@@ -44,7 +44,7 @@ static const double FRAMERATE_IN_SECONDS = 1. / 30.;
 
 
 //////////////////////////////////////
-/* Callbacks */
+/* Interactions (callbacks) */
 //////////////////////////////////////
 
 
@@ -63,6 +63,30 @@ void onWindowResized(GLFWwindow* /*window*/, int width, int height)
 	std::cerr<<"Setting 3D projection"<<std::endl;
 	myEngine.set3DProjection(90.0,aspectRatio,Z_NEAR,Z_FAR);
 }
+
+void onCameraKeys(GLFWwindow* window) {
+    // Poll WASD keys every frame
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+        if (cameraMode == CAMERA_MODE::ORBITAL) pitch += 1.0;
+        else if (cameraMode == CAMERA_MODE::TOP) camera_target_z += 1.0;
+        // FPS mode TODO
+    }
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+        if (cameraMode == CAMERA_MODE::ORBITAL) pitch -= 1.0;
+        else if (cameraMode == CAMERA_MODE::TOP) camera_target_z -= 1.0;
+        // FPS mode TODO
+    }
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+        if (cameraMode == CAMERA_MODE::ORBITAL) yaw -= 1.0;
+        else if (cameraMode == CAMERA_MODE::TOP) camera_target_x -= 1.0;
+        // FPS mode TODO
+    }
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+        if (cameraMode == CAMERA_MODE::ORBITAL) yaw += 1.0;
+        else if (cameraMode == CAMERA_MODE::TOP) camera_target_x += 1.0;
+        // FPS mode TODO
+    }
+};
 
 void onKey(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods*/)
 {
@@ -114,45 +138,14 @@ void onKey(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods
                 camera_target_z = 0.0f;
             }
             break;
-
-        //Camera controls (ZSQD / WASD)
-        case GLFW_KEY_W :
-            if (cameraMode == CAMERA_MODE::ORBITAL) {
-                pitch += 1.0;
-            } else if (cameraMode == CAMERA_MODE::TOP) {
-                camera_target_z += 1.0;
-            } else if (cameraMode == CAMERA_MODE::FPS) {
-                //TODO: move it from where you are facing
-            }
-            break;
-        case GLFW_KEY_S :
-            if (cameraMode == CAMERA_MODE::ORBITAL) {
-                pitch -= 1.0;
-            } else if (cameraMode == CAMERA_MODE::TOP) {
-                camera_target_z -= 1.0;
-            } else if (cameraMode == CAMERA_MODE::FPS) {
-                //TODO: move it from where you are facing
-            }
-            break;
-        case GLFW_KEY_D :
-            if (cameraMode == CAMERA_MODE::ORBITAL) {
-                yaw -= 1.0;
-            } else if (cameraMode == CAMERA_MODE::TOP) {
-                camera_target_x -= 1.0;
-            } else if (cameraMode == CAMERA_MODE::FPS) {
-                //TODO: move it from where you are facing
-            }
-            break;
-        case GLFW_KEY_A :
-            if (cameraMode == CAMERA_MODE::ORBITAL) {
-                yaw += 1.0;
-            } else if (cameraMode == CAMERA_MODE::TOP) {
-                camera_target_x += 1.0;
-            } else if (cameraMode == CAMERA_MODE::FPS) {
-                //TODO: move it from where you are facing
-            }
-        break;
-
+        case GLFW_KEY_W:
+            break; //handled by the other function
+        case GLFW_KEY_A:
+            break; //handled by the other function
+        case GLFW_KEY_S:
+            break; //handled by the other function
+        case GLFW_KEY_D:
+            break; //handled by the other function
         //default
 		default: std::cerr<<"Touche non gérée "<<key<<std::endl;
 	}
@@ -167,7 +160,6 @@ void onCursorPos(GLFWwindow* window, double xpos, double ypos)
 }
 
 void onScroll(GLFWwindow* window, double xoffset, double yoffset) {
-    std::cout << yoffset <<"\n";
     camera_dist_zoom += (yoffset < 0 ? 1 : -1);
     camera_dist_zoom = std::max(Z_NEAR, std::min(camera_dist_zoom, Z_FAR)); //clamp between Z_NEAR and Z_FAR
 }
@@ -262,6 +254,7 @@ int main(int argc, char** argv)
 
 
 	glfwSetWindowSizeCallback(window,onWindowResized);
+    glfwSetInputMode(window, GLFW_STICKY_KEYS, GLFW_TRUE); //for multiple keys handling
 	glfwSetKeyCallback(window, onKey);
 	glfwSetCursorPosCallback(window, onCursorPos);
     glfwSetScrollCallback(window, onScroll);
@@ -295,6 +288,9 @@ int main(int argc, char** argv)
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
+        /* Handle camera keys */
+        onCameraKeys(window);
+
 		/* Get time (in second) at loop beginning */
 		double startTime = glfwGetTime();
 
