@@ -31,10 +31,27 @@ cd bin && ./main.exe fichier/a/lire.json
 │   ├───📄 main.cpp : moteur de rendus
 │   ├───📄 draw_scene.cpp : les rendus 3D
 │   ├───📁 draw : les fichiers individuels des rendus 3D
+│   │   ├───📄 base.cpp : contient le dessin du sol, de la grille et du repère
+│   │   ├───📄 rail.cpp : contient le dessin des morceaux de rails
+│   │   ├───📄 shared.cpp : contient les valeurs globales utilisées par les autres (dont les unités sr, sx, rr et myEngine)
+│   │   └───📄 train.cpp : contient le dessin du train
 │   ├───📄 railways.cpp : structure de sérialisation du JSON
 │   └───📄 train_path.json : configuration du circuit de train
 └───📄 README.md : ce fichier
 ```
+
+# Touches
+
+| Touche                                              | Action                                            | Note                |
+| --------------------------------------------------- | ------------------------------------------------- | ------------------- |
+| <kbd>Esc</kbd>                                      | Quitter l'application                             |                     |
+| <kbd>Z</kbd> <kbd>Q</kbd> <kbd>S</kbd> <kbd>D</kbd> | Déplacer/Bouger la caméra                         |                     |
+| <kbd>Molette souris</kbd>                           | Avancer/Reculer la caméra                         | Hors mode FPS       |
+| <kbd>Déplacement souris</kbd>                       | Tourner la caméra                                 | Uniquement mode FPS |
+| <kbd>R</kbd>                                        | Changer le mode de rendu (fil de fer ou plein)    |                     |
+| <kbd>F</kbd>                                        | Changer le mode d'éclairage (flat ou phong)       |                     |
+| <kbd>C</kbd>                                        | Changer le mode de la camera (orbitale, top, fps) |                     |
+| <kbd>G</kbd>                                        | Afficher/Masquer la grille                        |                     |
 
 # Listes des tâches
 
