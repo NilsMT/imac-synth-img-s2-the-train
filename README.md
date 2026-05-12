@@ -101,6 +101,8 @@ cd bin && ./main.exe fichier/a/lire.json
 > (X+ derrière, Y+ droite, Z+ haut), ce qui n'est pas standard, en **Right-handed Y-up** (X+ gauche, Y+ haut, Z+ avant)
 > Comme dans Minecraft !
 
+> Deux accès à des `std::vector` dans `glbasimac/tools/basic_mesh.hpp` faisait crash le programme car il y avait un accès à des données inexistantes (par le temps que la frame prend à s'exécuter)
+
 > Temps passée Nils :
 >
 > - Structure : 8h
