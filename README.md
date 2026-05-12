@@ -30,14 +30,13 @@ cd bin && ./main.exe fichier/a/lire.json
 
 > ⚠️ Vous devez **IMPÉRATIVEMENT** exécuter le .exe depuis `/bin` autrement OpenGL donnera cette erreur :
 > `ERROR GL : erreur dans le fichier E:\IMAC\S2\Synthese Image\imac-synth-img-s2-the-train\src\main.cpp ├á la ligne 204 : INVALID_VALUE (A numeric argument is out of range)`
->
-> ℹ️ L'erreur `terminate called after throwing an instance of 'nlohmann::detail::parse_error'
-  what():  [json.exception.parse_error.101] parse error at line 1, column 1: syntax error while parsing value - unexpected end of input; expected '[', '{', or a literal` signifie que le fichier JSON est inexistant ou invalide
 
 # Structure
 
 ```
 ├───📁 assets : shaders & textures
+├───📁 data : les dossiers avec les json de rails
+│   └─── DATADESC.md : décrit les fichiers de données
 ├───📁 docs : des documents
 ├───📁 lib : les librairies externes
 ├───📁 src : les fichiers sources
@@ -50,8 +49,7 @@ cd bin && ./main.exe fichier/a/lire.json
 │   ├───📄 camera.cpp : variables et fonctions pour la camera
 │   ├───📄 draw_scene.cpp : les rendus 3D
 │   ├───📄 main.cpp : moteur de rendus
-│   ├───📄 railways.cpp : structure de sérialisation du JSON
-│   └───📄 train_path.json : configuration du circuit de train
+│   └───📄 railways.cpp : structure de sérialisation du JSON
 └───📄 README.md : ce fichier
 ```
 
@@ -132,5 +130,5 @@ Deux accès à des `std::vector` dans `glbasimac/tools/basic_mesh.hpp` faisait c
 - Grille : 1h
 - Camera TOP + Refactorisation : 2h
 - Refactorisation des coordonnées : 4h30
-- Fragmentation : 1h
+- Fragmentation : 2h
   Total : 27h
