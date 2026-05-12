@@ -40,7 +40,7 @@ cd bin && ./main.exe fichier/a/lire.json
 └───📄 README.md : ce fichier
 ```
 
-# Touches
+# Guide des touches
 
 | Touche                                              | Action                                            | Note                |
 | --------------------------------------------------- | ------------------------------------------------- | ------------------- |
@@ -55,6 +55,8 @@ cd bin && ./main.exe fichier/a/lire.json
 
 # Listes des tâches
 
+> ☑️ Bonus énuméré dans l'énoncé ♒ Bonus supplémentaire
+
 | Status | Catégorie      | En + | Description                            | Commentaire                         | Qui    |
 | ------ | -------------- | ---- | -------------------------------------- | ----------------------------------- | ------ |
 | ✅     | 📁Structure    |      | Créer la structure du projet           | Reprendre la base du TD04           | Nils   |
@@ -66,6 +68,7 @@ cd bin && ./main.exe fichier/a/lire.json
 | ❌     | 📝JSON         |      | Créer le parcours                      | Depuis `Railways`                   | Yanis  |
 | ❌     | 📝JSON         |      | Placer la gare et le train             |                                     | -      |
 | ✅     | 📝JSON         |      | Lancement avec JSON en argument        |                                     | Nils   |
+| ✅     | 🖥️IHM          |      | Touche pour quitter                    | Touche Échap                        | Nils   |
 | ✅     | 🖥️IHM          |      | Touche pour toggle modes d'éclairages  | Touche F                            | Nils   |
 | ❌     | 🖥️IHM          |      | Caméra FPS                             | ZQSD/WASD to move, Pan to rotate    | -      |
 | ✅     | 🖥️IHM          |      | Caméra ORBITAL                         | ZQSD/WASD to rotate, Scroll to zoom | Nils   |
@@ -73,14 +76,13 @@ cd bin && ./main.exe fichier/a/lire.json
 | ✅     | 👁️Rendu        |      | Éclairage "flat"                       | Par défaut sur OpenGL               | OpenGL |
 | ❌     | 👁️Rendu        |      | Éclairage "réaliste" (Phong Shading ?) | Un soleil et phares du train        | -      |
 | ❌     | 👁️Rendu        |      | Texturé un truc                        | Avant du train                      | -      |
-| ✅     | 📁Structure    | ☑️   | Refactorisation des coordonnées        | Voir informations supplémentaires   | Nils   |
+| ✅     | 📁Structure    | ♒   | Refactorisation des coordonnées        | Voir informations supplémentaires   | Nils   |
+| ✅     | 🖥️IHM          | ♒   | Touche pour toggle modes de rendu      | Touche R                            | Nils   |
+| ✅     | 🖥️IHM          | ♒   | Caméra TOP                             | ZQSD/WASD to move, Scroll to zoom   | Nils   |
+| ✅     | 🖥️IHM          | ♒   | Touche pour toggle grille              | Touche G                            | Nils   |
 | ✅     | ⚒️Modélisation | ☑️   | Grille des cellules de rails           | Pour visualiser le placement        | Nils   |
 | ❌     | ⚒️Modélisation | ☑️   | Modéliser (+ placer) du décors         | Genre un arbre                      | -      |
 | ❌     | 📝JSON         | ☑️   | Ajouter des trucs dans le JSON         |                                     | Nils   |
-| ✅     | 🖥️IHM          | ☑️   | Touche pour quitter                    | Touche Échap                        | Nils   |
-| ✅     | 🖥️IHM          | ☑️   | Touche pour toggle modes de rendu      | Touche R                            | Nils   |
-| ✅     | 🖥️IHM          | ☑️   | Caméra TOP                             | ZQSD/WASD to move, Scroll to zoom   | Nils   |
-| ✅     | 🖥️IHM          | ☑️   | Touche pour toggle grille              | Touche G                            | Nils   |
 | ❌     | 👁️Rendu        | ☑️   | Animer le train                        |                                     | -      |
 | ❌     | 👁️Rendu        | ☑️   | Ajouter des lumières                   | Genre à la gare                     | -      |
 
