@@ -89,8 +89,8 @@ Exemple : `./main.exe ../data/path_1.json`
 | ✅     | 📝JSON         |      | Lancement avec JSON en argument       |                                          | Nils   |
 | ✅     | 🖥️IHM          |      | Touche pour quitter                   | Touche Échap                             | Nils   |
 | ✅     | 🖥️IHM          |      | Touche pour toggle modes d'éclairages | Touche F                                 | Nils   |
-| ❌     | 🖥️IHM          |      | Caméra FPS                            | ZQSD to move (X,Y), Scroll to move (Z)   | -      |
-| ✅     | 🖥️IHM          |      | Caméra ORBITAL                        | ZQSD to rotate (X,Y), Scroll to zoom (Z) | Nils   |
+| ✅     | 🖥️IHM          |      | Caméra FPS                            | ZQSD to move where facing, Pan to rotate | -      |
+| ✅     | 🖥️IHM          |      | Caméra ORBITAL                        | ZQSD to rotate, Scroll to zoom           | Nils   |
 | ✅     | 🖥️IHM          |      | Touche pour toggle modes camera       | Touche C                                 | -      |
 | ✅     | 👁️Rendu        |      | Éclairage "flat"                      | Par défaut sur OpenGL                    | OpenGL |
 | ❌     | 👁️Rendu        |      | Éclairage "réaliste" `*`              | Un soleil et phares du train             | -      |

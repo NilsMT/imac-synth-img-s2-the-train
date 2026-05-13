@@ -61,27 +61,80 @@ void onWindowResized(GLFWwindow* /*window*/, int width, int height)
 }
 
 void onCameraKeys(GLFWwindow* window) {
-    // Poll WASD keys every frame
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-        if (cameraMode == CAMERA_MODE::ORBITAL) pitch += 1.0;
-        else if (cameraMode == CAMERA_MODE::TOP) camera_target_z += 1.0;
-        // FPS mode TODO
+
+    //////////////////////////////////////
+    // FPS
+
+    if (cameraMode == CAMERA_MODE::FPS) {
+        //compute direction its looking (forward) like orbital camera
+        float dirf_x = sin(deg2rad(yaw)) * cos(deg2rad(pitch));
+        float dirf_y = sin(deg2rad(pitch));
+        float dirf_z = -cos(deg2rad(yaw)) * cos(deg2rad(pitch));
+
+        //compute direction its looking (right)
+        //no need to have pitch
+        float dirr_x = sin(deg2rad(yaw + 90.0));
+        float dirr_y = 0.0f;
+        float dirr_z = -cos(deg2rad(yaw + 90.0));
+
+        if (cameraMode == CAMERA_MODE::FPS) {
+            if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+                camera_pos_x += dirf_x;
+                camera_pos_y += dirf_y;
+                camera_pos_z += dirf_z;
+            }
+            if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+                camera_pos_x -= dirf_x;
+                camera_pos_y -= dirf_y;
+                camera_pos_z -= dirf_z;
+            }
+            if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+                camera_pos_x += dirr_x;
+                camera_pos_y += dirr_y;
+                camera_pos_z += dirr_z;
+            }
+            if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+                camera_pos_x -= dirr_x;
+                camera_pos_y -= dirr_y;
+                camera_pos_z -= dirr_z;
+            }
+        }
     }
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-        if (cameraMode == CAMERA_MODE::ORBITAL) pitch -= 1.0;
-        else if (cameraMode == CAMERA_MODE::TOP) camera_target_z -= 1.0;
-        // FPS mode TODO
+
+    //////////////////////////////////////
+    // ORBITAL
+
+    else if (cameraMode == CAMERA_MODE::ORBITAL) {
+        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) pitch += 1.0;
+        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) pitch -= 1.0;
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) yaw -= 1.0;
+        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) yaw += 1.0;
     }
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-        if (cameraMode == CAMERA_MODE::ORBITAL) yaw -= 1.0;
-        else if (cameraMode == CAMERA_MODE::TOP) camera_target_x -= 1.0;
-        // FPS mode TODO
+
+    //////////////////////////////////////
+    // TOP
+
+    else if (cameraMode == CAMERA_MODE::TOP) {
+        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) camera_target_z += 1.0;
+        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) camera_target_z -= 1.0;
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) camera_target_x -= 1.0;
+        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) camera_target_x += 1.0;
     }
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-        if (cameraMode == CAMERA_MODE::ORBITAL) yaw += 1.0;
-        else if (cameraMode == CAMERA_MODE::TOP) camera_target_x += 1.0;
-        // FPS mode TODO
-    }
+}
+
+void onCameraMouse(double nxpos, double nypos) {
+    float offset_x = nxpos - xpos;
+    float offset_y = ypos - nypos;
+    xpos = nxpos;
+    ypos = nypos;
+
+    float sensitivity = 0.1f;
+    yaw += offset_x * sensitivity;
+    pitch += offset_y * sensitivity;
+
+    //clamp pitch to avoid inverse
+    if (pitch < -89.0f) pitch = -89.0f;
+    if (pitch > 89.0f) pitch = 89.0f;
 };
 
 void onKey(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods*/)
@@ -124,7 +177,35 @@ void onKey(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods
         case GLFW_KEY_C:
             if (is_pressed) {
                 cameraMode = (cameraMode + 1) % 3;
-                resetCamera();
+
+                switch (cameraMode)
+                {
+                    case CAMERA_MODE::ORBITAL:
+                        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+                        //reset all
+                        camera_dist_zoom = 30.0f;
+                        yaw = 0.0f;
+                        pitch = 10.0f;
+                        camera_target_x = 0.0;
+                        camera_target_y = 0.0;
+                        camera_target_z = 0.0;
+                        break;
+                    case CAMERA_MODE::TOP:
+                        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+                         //how the orbital camera was setup
+                        camera_target_x = camera_pos_x;
+                        camera_target_y = 0.0;
+                        camera_target_z = camera_pos_z;
+                        break;
+                    case CAMERA_MODE::FPS:
+                        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+                        //how the top camera was setup
+                        pitch = -89.0f;
+                        yaw = 180.0f;
+                        break;
+                    default:
+                        break;
+                }
             }
             break;
         case GLFW_KEY_W:
@@ -140,11 +221,13 @@ void onKey(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods
 	}
 }
 
-void onCursorPos(GLFWwindow* window, double xpos, double ypos)
-{
+void onCursorPos(GLFWwindow* window, double nxpos, double nypos) {
     if (cameraMode == CAMERA_MODE::FPS) {
-        double nxpos,nypos;
-        glfwGetCursorPos(window, &nxpos, &nypos);
+        onCameraMouse(nxpos, nypos);
+    } else {
+        //to avoid have a x and y pos at 0.0 (causing a difference between switched mode frame and update one)
+        xpos = nxpos;
+        ypos = nypos;
     }
 }
 
@@ -311,41 +394,22 @@ int main(int argc, char** argv)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glEnable(GL_DEPTH_TEST);
 
-        /* Fix camera position */
+        /* Camera position */
         myEngine.mvMatrixStack.loadIdentity();
 
-        //camera definition depending on the mode
-        Vector3D pos_camera = {};
-        Vector3D viewed_point = {};
-        Vector3D up_vector = {};
-
         if (cameraMode == CAMERA_MODE::ORBITAL) {
-            //clamp to avoid inversion
-            if (pitch < 0.0f) pitch = 0.0f;
-            if (pitch > 89.0f) pitch = 89.0f;
-
-            pos_camera = Vector3D(
-                camera_dist_zoom * sin(deg2rad(yaw)) * cos(deg2rad(pitch)),
-                camera_dist_zoom * sin(deg2rad(pitch)),
-                -camera_dist_zoom * cos(deg2rad(yaw)) * cos(deg2rad(pitch))
-            );
-
-            viewed_point = Vector3D(camera_target_x, camera_target_y, camera_target_z);
-            up_vector = Vector3D(0.0, 1.0, 0.0);  // Y is up
+            handleOrbitalCamera();
         } else if (cameraMode == CAMERA_MODE::TOP) {
-            pos_camera = Vector3D(
-                camera_target_x,
-                camera_dist_zoom,
-                camera_target_z
-            );
-
-            viewed_point = Vector3D(camera_target_x, camera_target_y, camera_target_z);
-            up_vector = Vector3D(0.0, 0.0, 1.0);  // Z is up
+            handleTopCamera();
         } else if (cameraMode == CAMERA_MODE::FPS) {
-            //TODO: FPS camera
+            handleFPSCamera();
         }
-        //
-        Matrix4D viewMatrix = Matrix4D::lookAt(pos_camera, viewed_point, up_vector);
+
+        Matrix4D viewMatrix = Matrix4D::lookAt(
+            Vector3D(camera_pos_x,camera_pos_y,camera_pos_z), 
+            Vector3D(camera_target_x, camera_target_y, camera_target_z), 
+            up_vector
+        );
         myEngine.setViewMatrix(viewMatrix);
         myEngine.updateMvMatrix();
 
