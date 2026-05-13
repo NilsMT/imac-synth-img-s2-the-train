@@ -66,17 +66,19 @@ void onCameraKeys(GLFWwindow* window) {
     // FPS
 
     if (cameraMode == CAMERA_MODE::FPS) {
-        //compute direction its looking (forward) like orbital camera
+        //compute vector it will add
+        //direction its looking (like orbital camera)
         float dirf_x = sin(deg2rad(yaw)) * cos(deg2rad(pitch));
         float dirf_y = sin(deg2rad(pitch));
         float dirf_z = -cos(deg2rad(yaw)) * cos(deg2rad(pitch));
 
-        //compute direction its looking (right)
+        //direction right of where its looking
         //no need to have pitch
         float dirr_x = sin(deg2rad(yaw + 90.0));
         float dirr_y = 0.0f;
         float dirr_z = -cos(deg2rad(yaw + 90.0));
 
+        //handle keys
         if (cameraMode == CAMERA_MODE::FPS) {
             if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
                 camera_pos_x += dirf_x;
