@@ -41,7 +41,7 @@ namespace Draw
         };
         ground.initShape(groundBase);
         ground.changeNature(GL_TRIANGLE_FAN);
-        drawShapeWithColor(ground,0.2,0.0,0.0);
+        drawShapeWithColor(ground,0.34,0.58,0.16);
     }
 
     void drawGrid(int grid_size) {
