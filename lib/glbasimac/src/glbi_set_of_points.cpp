@@ -18,6 +18,7 @@ namespace glbasimac {
 		}
 
 		pts.setNbElt(nb_pts);
+		pts.reInit();
 		coord_pts = std::move(in_coord);
 		pts.addOneBuffer(0,dimension,coord_pts.data(),"Coordinates",false);
 
@@ -49,6 +50,7 @@ namespace glbasimac {
 			nb_pts = in_coord.size()/3;
 		}
 		pts.setNbElt(nb_pts);
+		pts.reInit();
 
 		coord_pts = std::move(in_coord);
 		pts.addOneBuffer(0,dimension,coord_pts.data(),"Coordinates",false);

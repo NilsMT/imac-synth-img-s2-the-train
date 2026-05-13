@@ -16,6 +16,7 @@ namespace glbasimac {
 		}
 
 		shape.setNbElt(nb_pts);
+		shape.reInit();
 		coord_pts = std::move(in_coord);
 		shape.addOneBuffer(0,dimension,coord_pts.data(),"Coordinates",false);
 

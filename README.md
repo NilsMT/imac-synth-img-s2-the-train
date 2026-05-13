@@ -13,6 +13,7 @@ Projet initialisé sur la base du TD04 de synthèse d'image, et remaniée de man
     - [Informations utiles](#informations-utiles)
     - [Explication de la refactorisation des coordonnées](#explication-de-la-refactorisation-des-coordonnées)
     - [Identification des bugs](#identification-des-bugs)
+    - [Optimisation du moteur de rendu](#optimisation-du-moteur-de-rendu)
     - [Temps passé Nils](#temps-passé-nils)
 
 # Lancement
@@ -96,6 +97,7 @@ Exemple : `./main.exe ../data/path_1.json`
 | ❌     | 👁️Rendu        |      | Texturé un truc                       | Avant du train                           | -      |
 | ✅     | 📁Structure    | ♒   | Refactorisation des coordonnées       | Voir Informations supplémentaires        | Nils   |
 | ✅     | 📁Structure    | ♒   | Correction des bugs                   | Voir Informations supplémentaires        | Nils   |
+| ✅     | 📁Structure    | ♒   | Optimisation du moteur de rendu       | Voir Informations supplémentaires        | Nils   |
 | ✅     | 🖥️IHM          | ♒   | Touche pour toggle modes de rendu     | Touche R                                 | Nils   |
 | ✅     | 🖥️IHM          | ♒   | Caméra TOP                            | ZQSD to move (X,Z), Scroll to zoom (Y)   | Nils   |
 | ✅     | 🖥️IHM          | ♒   | Touche pour toggle grille             | Touche G                                 | Nils   |
@@ -134,7 +136,7 @@ Deux accès à des `std::vector` dans `glbasimac/tools/mesh.hpp` faisait crash l
 
 Les chemins pour les shaders étaient en relatif (depuis le dossier `bin`) ce qui contraignait l'exécution depuis EXCLUSIVEMENT bin, si l'on exécutait le .exe sans être placé dans le dossier `bin` cela donnais l'erreur suivante : `ERROR GL : erreur dans le fichier [...]]\src\main.cpp à la ligne 276 : INVALID_VALUE (A numeric argument is out of range)`
 
-J'ai donc modifié `glbi_engine.cpp` pour avoir une variable de chemin pointant vers `assets/` que je met à jour depuis le `main.cpp`
+Nous avons donc modifié `glbi_engine.cpp` pour avoir une variable de chemin pointant vers `assets/` que je met à jour depuis le `main.cpp`
 
 > Avec `assetsPath = (fs::path(argv[0]).parent_path() / "../assets/").string();` qui :
 >
@@ -143,6 +145,11 @@ J'ai donc modifié `glbi_engine.cpp` pour avoir une variable de chemin pointant 
 > 3. Va vers `../assets`
 >
 > Merci la documentation de filesystem
+
+## Optimisation du moteur de rendu
+
+Les géométries et les points était initialisés de 0 dans `glbi_convex_2D_shape.cpp` et `glbi_set_of_points.cpp` ce qui faisait éventuellement crash et causait de la latence dans le programme.
+Nous avons donc ajouté des `.reInit()` dans ces fichiers pour éviter cela.
 
 ## Temps passé Nils
 
