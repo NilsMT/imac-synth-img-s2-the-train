@@ -124,7 +124,7 @@ void onKey(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods
         case GLFW_KEY_C:
             if (is_pressed) {
                 cameraMode = (cameraMode + 1) % 3;
-                //resetCamera();
+                resetCamera();
             }
             break;
         case GLFW_KEY_W:

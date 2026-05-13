@@ -161,4 +161,6 @@ Nous avons donc ajouté des `.reInit()` dans ces fichiers pour éviter cela.
 - Camera TOP + Refactorisation : 2h
 - Refactorisation des coordonnées : 4h30
 - Fragmentation : 2h
-  Total : 27h
+- Correction de bugs : 2h
+- Optimisation : 1h
+  Total : 31h
