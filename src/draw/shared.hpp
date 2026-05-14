@@ -22,14 +22,7 @@ namespace Draw {
 
     extern IndexedMesh* sphere;
     extern IndexedMesh* cube;
-    extern IndexedMesh* cylinder;
     extern IndexedMesh* wedge;
-    extern IndexedMesh* cylinderCover;
-
-    extern IndexedMesh* sphere;
-    extern IndexedMesh* cube;
-    extern IndexedMesh* wedge;
-    extern IndexedMesh* cylinder;
     extern IndexedMesh* cylinderCover;
 
     /* helpers */
@@ -40,6 +33,8 @@ namespace Draw {
     void scaleOrigin(float x, float y, float z);
 
     void drawShapeWithColor(IndexedMesh* shape, float r, float g, float b);
+
+    void drawShapeWithColor(StandardMesh* shape, float r, float g, float b);
 
     void drawShapeWithColor(GLBI_Convex_2D_Shape shape, float r, float g, float b);
 }

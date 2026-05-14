@@ -19,7 +19,6 @@ namespace Draw {
 
     IndexedMesh* sphere;
     IndexedMesh* cube;
-    IndexedMesh* cylinder;
     IndexedMesh* wedge;
     IndexedMesh* cylinderCover;
     
@@ -47,6 +46,11 @@ namespace Draw {
     }
 
     void drawShapeWithColor(IndexedMesh* shape, float r, float g, float b) {
+        myEngine.setFlatColor(r,g,b);
+        shape->draw();
+    }
+
+    void drawShapeWithColor(StandardMesh* shape, float r, float g, float b) {
         myEngine.setFlatColor(r,g,b);
         shape->draw();
     }

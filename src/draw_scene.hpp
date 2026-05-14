@@ -9,6 +9,7 @@
 #include "draw/base.hpp"
 #include "draw/rails.hpp"
 #include "draw/train.hpp"
+#include "draw/train_station.hpp"
 #include "draw/shared.hpp"
 
 using namespace glbasimac;
