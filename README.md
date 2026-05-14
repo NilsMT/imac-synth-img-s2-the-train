@@ -82,19 +82,20 @@ Exemple : `./main.exe ../data/path_1.json`
 | ✅     | 📁Structure    |      | Fragmentation du draw_scene           |                                          | Nils   |
 | ❌     | ⚒️Modélisation |      | Faire les Rails                       | Faire Courbé et Droit                    | Yanis  |
 | ✅     | ⚒️Modélisation |      | Faire le Train                        | + Faire triangle et cylindre fermé       | Nils   |
-| ❌     | ⚒️Modélisation |      | Faire la Gare                         |                                          | -      |
+| ✅     | ⚒️Modélisation |      | Faire la Gare                         |                                          | Nils   |
 | ✅     | 📝JSON         |      | Lire le JSON (Railways)               | Serialisé en `Railways`                  | Nils   |
 | ❌     | 📝JSON         |      | Créer le parcours                     | Depuis `Railways`                        | Yanis  |
-| ❌     | 📝JSON         |      | Placer la gare et le train            |                                          | -      |
+| ✅     | 📝JSON         |      | Placer la gare                        |                                          | Nils   |
+| ❌     | 📝JSON         |      | Placer le train                       |                                          | Yanis  |
 | ✅     | 📝JSON         |      | Lancement avec JSON en argument       |                                          | Nils   |
 | ✅     | 🖥️IHM          |      | Touche pour quitter                   | Touche Échap                             | Nils   |
 | ✅     | 🖥️IHM          |      | Touche pour toggle modes d'éclairages | Touche F                                 | Nils   |
-| ✅     | 🖥️IHM          |      | Caméra FPS                            | ZQSD to move where facing, Pan to rotate | -      |
+| ✅     | 🖥️IHM          |      | Caméra FPS                            | ZQSD to move where facing, Pan to rotate | Nils   |
 | ✅     | 🖥️IHM          |      | Caméra ORBITAL                        | ZQSD to rotate, Scroll to zoom           | Nils   |
-| ✅     | 🖥️IHM          |      | Touche pour toggle modes camera       | Touche C                                 | -      |
+| ✅     | 🖥️IHM          |      | Touche pour toggle modes camera       | Touche C                                 | Nils   |
 | ✅     | 👁️Rendu        |      | Éclairage "flat"                      | Par défaut sur OpenGL                    | OpenGL |
 | ❌     | 👁️Rendu        |      | Éclairage "réaliste" `*`              | Un soleil et phares du train             | -      |
-| ❌     | 👁️Rendu        |      | Texturé un truc                       | Avant du train                           | -      |
+| ❌     | 👁️Rendu        |      | Texturé un truc                       | Avant du train OU le sol                 | -      |
 | ✅     | 📁Structure    | ♒   | Refactorisation des coordonnées       | Voir Informations supplémentaires        | Nils   |
 | ✅     | 📁Structure    | ♒   | Correction des bugs                   | Voir Informations supplémentaires        | Nils   |
 | ✅     | 📁Structure    | ♒   | Optimisation du moteur de rendu       | Voir Informations supplémentaires        | Nils   |
@@ -102,9 +103,9 @@ Exemple : `./main.exe ../data/path_1.json`
 | ✅     | 🖥️IHM          | ♒   | Caméra TOP                            | ZQSD to move (X,Z), Scroll to zoom (Y)   | Nils   |
 | ✅     | 🖥️IHM          | ♒   | Touche pour toggle grille             | Touche G                                 | Nils   |
 | ✅     | ⚒️Modélisation | ♒   | Grille des cellules de rails          | Pour visualiser le placement             | Nils   |
-| ✅     | ⚒️Modélisation | ☑️   | Modéliser (+ placer) du décors        | Genre un arbre                           | -      |
-| ❌     | ⚒️Modélisation | ☑️   | Primitives supplémentaires            | Triangle reactangle et cylindre fermé    | Nils   |
-| ❌     | 📝JSON         | ☑️   | Ajouter des trucs dans le JSON        |                                          | Nils   |
+| ✅     | ⚒️Modélisation | ♒   | Primitives supplémentaires            | Triangle rectangle et cylindre fermé     | Nils   |
+| ❌     | ⚒️Modélisation | ☑️   | Modéliser (+ placer) du décors        | Genre un arbre                           | -      |
+| ❌     | 📝JSON         | ☑️   | Ajouter des trucs dans le JSON        |                                          | -      |
 | ❌     | 👁️Rendu        | ☑️   | Animer le train                       |                                          | -      |
 | ❌     | 👁️Rendu        | ☑️   | Ajouter des lumières                  | Genre à la gare                          | -      |
 
