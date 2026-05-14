@@ -4,7 +4,7 @@
 #include "glbasimac/glbi_set_of_points.hpp"
 #include "glbasimac/glbi_convex_2D_shape.hpp"
 #include "tools/basic_mesh.hpp"
-#include "railways.cpp"
+#include "json_data.cpp"
 
 #include "draw/base.hpp"
 #include "draw/rails.hpp"
@@ -17,5 +17,5 @@ using namespace glbasimac;
 namespace Draw {
     void initScene();
 
-    void drawScene(float time, Railways* railways, bool isGridShown);
+    void drawScene(float time, JsonData* json_data, bool isGridShown);
 }

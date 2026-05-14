@@ -13,7 +13,7 @@
 #include "nlohmann/json.hpp"
 #include "tools/shaders.hpp"
 #include "draw_scene.hpp"
-#include "railways.cpp"
+#include "json_data.cpp"
 #include "camera.hpp"
 
 using namespace glbasimac;
@@ -269,7 +269,7 @@ int main(int argc, char** argv)
     /* JSON Reading */
     //////////////////////////////////////
 
-    Railways railways;
+    JsonData json_data;
 
     //check if not enough argument
     if (argc < 2) {
@@ -288,8 +288,9 @@ int main(int argc, char** argv)
     try {
         json data = json::parse(ifs);
         //serialization (NOTE: ty Enguerrand <3)
-        railways = {
+        json_data = {
             data["size_grid"],
+            data["cell_size"],
             data["origin"].get<std::vector<float>>(),
             data["path"].get<std::vector<std::vector<float>>>()
         };
@@ -362,6 +363,8 @@ int main(int argc, char** argv)
     assetsPath = (
         fs::path(argv[0]).parent_path() / "../assets/"
     ).string();
+    //assign cell size
+    cell_size = json_data.cell_size;
 
 	std::cout<<"Engine init"<<std::endl;
     myEngine.mode2D = false;
@@ -416,7 +419,7 @@ int main(int argc, char** argv)
         myEngine.updateMvMatrix();
 
         //draw the whole scene from draw_scene
-        drawScene(startTime, &railways, isGridShown);
+        drawScene(startTime, &json_data, isGridShown);
 
         myEngine.mvMatrixStack.loadIdentity();
 

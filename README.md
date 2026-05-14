@@ -14,6 +14,7 @@ Projet initialisé sur la base du TD04 de synthèse d'image, et remaniée de man
     - [Explication de la refactorisation des coordonnées](#explication-de-la-refactorisation-des-coordonnées)
     - [Identification des bugs](#identification-des-bugs)
     - [Optimisation du moteur de rendu](#optimisation-du-moteur-de-rendu)
+    - [Informations ajoutées au JSON](#informations-ajoutées-au-json)
     - [Temps passé Nils](#temps-passé-nils)
 
 # Lancement
@@ -55,7 +56,7 @@ Exemple : `./main.exe ../data/path_1.json`.
 │   ├───📄 camera.cpp : variables et fonctions pour la camera
 │   ├───📄 draw_scene.cpp : les rendus 3D
 │   ├───📄 main.cpp : moteur de rendus
-│   └───📄 railways.cpp : structure de sérialisation du JSON
+│   └───📄 json_data.cpp : structure de sérialisation du JSON
 └───📄 README.md : ce fichier
 ```
 
@@ -83,8 +84,8 @@ Exemple : `./main.exe ../data/path_1.json`.
 | ❌     | ⚒️Modélisation |      | Faire les Rails                       | Faire Courbé et Droit                    | Yanis  |
 | ✅     | ⚒️Modélisation |      | Faire le Train                        | + Faire triangle et cylindre fermé       | Nils   |
 | ✅     | ⚒️Modélisation |      | Faire la Gare                         |                                          | Nils   |
-| ✅     | 📝JSON         |      | Lire le JSON (Railways)               | Serialisé en `Railways`                  | Nils   |
-| ❌     | 📝JSON         |      | Créer le parcours                     | Depuis `Railways`                        | Yanis  |
+| ✅     | 📝JSON         |      | Lire le JSON (JsonData)               | Serialisé en `JsonData`                  | Nils   |
+| ❌     | 📝JSON         |      | Créer le parcours                     | Depuis `JsonData`                        | Yanis  |
 | ✅     | 📝JSON         |      | Placer la gare                        |                                          | Nils   |
 | ❌     | 📝JSON         |      | Placer le train                       |                                          | Yanis  |
 | ✅     | 📝JSON         |      | Lancement avec JSON en argument       |                                          | Nils   |
@@ -105,7 +106,7 @@ Exemple : `./main.exe ../data/path_1.json`.
 | ✅     | ⚒️Modélisation | ♒   | Grille des cellules de rails          | Pour visualiser le placement             | Nils   |
 | ✅     | ⚒️Modélisation | ♒   | Primitives supplémentaires            | Triangle rectangle et cylindre fermé     | Nils   |
 | ❌     | ⚒️Modélisation | ☑️   | Modéliser (+ placer) du décors        | Genre un arbre                           | -      |
-| ❌     | 📝JSON         | ☑️   | Ajouter des trucs dans le JSON        |                                          | -      |
+| ✅     | 📝JSON         | ☑️   | Ajouter des trucs dans le JSON        |                                          | -      |
 | ❌     | 👁️Rendu        | ☑️   | Animer le train                       |                                          | -      |
 | ❌     | 👁️Rendu        | ☑️   | Ajouter des lumières                  | Genre à la gare                          | -      |
 
@@ -151,6 +152,10 @@ Nous avons donc modifié `glbi_engine.cpp` pour avoir une variable de chemin poi
 
 Les géométries et les points était initialisés de 0 dans `glbi_convex_2D_shape.cpp` et `glbi_set_of_points.cpp` ce qui faisait éventuellement crash et causait de la latence dans le programme.
 Nous avons donc ajouté des `.reInit()` dans ces fichiers pour éviter cela.
+
+## Informations ajoutées au JSON
+
+Le JSON possède une information en plus : la taille des cellules
 
 ## Temps passé Nils
 

@@ -15,7 +15,7 @@ namespace Draw {
         cylinderCover->createVAO();
     }
 
-    void drawScene(float time, Railways* railways, bool isGridShown) {
+    void drawScene(float time, JsonData* json_data, bool isGridShown) {
         glPointSize(10.0);
 
         //the origin
@@ -23,29 +23,29 @@ namespace Draw {
 
         //ground grid
         if (isGridShown) {
-            drawGrid((*railways).size_grid);
+            drawGrid((*json_data).size_grid);
         }
 
         //ground according to railways size
-        drawGround((*railways).size_grid);
+        drawGround((*json_data).size_grid);
 
-        //TODO: draw rails and train according to railways.path
+        //draw path and train
         myEngine.mvMatrixStack.pushMatrix();
-            drawTrainAndPath(railways,time);
+            drawTrainAndPath(json_data,time);
             myEngine.mvMatrixStack.popMatrix();
 
         //place the train station
         myEngine.mvMatrixStack.pushMatrix();
             moveOrigin(
-                railways->origin[0]*cell_size,
+                json_data->origin[0]*cell_size,
                 0,
-                railways->origin[1]*cell_size
+                json_data->origin[1]*cell_size
             );
             drawTrainStation();
             myEngine.mvMatrixStack.popMatrix();
     }
 
-    void drawTrainAndPath(Railways* railways,float time) {
+    void drawTrainAndPath(JsonData* json_data,float time) {
         //TODO: place the rails according to the path
         
         //TODO: at the start of the path draw the train, unlike now
