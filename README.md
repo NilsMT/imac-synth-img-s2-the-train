@@ -20,7 +20,7 @@ Projet initialisé sur la base du TD04 de synthèse d'image, et remaniée de man
 
 ## Avec les extensions :
 
-Avec [CMake](https://marketplace.visualstudio.com/items?itemName=twxs.cmake) et [CMake Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools) il suffit d'exécuter la cible `[main]`
+Avec [CMake](https://marketplace.visualstudio.com/items?itemName=twxs.cmake) et [CMake Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools) il suffit d'exécuter la cible `[main]`.
 
 ## Avec la ligne de commande :
 
@@ -33,9 +33,9 @@ cd .. && cmake --build ./build --target all --config Debug -j 16
 cd bin && ./main.exe fichier/a/lire.json
 ```
 
-Exemple : `./main.exe ../data/path_1.json`
+Exemple : `./main.exe ../data/path_1.json`.
 
-> Les commandes précédent l'exécution peuvent ne pas marcher ou être différentes selon l'ordinateur
+> Les commandes précédent l'exécution peuvent ne pas marcher ou être différentes selon l'ordinateur.
 
 # Structure
 
@@ -117,9 +117,9 @@ Exemple : `./main.exe ../data/path_1.json`
 
 > Extension pratique pour naviguer dans des endroits du code sur `VS Code` :<br>
 > [Todo Tree](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree)<br>
-> Avec `NOTE:` et `SOURCE:` d'ajoutée dans [todo-tree.general.tags](vscode://settings/todo-tree.general.tags)
+> Avec `NOTE:` et `SOURCE:` d'ajoutée dans [todo-tree.general.tags](vscode://settings/todo-tree.general.tags).
 >
-> Il est aussi recommandé d'utiliser l'`Outline` dans le panneau de droite de `VS Code`
+> Il est aussi recommandé d'utiliser l'`Outline` dans le panneau de droite de `VS Code`.
 
 ## Explication de la refactorisation des coordonnées
 
@@ -131,13 +131,13 @@ Comme dans Minecraft !
 
 Deux accès à des `std::vector` dans `glbasimac/tools/mesh.hpp` faisait crash le programme car il y avait un accès à des données inexistantes sur les ID de VBO (par le temps que la frame prend à s'exécuter) lors de la "vidange" du Buffer
 
-> Qui causait l'erreur `[...] std::vector<_Tp, _Alloc>::size_type = long unsigned int]: Assertion '__n < this->size()' failed.` et parfois sans message
+> Qui causait l'erreur `[...] std::vector<_Tp, _Alloc>::size_type = long unsigned int]: Assertion '__n < this->size()' failed.` et parfois sans s'afficher dans la console.
 
 ---
 
-Les chemins pour les shaders étaient en relatif (depuis le dossier `bin`) ce qui contraignait l'exécution depuis EXCLUSIVEMENT bin, si l'on exécutait le .exe sans être placé dans le dossier `bin` cela donnais l'erreur suivante : `ERROR GL : erreur dans le fichier [...]]\src\main.cpp à la ligne 276 : INVALID_VALUE (A numeric argument is out of range)`
+Les chemins pour les shaders étaient en relatif (depuis le dossier `bin`) ce qui contraignait l'exécution depuis EXCLUSIVEMENT bin, si l'on exécutait le .exe sans être placé dans le dossier `bin` cela donnais l'erreur suivante : `ERROR GL : erreur dans le fichier [...]\src\main.cpp à la ligne 276 : INVALID_VALUE (A numeric argument is out of range)`.
 
-Nous avons donc modifié `glbi_engine.cpp` pour avoir une variable de chemin pointant vers `assets/` que je met à jour depuis le `main.cpp`
+Nous avons donc modifié `glbi_engine.cpp` pour avoir une variable de chemin pointant vers `assets/` qui se met à jour depuis le `main.cpp`.
 
 > Avec `assetsPath = (fs::path(argv[0]).parent_path() / "../assets/").string();` qui :
 >
@@ -145,7 +145,7 @@ Nous avons donc modifié `glbi_engine.cpp` pour avoir une variable de chemin poi
 > 2. Récupère son dossier parent (`bin/`)
 > 3. Va vers `../assets`
 >
-> Merci la documentation de filesystem
+> Merci la documentation de filesystem.
 
 ## Optimisation du moteur de rendu
 
@@ -164,4 +164,5 @@ Nous avons donc ajouté des `.reInit()` dans ces fichiers pour éviter cela.
 - Fragmentation : 2h
 - Correction de bugs : 2h
 - Optimisation : 1h
-  Total : 31h
+- Modélisation de la gare : 1h
+  Total : 32h
