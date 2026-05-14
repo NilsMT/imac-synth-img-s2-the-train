@@ -18,23 +18,37 @@ namespace Draw {
     void drawScene(float time, Railways* railways, bool isGridShown) {
         glPointSize(10.0);
 
-        /*the origin*/
+        //the origin
         drawFrame();
 
-        /* ground grid */
+        //ground grid
         if (isGridShown) {
             drawGrid((*railways).size_grid);
         }
 
-        /*ground according to railways size */
+        //ground according to railways size
         drawGround((*railways).size_grid);
 
-        /*TODO: draw rails according to railways.path*/
+        //TODO: draw rails and train according to railways.path
+        myEngine.mvMatrixStack.pushMatrix();
+            drawTrainAndPath(railways,time);
+            myEngine.mvMatrixStack.popMatrix();
 
-        /*Train*/
-        //drawTrain(time);
+        //place the train station
+        myEngine.mvMatrixStack.pushMatrix();
+            moveOrigin(
+                railways->origin[0]*cell_size,
+                0,
+                railways->origin[1]*cell_size
+            );
+            drawTrainStation();
+            myEngine.mvMatrixStack.popMatrix();
+    }
 
-        /*Train Station*/
-        drawTrainStation();
+    void drawTrainAndPath(Railways* railways,float time) {
+        //TODO: place the rails according to the path
+        
+        //TODO: at the start of the path draw the train, unlike now
+        drawTrain(time);
     }
 }
