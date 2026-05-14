@@ -164,4 +164,5 @@ Nous avons donc ajouté des `.reInit()` dans ces fichiers pour éviter cela.
 - Fragmentation : 2h
 - Correction de bugs : 2h
 - Optimisation : 1h
+- Modélisation de la gare : 1h
   Total : 31h
