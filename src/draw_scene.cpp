@@ -15,6 +15,13 @@ namespace Draw {
         cylinderCover->createVAO();
     }
 
+    void drawTrainAndPath(JsonData* json_data,float time) {
+        //TODO: place the rails according to the path
+        
+        //TODO: at the start of the path draw the train, unlike now
+        drawTrain(time);
+    }
+
     void drawScene(float time, JsonData* json_data, bool isGridShown) {
         glPointSize(10.0);
 
@@ -43,12 +50,5 @@ namespace Draw {
             );
             drawTrainStation();
             myEngine.mvMatrixStack.popMatrix();
-    }
-
-    void drawTrainAndPath(JsonData* json_data,float time) {
-        //TODO: place the rails according to the path
-        
-        //TODO: at the start of the path draw the train, unlike now
-        drawTrain(time);
     }
 }

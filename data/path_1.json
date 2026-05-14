@@ -1,6 +1,5 @@
 {
     "size_grid": 10,
-    "cell_size": 10,
     "origin": [-1, 0],
     "path": [
         [0, 0],

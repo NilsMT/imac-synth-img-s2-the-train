@@ -290,7 +290,6 @@ int main(int argc, char** argv)
         //serialization (NOTE: ty Enguerrand <3)
         json_data = {
             data["size_grid"],
-            data["cell_size"],
             data["origin"].get<std::vector<float>>(),
             data["path"].get<std::vector<std::vector<float>>>()
         };
@@ -354,8 +353,9 @@ int main(int argc, char** argv)
 
 
     //////////////////////////////////////
-    /* Engine init */
+    /* Stuff init */
     //////////////////////////////////////
+
 
 
     //compute assets path
@@ -363,8 +363,14 @@ int main(int argc, char** argv)
     assetsPath = (
         fs::path(argv[0]).parent_path() / "../assets/"
     ).string();
-    //assign cell size
-    cell_size = json_data.cell_size;
+
+
+
+    //////////////////////////////////////
+    /* Engine init */
+    //////////////////////////////////////
+
+
 
 	std::cout<<"Engine init"<<std::endl;
     myEngine.mode2D = false;
