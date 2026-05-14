@@ -137,7 +137,7 @@ Deux accès à des `std::vector` dans `glbasimac/tools/mesh.hpp` faisait crash l
 
 Les chemins pour les shaders étaient en relatif (depuis le dossier `bin`) ce qui contraignait l'exécution depuis EXCLUSIVEMENT bin, si l'on exécutait le .exe sans être placé dans le dossier `bin` cela donnais l'erreur suivante : `ERROR GL : erreur dans le fichier [...]]\src\main.cpp à la ligne 276 : INVALID_VALUE (A numeric argument is out of range)`
 
-Nous avons donc modifié `glbi_engine.cpp` pour avoir une variable de chemin pointant vers `assets/` que je met à jour depuis le `main.cpp`
+Nous avons donc modifié `glbi_engine.cpp` pour avoir une variable de chemin pointant vers `assets/` qui est misent à jour depuis le `main.cpp`
 
 > Avec `assetsPath = (fs::path(argv[0]).parent_path() / "../assets/").string();` qui :
 >
