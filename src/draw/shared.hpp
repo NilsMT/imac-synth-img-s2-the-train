@@ -32,9 +32,9 @@ namespace Draw {
 
     void scaleOrigin(float x, float y, float z);
 
-    void drawShapeWithColor(IndexedMesh* shape, float r, float g, float b);
+    void drawShapeWithColor(IndexedMesh* shape, int r, int g, int b);
 
-    void drawShapeWithColor(StandardMesh* shape, float r, float g, float b);
+    void drawShapeWithColor(StandardMesh* shape, int r, int g, int b);
 
-    void drawShapeWithColor(GLBI_Convex_2D_Shape shape, float r, float g, float b);
+    void drawShapeWithColor(GLBI_Convex_2D_Shape shape, int r, int g, int b);
 }

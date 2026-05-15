@@ -48,7 +48,7 @@ namespace Draw {
             rotateOrigin(angle, 0, 1, 0);
             rotateOrigin(deg2rad(180), 0, 0, 1);
             scaleOrigin(rails_out_l, 0.75, wheel_wedge_l);
-            drawShapeWithColor(wedge, 1, 0, 0);
+            drawShapeWithColor(wedge, 255, 0, 0);
             myEngine.mvMatrixStack.popMatrix();
     }
 
@@ -58,7 +58,7 @@ namespace Draw {
         myEngine.mvMatrixStack.pushMatrix();
             moveOrigin(rails_out_l / 2, 0.625, wheel_guard_l / 2);
             scaleOrigin(rails_out_l, 0.75, wheel_guard_l);
-            drawShapeWithColor(cube, 0, 1, 0);
+            drawShapeWithColor(cube, 0, 255, 0);
             myEngine.mvMatrixStack.popMatrix();
     }
 
@@ -76,7 +76,7 @@ namespace Draw {
                 moveOrigin(0, 0.5, r_h);
                 scaleOrigin(sr, 1, z_ratio_wh);
                 rotateOrigin(deg2rad(90), 0, 1, 0);
-                drawShapeWithColor(cylinderCover, 0, 0.5, 1);
+                drawShapeWithColor(cylinderCover, 0, 128, 255);
                 myEngine.mvMatrixStack.popMatrix();
             
             // wheel 2
@@ -84,7 +84,7 @@ namespace Draw {
                 moveOrigin(rails_l + sr, 0.5, r_h);
                 scaleOrigin(sr, 1, z_ratio_wh);
                 rotateOrigin(deg2rad(90), 0, 1, 0);
-                drawShapeWithColor(cylinderCover, 0, 0.5, 1);
+                drawShapeWithColor(cylinderCover, 0, 128, 255);
                 myEngine.mvMatrixStack.popMatrix();
             
             // wheel 3
@@ -92,7 +92,7 @@ namespace Draw {
                 moveOrigin(0, 0.5, wheel_support_l - r_h);
                 scaleOrigin(sr, 1, z_ratio_wh);
                 rotateOrigin(deg2rad(90), 0, 1 ,0);
-                drawShapeWithColor(cylinderCover, 0, 0.5, 1);
+                drawShapeWithColor(cylinderCover, 0, 128, 255);
                 myEngine.mvMatrixStack.popMatrix();
 
             // wheel 4
@@ -100,14 +100,14 @@ namespace Draw {
                 moveOrigin(rails_l + sr, 0.5, wheel_support_l - r_h);
                 scaleOrigin(sr, 1, z_ratio_wh);
                 rotateOrigin(deg2rad(90), 0, 1, 0);
-                drawShapeWithColor(cylinderCover, 0, 0.5, 1);
+                drawShapeWithColor(cylinderCover, 0, 128, 255);
                 myEngine.mvMatrixStack.popMatrix();
 
             // base
             myEngine.mvMatrixStack.pushMatrix();
                 moveOrigin((rails_l / 2) + sr, 0.75, wheel_support_l / 2);
                 scaleOrigin(rails_l, 1, wheel_support_l);
-                drawShapeWithColor(cube, 0, 0, 1);
+                drawShapeWithColor(cube, 0, 0, 255);
                 myEngine.mvMatrixStack.popMatrix();
             
             myEngine.mvMatrixStack.popMatrix();
@@ -119,7 +119,7 @@ namespace Draw {
             moveOrigin(rails_out_l / 2, 0.625, under_wedge_l / 2);
             rotateOrigin(deg2rad(180), 0, 0, 1);
             scaleOrigin(rails_out_l, 0.75, under_wedge_l);
-            drawShapeWithColor(wedge, 1, 1, 1);
+            drawShapeWithColor(wedge, 255, 255, 255);
             myEngine.mvMatrixStack.popMatrix();
     }
 
@@ -130,7 +130,7 @@ namespace Draw {
         myEngine.mvMatrixStack.pushMatrix();
             moveOrigin(rails_out_l / 2, body_h / 2, body_main_l / 2);
             scaleOrigin(rails_out_l, body_h, body_main_l);
-            drawShapeWithColor(cube, 1, 0.5, 0);
+            drawShapeWithColor(cube, 255, 128, 0);
             myEngine.mvMatrixStack.popMatrix();
     }
 
@@ -139,7 +139,7 @@ namespace Draw {
         myEngine.mvMatrixStack.pushMatrix();
             moveOrigin(rails_out_l / 2, body_mid_h / 2, body_wedge_l / 2);
             scaleOrigin(rails_out_l, body_mid_h, body_wedge_l);
-            drawShapeWithColor(cube, 0.5, 0.3, 0.2);
+            drawShapeWithColor(cube, 128, 75, 50);
             myEngine.mvMatrixStack.popMatrix();
     }
 
@@ -149,7 +149,7 @@ namespace Draw {
             moveOrigin(rails_out_l / 2, (body_h - body_mid_h) / 2, body_wedge_l / 2);
             scaleOrigin(
                 rails_out_l, body_h - body_mid_h, body_wedge_l);
-            drawShapeWithColor(wedge, 1, 0, 0.5);
+            drawShapeWithColor(wedge, 255, 0, 128);
             myEngine.mvMatrixStack.popMatrix();
     }
 
@@ -161,9 +161,9 @@ namespace Draw {
     void drawTrainWedgeTop(float angle = 0.f) {
         myEngine.mvMatrixStack.pushMatrix();
             moveOrigin(rails_l / 2, top_h / 2, top_wedge_l / 2);
-            rotateOrigin(angle, 0, 1, 0);
+            rotateOrigin(angle, 0, 255, 0);
             scaleOrigin(rails_l, top_h,  top_wedge_l);
-            drawShapeWithColor(wedge, 1, 0, 1);
+            drawShapeWithColor(wedge, 255, 0, 255);
             myEngine.mvMatrixStack.popMatrix();
     }
 
@@ -172,7 +172,7 @@ namespace Draw {
         myEngine.mvMatrixStack.pushMatrix();
             moveOrigin(rails_l / 2, top_h / 2,  top_main_l / 2);
             scaleOrigin(rails_l, top_h, top_main_l);
-            drawShapeWithColor(cube, 1, 1, 0);
+            drawShapeWithColor(cube, 255, 255, 0);
             myEngine.mvMatrixStack.popMatrix();
     }
 

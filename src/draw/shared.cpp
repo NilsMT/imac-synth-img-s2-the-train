@@ -45,18 +45,18 @@ namespace Draw {
         myEngine.updateMvMatrix();
     }
 
-    void drawShapeWithColor(IndexedMesh* shape, float r, float g, float b) {
-        myEngine.setFlatColor(r,g,b);
+    void drawShapeWithColor(IndexedMesh* shape, int r, int g, int b) {
+        myEngine.setFlatColor(r/255.f,g/255.f,b/255.f);
         shape->draw();
     }
 
-    void drawShapeWithColor(StandardMesh* shape, float r, float g, float b) {
-        myEngine.setFlatColor(r,g,b);
+    void drawShapeWithColor(StandardMesh* shape, int r, int g, int b) {
+        myEngine.setFlatColor(r/255.f,g/255.f,b/255.f);
         shape->draw();
     }
 
-    void drawShapeWithColor(GLBI_Convex_2D_Shape shape, float r, float g, float b) {
-        myEngine.setFlatColor(r,g,b);
+    void drawShapeWithColor(GLBI_Convex_2D_Shape shape, int r, int g, int b) {
+        myEngine.setFlatColor(r/255.f,g/255.f,b/255.f);
         shape.drawShape();
     }
 }
