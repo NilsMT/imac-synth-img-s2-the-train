@@ -164,7 +164,7 @@ Le JSON possède une information en plus : une liste de positions ou il y a des 
 - Création des primitives + utilisation sur le train : 5h
 - Lecture du JSON + en ligne de commande : 2h
 - Grille : 1h
-- Camera TOP + Refactorisation : 2h
+- Camera TOP + Refactorisation camera : 2h
 - Refactorisation des coordonnées : 4h30
 - Fragmentation : 2h
 - Correction de bugs : 2h
