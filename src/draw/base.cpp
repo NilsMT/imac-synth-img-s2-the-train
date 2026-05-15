@@ -57,12 +57,12 @@ namespace Draw
             bool isMainLine = (fmod(i,cell_size) == 0); //fmod because gird_cell_size is float, regular mod won't work
 
             //line Z (front to back)
-            points.push_back(-off); points.push_back(0.0); points.push_back(inc);
-            points.push_back(off); points.push_back(0.0); points.push_back(inc);
+            points.push_back(-off); points.push_back(0.01); points.push_back(inc);
+            points.push_back(off); points.push_back(0.01); points.push_back(inc);
 
             //line X (left to right)
-            points.push_back(inc); points.push_back(0.0); points.push_back(-off);
-            points.push_back(inc); points.push_back(0.0); points.push_back(off);
+            points.push_back(inc); points.push_back(0.01); points.push_back(-off);
+            points.push_back(inc); points.push_back(0.01); points.push_back(off);
 
             //color
             float color = isMainLine ? 1.0f : 0.25f;
