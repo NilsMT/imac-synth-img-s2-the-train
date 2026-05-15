@@ -28,10 +28,6 @@ namespace Draw {
         }
     }
 
-    void placeTrainStation() {
-
-    }
-
     void drawScene(float time, JsonData* json_data, bool isGridShown) {
         glPointSize(10.0);
 
