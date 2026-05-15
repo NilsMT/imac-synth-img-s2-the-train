@@ -170,4 +170,6 @@ Le JSON possède une information en plus : une liste de positions ou il y a des 
 - Correction de bugs : 2h
 - Optimisation : 1h
 - Ajout des arbres : 1h30
-  Total : 32h30
+- Refactorisation drawShapeWithColor : 20min
+- Autres : ~10min
+  Total : 33h
