@@ -13,7 +13,7 @@
 #include "nlohmann/json.hpp"
 #include "tools/shaders.hpp"
 #include "draw_scene.hpp"
-#include "json_data.cpp"
+#include "json_data.hpp"
 #include "camera.hpp"
 
 using namespace glbasimac;
@@ -291,7 +291,8 @@ int main(int argc, char** argv)
         json_data = {
             data["size_grid"],
             data["origin"].get<std::vector<float>>(),
-            data["path"].get<std::vector<std::vector<float>>>()
+            data["path"].get<std::vector<std::vector<float>>>(),
+            data["trees"].get<std::vector<std::vector<float>>>()
         };
     } catch (const json::parse_error& e) {
         std::cerr << "Error: Failed to parse JSON: " << e.what() << std::endl;

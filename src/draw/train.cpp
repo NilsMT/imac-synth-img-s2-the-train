@@ -45,10 +45,10 @@ namespace Draw {
     void drawTrainWheelWedge(float angle = 0.f) {
         myEngine.mvMatrixStack.pushMatrix();
             moveOrigin(rails_out_l / 2, 0.625, wheel_wedge_l / 2);
-            rotateOrigin(angle,0,1,0);
-            rotateOrigin(deg2rad(180),0,0,1);
+            rotateOrigin(angle, 0, 1, 0);
+            rotateOrigin(deg2rad(180), 0, 0, 1);
             scaleOrigin(rails_out_l, 0.75, wheel_wedge_l);
-            drawShapeWithColor(wedge,1,0,0);
+            drawShapeWithColor(wedge, 1, 0, 0);
             myEngine.mvMatrixStack.popMatrix();
     }
 
@@ -58,7 +58,7 @@ namespace Draw {
         myEngine.mvMatrixStack.pushMatrix();
             moveOrigin(rails_out_l / 2, 0.625, wheel_guard_l / 2);
             scaleOrigin(rails_out_l, 0.75, wheel_guard_l);
-            drawShapeWithColor(cube,0,1,0);
+            drawShapeWithColor(cube, 0, 1, 0);
             myEngine.mvMatrixStack.popMatrix();
     }
 
@@ -75,39 +75,39 @@ namespace Draw {
             myEngine.mvMatrixStack.pushMatrix();
                 moveOrigin(0, 0.5, r_h);
                 scaleOrigin(sr, 1, z_ratio_wh);
-                rotateOrigin(deg2rad(90),0,1,0);
-                drawShapeWithColor(cylinderCover,0,0.5,1);
+                rotateOrigin(deg2rad(90), 0, 1, 0);
+                drawShapeWithColor(cylinderCover, 0, 0.5, 1);
                 myEngine.mvMatrixStack.popMatrix();
             
             // wheel 2
             myEngine.mvMatrixStack.pushMatrix();
                 moveOrigin(rails_l + sr, 0.5, r_h);
                 scaleOrigin(sr, 1, z_ratio_wh);
-                rotateOrigin(deg2rad(90),0,1,0);
-                drawShapeWithColor(cylinderCover,0,0.5,1);
+                rotateOrigin(deg2rad(90), 0, 1, 0);
+                drawShapeWithColor(cylinderCover, 0, 0.5, 1);
                 myEngine.mvMatrixStack.popMatrix();
             
             // wheel 3
             myEngine.mvMatrixStack.pushMatrix();
                 moveOrigin(0, 0.5, wheel_support_l - r_h);
                 scaleOrigin(sr, 1, z_ratio_wh);
-                rotateOrigin(deg2rad(90),0,1,0);
-                drawShapeWithColor(cylinderCover,0,0.5,1);
+                rotateOrigin(deg2rad(90), 0, 1 ,0);
+                drawShapeWithColor(cylinderCover, 0, 0.5, 1);
                 myEngine.mvMatrixStack.popMatrix();
 
             // wheel 4
             myEngine.mvMatrixStack.pushMatrix();
                 moveOrigin(rails_l + sr, 0.5, wheel_support_l - r_h);
                 scaleOrigin(sr, 1, z_ratio_wh);
-                rotateOrigin(deg2rad(90),0,1,0);
-                drawShapeWithColor(cylinderCover,0,0.5,1);
+                rotateOrigin(deg2rad(90), 0, 1, 0);
+                drawShapeWithColor(cylinderCover, 0, 0.5, 1);
                 myEngine.mvMatrixStack.popMatrix();
 
             // base
             myEngine.mvMatrixStack.pushMatrix();
                 moveOrigin((rails_l / 2) + sr, 0.75, wheel_support_l / 2);
                 scaleOrigin(rails_l, 1, wheel_support_l);
-                drawShapeWithColor(cube,0,0,1);
+                drawShapeWithColor(cube, 0, 0, 1);
                 myEngine.mvMatrixStack.popMatrix();
             
             myEngine.mvMatrixStack.popMatrix();
@@ -117,9 +117,9 @@ namespace Draw {
     void drawTrainUnderWedge() {
         myEngine.mvMatrixStack.pushMatrix();
             moveOrigin(rails_out_l / 2, 0.625, under_wedge_l / 2);
-            rotateOrigin(deg2rad(180),0,0,1);
+            rotateOrigin(deg2rad(180), 0, 0, 1);
             scaleOrigin(rails_out_l, 0.75, under_wedge_l);
-            drawShapeWithColor(wedge,1,1,1);
+            drawShapeWithColor(wedge, 1, 1, 1);
             myEngine.mvMatrixStack.popMatrix();
     }
 
@@ -130,7 +130,7 @@ namespace Draw {
         myEngine.mvMatrixStack.pushMatrix();
             moveOrigin(rails_out_l / 2, body_h / 2, body_main_l / 2);
             scaleOrigin(rails_out_l, body_h, body_main_l);
-            drawShapeWithColor(cube,1,0.5,0);
+            drawShapeWithColor(cube, 1, 0.5, 0);
             myEngine.mvMatrixStack.popMatrix();
     }
 
@@ -139,7 +139,7 @@ namespace Draw {
         myEngine.mvMatrixStack.pushMatrix();
             moveOrigin(rails_out_l / 2, body_mid_h / 2, body_wedge_l / 2);
             scaleOrigin(rails_out_l, body_mid_h, body_wedge_l);
-            drawShapeWithColor(cube,0.5,0.3,0.2);
+            drawShapeWithColor(cube, 0.5, 0.3, 0.2);
             myEngine.mvMatrixStack.popMatrix();
     }
 
@@ -149,7 +149,7 @@ namespace Draw {
             moveOrigin(rails_out_l / 2, (body_h - body_mid_h) / 2, body_wedge_l / 2);
             scaleOrigin(
                 rails_out_l, body_h - body_mid_h, body_wedge_l);
-            drawShapeWithColor(wedge,1,0,0.5);
+            drawShapeWithColor(wedge, 1, 0, 0.5);
             myEngine.mvMatrixStack.popMatrix();
     }
 
@@ -161,9 +161,9 @@ namespace Draw {
     void drawTrainWedgeTop(float angle = 0.f) {
         myEngine.mvMatrixStack.pushMatrix();
             moveOrigin(rails_l / 2, top_h / 2, top_wedge_l / 2);
-            rotateOrigin(angle,0,1,0);
+            rotateOrigin(angle, 0, 1, 0);
             scaleOrigin(rails_l, top_h,  top_wedge_l);
-            drawShapeWithColor(wedge,1,0,1);
+            drawShapeWithColor(wedge, 1, 0, 1);
             myEngine.mvMatrixStack.popMatrix();
     }
 
@@ -172,7 +172,7 @@ namespace Draw {
         myEngine.mvMatrixStack.pushMatrix();
             moveOrigin(rails_l / 2, top_h / 2,  top_main_l / 2);
             scaleOrigin(rails_l, top_h, top_main_l);
-            drawShapeWithColor(cube,1,1,0);
+            drawShapeWithColor(cube, 1, 1, 0);
             myEngine.mvMatrixStack.popMatrix();
     }
 
@@ -192,39 +192,39 @@ namespace Draw {
             myEngine.mvMatrixStack.pushMatrix();
                 // guard 1
                 drawTrainWheelGuard();
-                moveOrigin(0,0,wheel_guard_l);
+                moveOrigin(0, 0, wheel_guard_l);
 
                 drawTrainWheelWedge();
-                moveOrigin(0,0,wheel_wedge_l);
+                moveOrigin(0, 0, wheel_wedge_l);
 
                 // wheels 1
                 drawTrainWheels();
-                moveOrigin(0,0,wheel_support_l);
+                moveOrigin(0, 0, wheel_support_l);
 
                 // guard 2
                 drawTrainWheelWedge(deg2rad(180));
-                moveOrigin(0,0,wheel_wedge_l);
+                moveOrigin(0, 0, wheel_wedge_l);
 
                 drawTrainWheelGuard();
-                moveOrigin(0,0,wheel_guard_l);
+                moveOrigin(0, 0, wheel_guard_l);
 
                 drawTrainWheelWedge();
-                moveOrigin(0,0,wheel_wedge_l);
+                moveOrigin(0, 0, wheel_wedge_l);
 
                 // wheels 2
                 drawTrainWheels();
-                moveOrigin(0,0,wheel_support_l);
+                moveOrigin(0, 0, wheel_support_l);
 
                 // guard 3
                 drawTrainWheelWedge(deg2rad(180));
-                moveOrigin(0,0,wheel_wedge_l);
+                moveOrigin(0, 0, wheel_wedge_l);
 
                 drawTrainWheelGuard();
-                moveOrigin(0,0,wheel_guard_l);
+                moveOrigin(0, 0, wheel_guard_l);
 
                 // under wedge
                 drawTrainUnderWedge();
-                moveOrigin(0,0,under_wedge_l);
+                moveOrigin(0, 0, under_wedge_l);
 
                 myEngine.mvMatrixStack.popMatrix();
 
@@ -234,19 +234,19 @@ namespace Draw {
             //////////////////////////////////
 
             myEngine.mvMatrixStack.pushMatrix();
-                moveOrigin(0,sr,0);
+                moveOrigin(0, sr, 0);
 
                 // main body
                 drawTrainMainBody();
-                moveOrigin(0,0,body_main_l);
+                moveOrigin(0, 0, body_main_l);
 
                 // middle body
                 drawTrainMiddleBody();
-                moveOrigin(0,body_mid_h,0);
+                moveOrigin(0, body_mid_h, 0);
 
                 // wedge body
                 drawTrainWedgeBody();
-                moveOrigin(0,0,body_wedge_l);
+                moveOrigin(0, 0, body_wedge_l);
 
                 myEngine.mvMatrixStack.popMatrix();
 
@@ -260,15 +260,15 @@ namespace Draw {
 
                 // wedge top
                 drawTrainWedgeTop(deg2rad(180));
-                moveOrigin(0,0,top_wedge_l);
+                moveOrigin(0, 0, top_wedge_l);
 
                 // main top
                 drawTrainMainTop();
-                moveOrigin(0,0,top_main_l);
+                moveOrigin(0, 0, top_main_l);
 
                 // wedge top
                 drawTrainWedgeTop();
-                moveOrigin(0,0,top_wedge_l);
+                moveOrigin(0, 0, top_wedge_l);
 
                 myEngine.mvMatrixStack.popMatrix();
             myEngine.mvMatrixStack.popMatrix();

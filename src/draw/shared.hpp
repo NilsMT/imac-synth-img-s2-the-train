@@ -4,7 +4,7 @@
 #include "glbasimac/glbi_set_of_points.hpp"
 #include "glbasimac/glbi_convex_2D_shape.hpp"
 #include "tools/basic_mesh.hpp"
-#include "../json_data.cpp"
+#include "../json_data.hpp"
 
 using namespace glbasimac;
 

@@ -56,7 +56,7 @@ Exemple : `./main.exe ../data/path_1.json`.
 │   ├───📄 camera.cpp : variables et fonctions pour la camera
 │   ├───📄 draw_scene.cpp : les rendus 3D
 │   ├───📄 main.cpp : moteur de rendus
-│   └───📄 json_data.cpp : structure de sérialisation du JSON
+│   └───📄 json_data.hpp : structure de sérialisation du JSON
 └───📄 README.md : ce fichier
 ```
 
@@ -105,8 +105,8 @@ Exemple : `./main.exe ../data/path_1.json`.
 | ✅     | 🖥️IHM          | ♒   | Touche pour toggle grille             | Touche G                                 | Nils   |
 | ✅     | ⚒️Modélisation | ♒   | Grille des cellules de rails          | Pour visualiser le placement             | Nils   |
 | ✅     | ⚒️Modélisation | ♒   | Primitives supplémentaires            | Triangle rectangle et cylindre fermé     | Nils   |
-| ❌     | ⚒️Modélisation | ☑️   | Modéliser (+ placer) du décors        | Genre un arbre                           | -      |
-| ✅     | 📝JSON         | ☑️   | Ajouter des trucs dans le JSON        |                                          | -      |
+| ✅     | ⚒️Modélisation | ☑️   | Modéliser (+ placer) du décors        | Genre un arbre                           | -      |
+| ✅     | 📝JSON         | ☑️   | Ajouter des trucs dans le JSON        | Placement d'arbres                       | -      |
 | ❌     | 👁️Rendu        | ☑️   | Animer le train                       |                                          | -      |
 | ❌     | 👁️Rendu        | ☑️   | Ajouter des lumières                  | Genre à la gare                          | -      |
 
@@ -155,7 +155,7 @@ Nous avons donc ajouté des `.reInit()` dans ces fichiers pour éviter cela.
 
 ## Informations ajoutées au JSON
 
-Le JSON possède une information en plus : la taille des cellules
+Le JSON possède une information en plus : une liste de positions ou il y a des arbres
 
 ## Temps passé Nils
 
