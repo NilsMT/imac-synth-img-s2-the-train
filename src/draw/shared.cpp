@@ -6,9 +6,31 @@ namespace Draw {
     /* Shared variables */
     //////////////////////////////////////
 
-    float sr = 1;
-    float sx = 1;
-    float rr = 1;
+    // --- RAIL DROIT --- 
+    
+    // PAVE
+    GLBI_Convex_2D_Shape pave{3};
+
+
+    // Chaque rail est centré sur l axe x au position 3 et 7 
+    float POS_X_RAIL1=3.;
+    float POS_X_RAIL2=7.;
+    // Chaque rail est un parallélépidède/rectangle de section sr x sr et de longueur 10. 
+    // sr devra être une constante modifiable dans votre code.
+    const float sr = 1.;
+    // Chaque balast est un cylindre
+    // rayon dont on choisit la valeur
+    const float rr = 1.;
+    // partant de x=2 à x=8
+    // les constantes 2 et 8 pourraient être modifiable
+    const float x_start_balast = 2.;
+    const float x_end_balast = 8.;
+    // hauteur
+    float balast_heigth = x_end_balast-x_start_balast;
+    //  Le premier est à sx en y puis il y a une distance de 2 ∗ sx entre chaque balast
+    float sx = 1-rr;
+
+    // --- RAIL --- 
 
     float cell_size = 10; //size of cells on X and Y, min 10 otherwise it break stuffs
 
@@ -21,7 +43,7 @@ namespace Draw {
     IndexedMesh* cube;
     IndexedMesh* wedge;
     IndexedMesh* cylinderCover;
-    
+
     
 
     //////////////////////////////////////

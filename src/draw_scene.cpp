@@ -2,6 +2,14 @@
 
 namespace Draw {
     void initScene() {
+        // PAVE COORD
+        std::vector<float> PaveCoord{
+            -0.5,0.5,
+            0.5,0.5,
+            0.5,-0.5,
+            -0.5,-0.5
+        };
+        
         sphere = basicSphere();
         sphere->createVAO();
 
