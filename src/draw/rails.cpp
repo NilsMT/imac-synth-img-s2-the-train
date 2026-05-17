@@ -82,7 +82,19 @@ namespace Draw {
     }
 
     void drawRailStraight(float orientation) {
+        float angleRadiant{};
+        angleRadiant=M_PI*orientation/180;
         myEngine.setFlatColor(.41f,.41f,.41f);
+
+        myEngine.mvMatrixStack.pushMatrix();
+            // on se place au centre de la grille pour la rotation
+            myEngine.mvMatrixStack.addTranslation({5,0,5});
+            Vector3D railOrientation(0.,angleRadiant,0.);
+            myEngine.mvMatrixStack.addRotation(M_PI/2,railOrientation);
+            myEngine.mvMatrixStack.addTranslation({-5,0,-5});
+        // update
+        myEngine.updateMvMatrix();
+
         // Premier PAVE
         // push	
         myEngine.mvMatrixStack.pushMatrix();
@@ -136,7 +148,10 @@ namespace Draw {
             // update
             myEngine.updateMvMatrix();
         }
-
+        // pop
+        myEngine.mvMatrixStack.popMatrix();
+        // update
+        myEngine.updateMvMatrix();
     }
 
     void drawRailCurve(float orientation) {
