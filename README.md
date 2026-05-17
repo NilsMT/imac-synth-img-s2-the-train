@@ -114,13 +114,17 @@ Exemple : `./main.exe ../data/path_1.json`.
 
 # Informations supplémentaires
 
+# Description des données
+
+Il y a un document [DATADESC.md](./data/DATADESC.md) qui décrit les fichiers JSON et leurs visualisations.
+
 ## Informations utiles
 
-> Extension pratique pour naviguer dans des endroits du code sur `VS Code` :<br>
-> [Todo Tree](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree)<br>
-> Avec `NOTE:` et `SOURCE:` d'ajoutée dans [todo-tree.general.tags](vscode://settings/todo-tree.general.tags).
->
-> Il est aussi recommandé d'utiliser l'`Outline` dans le panneau de droite de `VS Code`.
+Il y a une extension pratique pour naviguer dans des endroits du code sur `VS Code` :<br>
+[Todo Tree](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree)<br>
+Avec `NOTE:` d'ajoutée dans le paramètre de l'extension [todo-tree.general.tags](vscode://settings/todo-tree.general.tags).
+
+Il est aussi recommandé d'utiliser l'`Outline` dans le panneau de droite de `VS Code`.
 
 ## Explication de la refactorisation des coordonnées
 
@@ -172,4 +176,5 @@ Le JSON possède une information en plus : une liste de positions ou il y a des 
 - Ajout des arbres : 1h30
 - Refactorisation drawShapeWithColor : 20min
 - Autres : ~10min
-  Total : 33h
+
+Total : 33h
