@@ -2,14 +2,9 @@
 
 namespace Draw {
     void initScene() {
-        // PAVE COORD
-        std::vector<float> PaveCoord{
-            -0.5,0.5,
-            0.5,0.5,
-            0.5,-0.5,
-            -0.5,-0.5
-        };
-        
+
+        initRail();
+
         sphere = basicSphere();
         sphere->createVAO();
 
@@ -39,6 +34,32 @@ namespace Draw {
     void drawScene(float time, JsonData* json_data, bool isGridShown) {
         glPointSize(10.0);
 
+        // // Premier RAIL
+        // // push	
+        // myEngine.mvMatrixStack.pushMatrix();
+        // Vector3D translationRail{POS_X_RAIL1,10,0};
+        // myEngine.mvMatrixStack.addTranslation(translationRail);
+        // // update
+        // myEngine.updateMvMatrix();
+        drawRailStraight(10.);
+        // // pop
+        // myEngine.mvMatrixStack.popMatrix();
+        // // update
+        // myEngine.updateMvMatrix();
+
+        // // Deuxieme RAIL
+        // // push	
+        // myEngine.mvMatrixStack.pushMatrix();
+        // Vector3D translationRail{POS_X_RAIL2,10,0};
+        // myEngine.mvMatrixStack.addTranslation(translationRail);
+        // // update
+        // myEngine.updateMvMatrix();
+        // drawRailStraight(10.);
+        // // pop
+        // myEngine.mvMatrixStack.popMatrix();
+        // // update
+        // myEngine.updateMvMatrix();
+        
         ///////////////
         //base
 

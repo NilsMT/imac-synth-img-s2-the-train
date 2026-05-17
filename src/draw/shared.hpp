@@ -9,9 +9,32 @@
 using namespace glbasimac;
 
 namespace Draw {
-    extern float sr;
+
+
+    // --- RAIL DROIT ---
+    extern GLBI_Convex_2D_Shape pave;
+    // extern float sr;
+    // extern float sx;
+    // extern float rr;
+    // Chaque rail est centré sur l axe x au position 3 et 7 
+    extern float POS_X_RAIL1;
+    extern float POS_X_RAIL2;
+    // Chaque rail est un parallélépidède/rectangle de section sr x sr et de longueur 10. 
+    // sr devra être une constante modifiable dans votre code.
+    extern const float sr;
+    // Chaque balast est un cylindre
+    // rayon dont on choisit la valeur
+    extern const float rr;
+    // partant de x=2 à x=8
+    // les constantes 2 et 8 pourraient être modifiable
+    extern const float x_start_balast;
+    extern const float x_end_balast;
+    // hauteur
+    extern float balast_heigth;
+    //  Le premier est à sx en y puis il y a une distance de 2 ∗ sx entre chaque balast
     extern float sx;
-    extern float rr;
+    // --- RAIL DROIT ---
+
 
     extern float cell_size;
 

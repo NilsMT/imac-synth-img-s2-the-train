@@ -17,10 +17,10 @@ namespace Draw {
     float POS_X_RAIL2=7.;
     // Chaque rail est un parallélépidède/rectangle de section sr x sr et de longueur 10. 
     // sr devra être une constante modifiable dans votre code.
-    const float sr = 1.;
+    const float sr = .5;
     // Chaque balast est un cylindre
     // rayon dont on choisit la valeur
-    const float rr = 1.;
+    const float rr = .3;
     // partant de x=2 à x=8
     // les constantes 2 et 8 pourraient être modifiable
     const float x_start_balast = 2.;
