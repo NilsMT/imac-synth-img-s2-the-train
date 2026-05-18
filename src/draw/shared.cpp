@@ -1,5 +1,4 @@
 #include "shared.hpp"
-using namespace glbasimac;
 
 namespace Draw {
     //////////////////////////////////////

@@ -20,7 +20,6 @@ namespace Draw {
 
     void drawTrainAndPath(std::vector<std::vector<float>>* path,float time) {
         //TODO: place the rails according to the path
-        
         //TODO: at the start of the path draw the train, unlike now
         drawTrain(time);
     }

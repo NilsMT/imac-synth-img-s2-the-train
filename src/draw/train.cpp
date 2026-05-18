@@ -147,10 +147,30 @@ namespace Draw {
     void drawTrainWedgeBody() {
         myEngine.mvMatrixStack.pushMatrix();
             moveOrigin(rails_out_l / 2, (body_h - body_mid_h) / 2, body_wedge_l / 2);
-            scaleOrigin(
-                rails_out_l, body_h - body_mid_h, body_wedge_l);
+
+            //place the light
+            if (myEngine.currentShader == 1) {
+                /*
+                retrieve the world position of the wedge based on :
+                - https://learnopengl.com/Getting-started/Transformations
+                - https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/geometry/matrices.html
+                - The workshop where we multiplied the stuff's coordinates to get from local to world
+                */
+                Matrix4D mvMatrix = myEngine.mvMatrixStack.getTopGLMatrix();
+                Matrix4D invView = myEngine.viewMatrix;
+                invView.invert();
+                Matrix4D worldMatrix = invView * mvMatrix;
+                float lightX = worldMatrix[3][0];
+                float lightY = worldMatrix[3][1];
+                float lightZ = worldMatrix[3][2];
+
+                //place the light
+                handleTrainLighting(lightX, lightY, lightZ);
+            }
+
+            scaleOrigin(rails_out_l, body_h - body_mid_h, body_wedge_l);
             drawShapeWithColor(wedge, 255, 0, 128);
-            myEngine.mvMatrixStack.popMatrix();
+        myEngine.mvMatrixStack.popMatrix();
     }
 
 

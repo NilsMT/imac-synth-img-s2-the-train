@@ -409,7 +409,7 @@ int main(int argc, char** argv)
 
         /* Handle lighting */
         if (myEngine.currentShader == 1) { //if phong shader is used
-            handleLighting(startTime);
+            //handleMainLighting(startTime);
         }
 
         /* Camera position */

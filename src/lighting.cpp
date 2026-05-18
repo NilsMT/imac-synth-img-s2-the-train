@@ -1,7 +1,6 @@
 #include "lighting.hpp"
 
-void handleLighting(double time) {
-    //
+void handleMainLighting(double time) {
     myEngine.setLightPosition(
         {
             cos(time)*cell_size*5, 
@@ -16,3 +15,11 @@ void handleLighting(double time) {
     myEngine.setSpecularColor({1.0, 1.0, 1.0});
     myEngine.setAttenuationFactor({0.75, 0.0, 0.0});
 };
+
+void handleTrainLighting(float x, float y, float z) {
+    myEngine.setLightPosition({ x, y, z, 1.0 }, 0); // Position in world space
+    myEngine.setLightIntensity({1.0, 1.0, 1.0}, 0); // White light
+    myEngine.setShininess(0.0f);
+    myEngine.setSpecularColor({1.0, 1.0, 0.0}); // White specular
+    myEngine.setAttenuationFactor({1.0, 0.0, 0.0}); // No attenuation (omnidirectional)
+}

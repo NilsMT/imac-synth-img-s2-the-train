@@ -95,8 +95,8 @@ Exemple : `./main.exe ../data/path_1.json`.
 | ✅     | 🖥️IHM          |      | Caméra ORBITAL                        | ZQSD to rotate, Scroll to zoom           | 🔵 Nils   |
 | ✅     | 🖥️IHM          |      | Touche pour toggle modes camera       | Touche C                                 | 🔵 Nils   |
 | ✅     | 👁️Rendu        |      | Éclairage "flat"                      | Par défaut sur OpenGL                    | 🟢 OpenGL |
-| ❌     | 👁️Rendu        |      | Éclairage "réaliste" `*`              | Un soleil et phares du train             | -         |
-| ❌     | 👁️Rendu        |      | Texturé un truc                       | Avant du train OU le sol                 | -         |
+| ✅     | 👁️Rendu        |      | Éclairage "réaliste" `*`              | Un soleil et phares du train             | -         |
+| ✅     | 👁️Rendu        |      | Texturé un truc                       | Avant du train OU le sol                 | -         |
 | ✅     | 📁Structure    | ♒   | Refactorisation des coordonnées       | Voir Informations supplémentaires        | 🔵 Nils   |
 | ✅     | 📁Structure    | ♒   | Correction des bugs                   | Voir Informations supplémentaires        | 🔵 Nils   |
 | ✅     | 📁Structure    | ♒   | Optimisation du moteur de rendu       | Voir Informations supplémentaires        | 🔵 Nils   |
