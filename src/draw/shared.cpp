@@ -15,12 +15,12 @@ namespace Draw {
     GLBI_Engine myEngine;
     GLBI_Set_Of_Points somePointsFrame(3);
     GLBI_Set_Of_Points somePointsGrid(3);
-    GLBI_Convex_2D_Shape ground{3};
 
     IndexedMesh* sphere;
     IndexedMesh* cube;
     IndexedMesh* wedge;
     IndexedMesh* cylinderCover;
+    StandardMesh* rect;
     
     
 

@@ -24,6 +24,7 @@ namespace Draw {
     extern IndexedMesh* cube;
     extern IndexedMesh* wedge;
     extern IndexedMesh* cylinderCover;
+    extern StandardMesh* rect;
 
     /* helpers */
     void moveOrigin(float x, float y, float z);

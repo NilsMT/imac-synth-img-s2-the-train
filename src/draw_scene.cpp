@@ -13,6 +13,9 @@ namespace Draw {
 
         cylinderCover = basicCylinderWithCovers(1,0.5,16);
         cylinderCover->createVAO();
+
+        rect = basicRect(1.0,1.0);
+        rect->createVAO();
     }
 
     void drawTrainAndPath(std::vector<std::vector<float>>* path,float time) {
@@ -37,13 +40,13 @@ namespace Draw {
         //the origin
         drawFrame();
 
-        //ground according to railways size
-        drawGround((*json_data).size_grid);
-
         //ground grid
         if (isGridShown) {
             drawGrid((*json_data).size_grid);
         }
+
+        //ground according to railways size
+        drawGround((*json_data).size_grid);
 
         ///////////////
         //draw stuffs
