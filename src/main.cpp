@@ -15,7 +15,6 @@
 #include "draw_scene.hpp"
 #include "json_data.hpp"
 #include "camera.hpp"
-#include "lighting.hpp"
 
 using namespace glbasimac;
 using namespace STP3D;
@@ -409,7 +408,7 @@ int main(int argc, char** argv)
 
         /* Handle lighting */
         if (myEngine.currentShader == 1) { //if phong shader is used
-            //handleMainLighting(startTime);
+            handleMainLighting(startTime);
         }
 
         /* Camera position */
