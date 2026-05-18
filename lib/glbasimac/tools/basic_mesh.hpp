@@ -108,12 +108,13 @@ namespace STP3D {
 
 	inline StandardMesh* basicRect(float sizex,float sizez) {
 		StandardMesh* rect = new StandardMesh(4,GL_TRIANGLE_STRIP);
-		float coord[12] = {0.0,0.0,0.0,
-		                   0.0,0.0,sizez,
-		                   sizex,0.0,0.0,
-		                   sizex,0.0,sizez};
-		float normals[12] = {0.0,1.0,0.0,0.0,1.0,0.0,
-		                     0.0,1.0,0.0,0.0,1.0,0.0};
+		float coord[12] = {
+			0.0,0.0,0.0,
+			0.0,0.0,sizez,
+			sizex,0.0,0.0,
+			sizex,0.0,sizez,
+		};
+		float normals[12] = {0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0};
 		float uvs_rect[8] = {0.0,0.0,0.0,1.0,1.0,0.0,1.0,1.0};
 		rect->addOneBuffer(0,3,coord,"coordinates",true);
 		rect->addOneBuffer(1,3,normals,"normals",true);
@@ -432,17 +433,17 @@ namespace STP3D {
 			width/2.0f,-width/2.0f,width/2.0f,           // B
 		};
 		float normals[3*18] = {
-			// Face back (x = -width/2) (E,H,G',F')
-			0.0f,-1.0f,0.0f,	0.0f,-1.0f,0.0f,    0.0f,-1.0f,0.0f,    0.0f,-1.0f,0.0f,
+			// Face back (z = -width/2) (E,H,G',F')
+			0.0f,0.0f,-1.0f,    0.0f,0.0f,-1.0f,    0.0f,0.0f,-1.0f,    0.0f,0.0f,-1.0f,
 			// Face left (x = -width/2) (A',E,H)
-			0.0f,0.0f,-1.0f,	0.0f,0.0f,-1.0f,	0.0f,0.0f,-1.0f,
+			-1.0f,0.0f,0.0f,    -1.0f,0.0f,0.0f,    -1.0f,0.0f,0.0f,
 			// Face right (x = width/2) (B,F',G')
-			0.0f,0.0f,1.0f,     0.0f,0.0f,1.0f,     0.0f,0.0f,1.0f,
-			// Face down (z = -width/2) (A',E,F',B)
-			-1.0,0.0,0.0,		-1.0,0.0,0.0,       -1.0,0.0,0.0,       -1.0,0.0,0.0,
-			// Face slope (A',H,G',B) (y and x = width/2)
-			1.0/sqrt(2),1.0/sqrt(2),0.0,		1.0/sqrt(2),1.0/sqrt(2),0.0,
-			1.0/sqrt(2),1.0/sqrt(2),0.0,		1.0/sqrt(2),1.0/sqrt(2),0.0,
+			1.0f,0.0f,0.0f,     1.0f,0.0f,0.0f,     1.0f,0.0f,0.0f,
+			// Face down (y = -width/2) (A',E,F',B)
+			0.0f,-1.0f,0.0f,    0.0f,-1.0f,0.0f,    0.0f,-1.0f,0.0f,    0.0f,-1.0f,0.0f,
+			// Face slope (A',H,G',B)
+			0.0,1.0/sqrt(2),1.0/sqrt(2),    0.0,1.0/sqrt(2),1.0/sqrt(2),
+            0.0,1.0/sqrt(2),1.0/sqrt(2),    0.0,1.0/sqrt(2),1.0/sqrt(2),
 		};
 		float uv[2*18] = {
 			// Face back (z = -width/2) (E,F,G,H)

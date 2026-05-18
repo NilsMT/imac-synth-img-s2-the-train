@@ -25,7 +25,6 @@ namespace Draw
 
         somePointsFrame.changeNature(GL_LINES);
         somePointsFrame.initSet(points, pointsColor);
-
         somePointsFrame.drawSet();
     }
 
@@ -35,44 +34,73 @@ namespace Draw
 
         myEngine.mvMatrixStack.pushMatrix();
             moveOrigin(-gnd/2,0,-gnd/2);
-            scaleOrigin(gnd,0.0,gnd);
+            scaleOrigin(gnd,1.0,gnd);
             drawShapeWithColor(rect, 128, 176, 77);
             myEngine.mvMatrixStack.popMatrix();
     }
 
     void drawGrid(int grid_size) {
         myEngine.mvMatrixStack.pushMatrix();
-            std::vector<float> points;
-            std::vector<float> pointsColor;
 
-            float off = (grid_size * cell_size) / 2.0f; //offset
+        std::vector<float> mainPoints;
+        std::vector<float> mainPointsColor;
+        std::vector<float> minorPoints;
+        std::vector<float> minorPointsColor;
 
-            for (int i = 0; i <= grid_size * cell_size; i++) {
-                float inc = (i * 1.0f) - off;  //step by 1
+        float off = (grid_size * cell_size) / 2.0f;
 
-                //= is a main grid line (every cell_size units)
-                bool isMainLine = (fmod(i,cell_size) == 0); //fmod because gird_cell_size is float, regular mod won't work
+        //Main lines (fit cell sizes)
+        glLineWidth(3.0f); //wide stroke
+        for (int i = 0; i <= grid_size * cell_size; i += cell_size) {
+            float inc = (i * 1.0f) - off;
 
-                //line Z (front to back)
-                points.push_back(-off); points.push_back(0.01); points.push_back(inc);
-                points.push_back(off); points.push_back(0.01); points.push_back(inc);
+            //Z
+            mainPoints.push_back(-off); mainPoints.push_back(0.01); mainPoints.push_back(inc);
+            mainPoints.push_back(off); mainPoints.push_back(0.01); mainPoints.push_back(inc);
 
-                //line X (left to right)
-                points.push_back(inc); points.push_back(0.01); points.push_back(-off);
-                points.push_back(inc); points.push_back(0.01); points.push_back(off);
+            //X
+            mainPoints.push_back(inc); mainPoints.push_back(0.01); mainPoints.push_back(-off);
+            mainPoints.push_back(inc); mainPoints.push_back(0.01); mainPoints.push_back(off);
 
-                //color
-                float color = isMainLine ? 1.0f : 0.25f;
-                for(int c = 0; c < 4; c++) {
-                    pointsColor.push_back(color);
-                    pointsColor.push_back(color);
-                    pointsColor.push_back(color);
+            //Colors
+            for (int c = 0; c < 4; c++) {
+                mainPointsColor.push_back(1.0f);
+                mainPointsColor.push_back(1.0f);
+                mainPointsColor.push_back(1.0f);
+            }
+        }
+
+        somePointsGrid.changeNature(GL_LINES);
+        somePointsGrid.initSet(mainPoints, mainPointsColor);
+        somePointsGrid.drawSet();
+
+        //Minor lines (every 1 unit)
+        glLineWidth(1.0f); //thin stroke
+        for (int i = 0; i <= grid_size * cell_size; i++) {
+            if (fmod(i, cell_size) != 0) { //skip main
+                float inc = (i * 1.0f) - off;
+
+                //Z
+                minorPoints.push_back(-off); minorPoints.push_back(0.01); minorPoints.push_back(inc);
+                minorPoints.push_back(off); minorPoints.push_back(0.01); minorPoints.push_back(inc);
+
+                //X
+                minorPoints.push_back(inc); minorPoints.push_back(0.01); minorPoints.push_back(-off);
+                minorPoints.push_back(inc); minorPoints.push_back(0.01); minorPoints.push_back(off);
+
+                //Colors
+                for (int c = 0; c < 4; c++) {
+                    minorPointsColor.push_back(0.25f);
+                    minorPointsColor.push_back(0.25f);
+                    minorPointsColor.push_back(0.25f);
                 }
             }
+        }
 
-            somePointsGrid.changeNature(GL_LINES);
-            somePointsGrid.initSet(points, pointsColor);
-            somePointsGrid.drawSet();
-            myEngine.mvMatrixStack.popMatrix();
-    }   
+        somePointsGrid.changeNature(GL_LINES);
+        somePointsGrid.initSet(minorPoints, minorPointsColor);
+        somePointsGrid.drawSet();
+
+        myEngine.mvMatrixStack.popMatrix();
+    }
 }

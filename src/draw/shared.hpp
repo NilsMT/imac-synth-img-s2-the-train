@@ -18,7 +18,6 @@ namespace Draw {
     extern GLBI_Engine myEngine;
     extern GLBI_Set_Of_Points somePointsFrame;
     extern GLBI_Set_Of_Points somePointsGrid;
-    extern GLBI_Convex_2D_Shape ground;
 
     extern IndexedMesh* sphere;
     extern IndexedMesh* cube;
