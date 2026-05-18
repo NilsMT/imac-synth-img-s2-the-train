@@ -146,7 +146,7 @@ namespace Draw {
 
     void drawTrainWedgeBody() {
         myEngine.mvMatrixStack.pushMatrix();
-            moveOrigin(rails_out_l / 2, (body_h - body_mid_h) / 2, body_wedge_l / 2);
+            moveOrigin(rails_out_l / 2, (body_h - body_mid_h) / 2, body_wedge_l);
 
             //place the light
             if (myEngine.currentShader == 1) {
@@ -167,6 +167,9 @@ namespace Draw {
                 //place the light
                 handleTrainLighting(lightX, lightY, lightZ);
             }
+
+            //move back to center
+            moveOrigin(0, 0 , -body_wedge_l / 2);
 
             scaleOrigin(rails_out_l, body_h - body_mid_h, body_wedge_l);
             drawShapeWithColor(wedge, 255, 0, 128);
