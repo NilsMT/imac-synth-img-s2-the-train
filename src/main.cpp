@@ -15,6 +15,7 @@
 #include "draw_scene.hpp"
 #include "json_data.hpp"
 #include "camera.hpp"
+#include "lighting.hpp"
 
 using namespace glbasimac;
 using namespace STP3D;
@@ -401,10 +402,15 @@ int main(int argc, char** argv)
 		double startTime = glfwGetTime();
 
 		/* Render begins here */
-		glClearColor(0.f,0.0f,0.2f,0.0f);
+		glClearColor(0.f,0.0f,0.2f,0.0f); //sky color
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glEnable(GL_DEPTH_TEST);
+
+        /* Handle lighting */
+        if (myEngine.currentShader == 1) { //if phong shader is used
+            handleLighting(startTime);
+        }
 
         /* Camera position */
         myEngine.mvMatrixStack.loadIdentity();
