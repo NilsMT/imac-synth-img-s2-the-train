@@ -44,18 +44,45 @@ namespace Draw {
         myEngine.updateMvMatrix();
     }
 
-    void drawShapeWithColor(IndexedMesh* shape, int r, int g, int b) {
+    //utils
+
+    void setColor3(int r,int g,int b) {
         myEngine.setFlatColor(r/255.f,g/255.f,b/255.f);
+    }
+
+    void setColorVect(Vector3D color) {
+        myEngine.setFlatColor(color.x/255.f,color.y/255.f,color.z/255.f);
+    }
+
+    //
+
+    void drawShapeWithColor(IndexedMesh* shape, int r, int g, int b) {
+        setColor3(r,g,b);
         shape->draw();
     }
 
     void drawShapeWithColor(StandardMesh* shape, int r, int g, int b) {
-        myEngine.setFlatColor(r/255.f,g/255.f,b/255.f);
+        setColor3(r,g,b);
         shape->draw();
     }
 
     void drawShapeWithColor(GLBI_Convex_2D_Shape shape, int r, int g, int b) {
-        myEngine.setFlatColor(r/255.f,g/255.f,b/255.f);
+        setColor3(r,g,b);
+        shape.drawShape();
+    }
+
+    void drawShapeWithColor(IndexedMesh* shape, Vector3D color){
+        setColorVect(color);
+        shape->draw();
+    }
+
+    void drawShapeWithColor(StandardMesh* shape, Vector3D color){
+        setColorVect(color);
+        shape->draw();
+    }
+
+    void drawShapeWithColor(GLBI_Convex_2D_Shape shape, Vector3D color){
+        setColorVect(color);
         shape.drawShape();
     }
 }

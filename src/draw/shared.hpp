@@ -37,4 +37,10 @@ namespace Draw {
     void drawShapeWithColor(StandardMesh* shape, int r, int g, int b);
 
     void drawShapeWithColor(GLBI_Convex_2D_Shape shape, int r, int g, int b);
+
+    void drawShapeWithColor(IndexedMesh* shape, Vector3D color);
+
+    void drawShapeWithColor(StandardMesh* shape, Vector3D color);
+
+    void drawShapeWithColor(GLBI_Convex_2D_Shape shape, Vector3D color);
 }
