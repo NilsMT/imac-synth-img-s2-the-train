@@ -53,7 +53,7 @@ namespace Draw {
             rotateOrigin(angle, 0, 1, 0);
             rotateOrigin(deg2rad(180), 0, 0, 1);
             scaleOrigin(rails_out_l, 0.75, wheel_wedge_l);
-            drawShapeWithColor(wedge, metal_color);
+            drawShapeWithColor(wedge, body_color);
             myEngine.mvMatrixStack.popMatrix();
     }
 
