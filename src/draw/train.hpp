@@ -1,5 +1,5 @@
 #include "shared.hpp"
-#include "../lighting.hpp"
+#include "../lighting/lighting.hpp"
 
 namespace Draw {
     void drawTrain(float time);  

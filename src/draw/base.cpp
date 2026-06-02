@@ -35,16 +35,7 @@ namespace Draw
         myEngine.mvMatrixStack.pushMatrix();
             moveOrigin(-gnd/2,0,-gnd/2);
             scaleOrigin(gnd,1.0,gnd);
-
-            myEngine.activateTexturing(true);
-            auto& t = loadedTextures.at("grass");
-            t.attachTexture();
-
             drawShapeWithColor(rect, 128, 176, 77);
-
-            t.detachTexture();
-            myEngine.activateTexturing(false);
-
             myEngine.mvMatrixStack.popMatrix();
     }
 

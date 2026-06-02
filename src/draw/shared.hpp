@@ -3,7 +3,7 @@
 #include "glbasimac/glbi_set_of_points.hpp"
 #include "glbasimac/glbi_convex_2D_shape.hpp"
 #include "tools/basic_mesh.hpp"
-#include "../global.hpp"
+#include "../global/global.hpp"
 
 using namespace glbasimac;
 

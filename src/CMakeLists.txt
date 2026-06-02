@@ -1,11 +1,6 @@
 # ---Add current files---
-file(GLOB HEADER_FILES *.hpp)
-file(GLOB SRC_FILES *.cpp)
-# ---Add draw files---
-file(GLOB DRAW_HEADERS draw/*.hpp)
-file(GLOB DRAW_SOURCES draw/*.cpp)
-list(APPEND HEADER_FILES ${DRAW_HEADERS})
-list(APPEND SRC_FILES ${DRAW_SOURCES})
+file(GLOB_RECURSE HEADER_FILES CONFIGURE_DEPENDS *.hpp)
+file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS *.cpp)
 
 get_filename_component(DIR ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 set(OUTPUT main)

@@ -1,5 +1,5 @@
 #include "shared.hpp"
-#include "../image_utils.hpp"
+#include "../texture/texture.hpp"
 
 namespace Draw {
     void drawFrame();

@@ -5,8 +5,8 @@
 #include "glbasimac/glbi_convex_2D_shape.hpp"
 using namespace glbasimac;
 using namespace STP3D;
-#include "draw/shared.hpp"
-#include "json_data.hpp"
+#include "../draw/shared.hpp"
+#include "../json_data.hpp"
 using namespace Draw;
 
 void handleMainLighting(double time);

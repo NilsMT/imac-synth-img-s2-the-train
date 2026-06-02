@@ -1,8 +1,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "tools/stb_image.h"
 
-#include "image_utils.hpp"
-#include "global.hpp" 
+#include "texture.hpp"
+#include "../global/global.hpp" 
 
 using namespace glbasimac;
 
@@ -40,10 +40,23 @@ void createTextureFromImage(const std::string& imageName, const std::string& tex
 
     const ImageData& image = imageIt->second;
     GLBI_Texture texture;
-    myEngine.activateTexturing(true);
     texture.createTexture();
     texture.loadImage(static_cast<unsigned int>(image.width), static_cast<unsigned int>(image.height), static_cast<unsigned int>(image.channel_number), image.ptr);
     loadedTextures.emplace(textureName, std::move(texture));
+}
+
+// attach texture
+void startTextureRender(const std::string& textureName) {
+    myEngine.activateTexturing(true);
+    auto& t = loadedTextures.at(textureName);
+    t.attachTexture();
+}
+
+// detach texture
+void endTextureRender(const std::string& textureName) {
+    auto& t = loadedTextures.at(textureName);
+    t.detachTexture();
+    myEngine.activateTexturing(false);
 }
 
 // free all loaded images and textures

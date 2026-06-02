@@ -24,5 +24,11 @@ const ImageData& loadImage(const std::string& path, const std::string& name);
 // create an OpenGL texture from a previously loaded image
 void createTextureFromImage(const std::string& imageName, const std::string& textureName);
 
+// attach texture
+void startTextureRender(const std::string& textureName);
+
+// detach texture
+void endTextureRender(const std::string& textureName);
+
 // free all loaded images and textures
 void freeAllResources();

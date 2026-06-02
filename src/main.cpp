@@ -12,10 +12,10 @@
 
 #include "nlohmann/json.hpp"
 #include "tools/shaders.hpp"
-#include "draw_scene.hpp"
-#include "image_utils.hpp"
+#include "draw/draw_scene.hpp"
+#include "texture/texture.hpp"
 #include "json_data.hpp"
-#include "camera.hpp"
+#include "camera/camera.hpp"
 
 using namespace glbasimac;
 using namespace STP3D;
