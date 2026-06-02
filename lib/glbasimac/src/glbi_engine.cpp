@@ -15,7 +15,7 @@ namespace glbasimac {
 		std::cout<<"Initialisation of GL Engine"<<std::endl;
 
         shadersPath = assetsPath + "shaders/";
-        texturesPath = assetsPath + "texture/";
+        texturesPath = assetsPath + "textures/";
 
 		if (mode2D) {
 			std::cerr<<"Flat 2D"<<std::endl;

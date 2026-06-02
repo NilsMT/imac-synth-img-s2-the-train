@@ -1,8 +1,8 @@
-> ➡️⬅️⬇️⬆️: Rails courbés
-> ↗️↘️↙️↖️: Rails droits
+> ↗️↘️↙️↖️ : Rails courbés
+> ➡️⬅️⬇️⬆️ : Rails droits
 > ⬛ : Vide
-> 🔺: Début
-> 🔻: Fin
+> 🔺 : Début
+> 🔻 : Fin
 > 🚉 : Gare
 > 🌳 : Arbre
 

@@ -9,13 +9,13 @@ Projet initialisé sur la base du TD04 de synthèse d'image, et remaniée de man
 - [Structure](#structure)
 - [Guide des touches](#guide-des-touches)
 - [Listes des tâches](#listes-des-tâches)
+- [Listes des tâches annexes](#listes-des-tâches-annexes)
 - [Informations supplémentaires](#informations-supplémentaires)
     - [Informations utiles](#informations-utiles)
     - [Explication de la refactorisation des coordonnées](#explication-de-la-refactorisation-des-coordonnées)
     - [Identification des bugs](#identification-des-bugs)
     - [Optimisation du moteur de rendu](#optimisation-du-moteur-de-rendu)
     - [Informations ajoutées au JSON](#informations-ajoutées-au-json)
-    - [Temps passé Nils](#temps-passé-nils)
 
 # Lancement
 
@@ -48,17 +48,13 @@ Exemple : `./main.exe ../data/path_1.json`.
 ├───📁 lib : les librairies externes
 ├───📁 src : les fichiers sources
 │   ├───📁 draw : les fichiers individuels des rendus 3D
-│   │   ├───📄 base.cpp : contient le dessin du sol, de la grille et du repère
-│   │   ├───📄 rail.cpp : contient le dessin des morceaux de rails
-│   │   ├───📄 shared.cpp : contient les valeurs globales utilisées par les autres (dont les unités sr, sx, rr et myEngine)
-│   │   ├───📄 train_station.cpp : contient le dessin de la gare
-│   │   └───📄 train.cpp : contient le dessin du train
-│   ├───📄 camera.cpp : variables et fonctions pour la camera
-│   ├───📄 draw_scene.cpp : les rendus 3D
+│   │   └───📄 shared.cpp : contient les valeurs globales utilisées par les autres (dont les unités sr, sx, rr et myEngine)
 │   ├───📄 main.cpp : moteur de rendus
 │   └───📄 json_data.hpp : structure de sérialisation du JSON
 └───📄 README.md : ce fichier
 ```
+
+> Il y a des dossiers dans `src/` qui contiennent des `.hpp` et `.cpp`
 
 # Guide des touches
 
@@ -75,57 +71,64 @@ Exemple : `./main.exe ../data/path_1.json`.
 
 # Listes des tâches
 
-> ☑️ = Bonus énuméré dans l'énoncé ♒ = Bonus supplémentaire
-
-| Status | Catégorie      | En + | Description                           | Commentaire                              | Qui       |
-| ------ | -------------- | ---- | ------------------------------------- | ---------------------------------------- | --------- |
-| ✅     | 📁Structure    |      | Créer la structure du projet          | Reprendre la base du TD04                | 🔵 Nils   |
-| ✅     | 📁Structure    |      | Fragmentation du draw_scene           |                                          | 🔵 Nils   |
-| ❌     | ⚒️Modélisation |      | Faire les Rails                       | Faire Courbé et Droit                    | 🟠 Yanis  |
-| ✅     | ⚒️Modélisation |      | Faire le Train                        | + Faire triangle et cylindre fermé       | 🔵 Nils   |
-| ✅     | ⚒️Modélisation |      | Faire la Gare                         |                                          | 🔵 Nils   |
-| ✅     | 📝JSON         |      | Lire le JSON (JsonData)               | Serialisé en `JsonData`                  | 🔵 Nils   |
-| ❌     | 📝JSON         |      | Créer le parcours                     | Depuis `JsonData`                        | 🟠 Yanis  |
-| ✅     | 📝JSON         |      | Placer la gare                        |                                          | 🔵 Nils   |
-| ❌     | 📝JSON         |      | Placer le train                       |                                          | 🟠 Yanis  |
-| ✅     | 📝JSON         |      | Lancement avec JSON en argument       |                                          | 🔵 Nils   |
-| ✅     | 🖥️IHM          |      | Touche pour quitter                   | Touche Échap                             | 🔵 Nils   |
-| ✅     | 🖥️IHM          |      | Touche pour toggle modes d'éclairages | Touche F                                 | 🔵 Nils   |
-| ✅     | 🖥️IHM          |      | Caméra FPS                            | ZQSD to move where facing, Pan to rotate | 🔵 Nils   |
-| ✅     | 🖥️IHM          |      | Caméra ORBITAL                        | ZQSD to rotate, Scroll to zoom           | 🔵 Nils   |
-| ✅     | 🖥️IHM          |      | Touche pour toggle modes camera       | Touche C                                 | 🔵 Nils   |
-| ✅     | 👁️Rendu        |      | Éclairage "flat"                      | Par défaut sur OpenGL                    | 🟢 OpenGL |
-| ❌     | 👁️Rendu        |      | Éclairage "réaliste" `*`              | Un soleil et phares du train             | -         |
-| ❌     | 👁️Rendu        |      | Texturé un truc                       | Avant du train OU le sol                 | -         |
-| ✅     | 📁Structure    | ♒   | Refactorisation des coordonnées       | Voir Informations supplémentaires        | 🔵 Nils   |
-| ✅     | 📁Structure    | ♒   | Correction des bugs                   | Voir Informations supplémentaires        | 🔵 Nils   |
-| ✅     | 📁Structure    | ♒   | Optimisation du moteur de rendu       | Voir Informations supplémentaires        | 🔵 Nils   |
-| ✅     | 🖥️IHM          | ♒   | Touche pour toggle modes de rendu     | Touche R                                 | 🔵 Nils   |
-| ✅     | 🖥️IHM          | ♒   | Caméra TOP                            | ZQSD to move (X,Z), Scroll to zoom (Y)   | 🔵 Nils   |
-| ✅     | 🖥️IHM          | ♒   | Touche pour toggle grille             | Touche G                                 | 🔵 Nils   |
-| ✅     | ⚒️Modélisation | ♒   | Grille des cellules de rails          | Pour visualiser le placement             | 🔵 Nils   |
-| ✅     | ⚒️Modélisation | ♒   | Primitives supplémentaires            | Triangle rectangle et cylindre fermé     | 🔵 Nils   |
-| ✅     | ⚒️Modélisation | ☑️   | Modéliser (+ placer) du décors        | Genre un arbre                           | 🔵 Nils   |
-| ✅     | 📝JSON         | ☑️   | Ajouter des trucs dans le JSON        | Placement d'arbres                       | 🔵 Nils   |
-| ❌     | 👁️Rendu        | ☑️   | Animer le train                       |                                          | -         |
-| ❌     | 👁️Rendu        | ☑️   | Ajouter des lumières                  | Genre à la gare                          | -         |
+| Status | Catégorie      | Bonus | Description                           | Commentaire                  |
+| ------ | -------------- | ----- | ------------------------------------- | ---------------------------- |
+| ✅     | 📁Structure    |       | Créer la structure du projet          | Reprendre la base du TD04    |
+| ❌     | ⚒️Modélisation |       | Faire rail droite                     |                              |
+| ❌     | ⚒️Modélisation |       | Faire rail courbé                     |                              |
+| ✅     | ⚒️Modélisation |       | Faire le Train                        |                              |
+| ✅     | ⚒️Modélisation |       | Faire la Gare                         |                              |
+| ✅     | 📝JSON         |       | Lire le JSON (JsonData)               | Serialisé en `JsonData`      |
+| ❌     | 📝JSON         |       | Créer le parcours                     | Depuis `JsonData`            |
+| ✅     | 📝JSON         |       | Placer la gare                        |                              |
+| ❌     | 📝JSON         |       | Placer le train                       |                              |
+| ✅     | 📝JSON         |       | Lancement avec JSON en argument       |                              |
+| ✅     | 🖥️IHM          |       | Touche pour quitter                   | Touche Échap                 |
+| ✅     | 🖥️IHM          |       | Touche pour toggle modes d'éclairages | Touche F                     |
+| ✅     | 🖥️IHM          |       | Caméra FPS                            | ZQSD + Mouvement souris      |
+| ✅     | 🖥️IHM          |       | Caméra ORBITAL                        | ZQSD + Scroll                |
+| ✅     | 🖥️IHM          |       | Touche pour toggle modes camera       | Touche C                     |
+| ❌     | 👁️Rendu        |       | Éclairage "réaliste" `*`              | Un soleil et phares du train |
+| ❌     | 👁️Rendu        |       | Texturé un truc                       | Avant du train OU le sol     |
+| ✅     | ⚒️Modélisation | ☑️    | Modéliser (+ placer) du décors        | Genre un arbre               |
+| ✅     | 📝JSON         | ☑️    | Ajouter des trucs dans le JSON        | Placement d'arbres           |
+| ❌     | 👁️Rendu        | ☑️    | Animer le train                       |                              |
+| ❌     | 👁️Rendu        | ☑️    | Ajouter des lumières                  | Genre à la gare              |
 
 > `*` = D'après le PDF : _"vous devrez positionner une lumière directionnelle (orientée selon votre choix mais qui éclaire la scène comme un soleil), et une source de lumière ponctuelle au niveau de l’avant de votre train. Par ailleurs au moins un élément de votre application devra être texturé !"_
+
+# Listes des tâches annexes
+
+Des tâches non-énumérés dans le PDF
+
+| Status | Catégorie      | Description                       | Commentaire                          |
+| ------ | -------------- | --------------------------------- | ------------------------------------ |
+| ✅     | 📁Structure    | Refactorisation des coordonnées   | Voir Informations supplémentaires    |
+| ✅     | 📁Structure    | Correction des bugs               | Voir Informations supplémentaires    |
+| ✅     | 📁Structure    | Optimisation du moteur de rendu   | Voir Informations supplémentaires    |
+| ✅     | 🖥️IHM          | Touche pour toggle modes de rendu | Touche R                             |
+| ✅     | 🖥️IHM          | Caméra TOP                        | ZQSD (X,Z) + Scroll (Y)              |
+| ✅     | 🖥️IHM          | Touche pour toggle grille         | Touche G                             |
+| ✅     | ⚒️Modélisation | Grille des cellules de rails      | Pour visualiser le placement         |
+| ✅     | ⚒️Modélisation | Primitives supplémentaires        | Triangle rectangle et cylindre fermé |
 
 # Informations supplémentaires
 
 ## Informations utiles
 
-> Extension pratique pour naviguer dans des endroits du code sur `VS Code` :<br>
-> [Todo Tree](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree)<br>
-> Avec `NOTE:` et `SOURCE:` d'ajoutée dans [todo-tree.general.tags](vscode://settings/todo-tree.general.tags).
->
-> Il est aussi recommandé d'utiliser l'`Outline` dans le panneau de droite de `VS Code`.
+Il y a une extension pratique pour naviguer dans des endroits du code sur `VS Code` :<br>
+[Todo Tree](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree)<br>
+Avec `NOTE:` d'ajoutée dans le paramètre de l'extension [todo-tree.general.tags](vscode://settings/todo-tree.general.tags).
+
+Il est aussi recommandé d'utiliser l'`Outline` dans le panneau de droite de `VS Code`.
+
+Il y a un document [DATADESC.md](./data/DATADESC.md) qui décrit les fichiers JSON et leurs visualisations.
 
 ## Explication de la refactorisation des coordonnées
 
 La refactorisation des coordonnées a été effectué pour plus de clarté car le système était en **Right-handed Z-up**
-(X+ derrière, Y+ droite, Z+ haut), ce qui n'est pas standard, en **Right-handed Y-up** (X+ gauche, Y+ haut, Z+ avant)
+(X+ derrière, Y+ droite, Z+ haut), ce qui n'est pas standard, en **Right-handed Y-up** (X+ gauche, Y+ haut, Z+ avant).
+
 Comme dans Minecraft !
 
 ## Identification des bugs
@@ -156,20 +159,3 @@ Nous avons donc ajouté des `.reInit()` dans ces fichiers pour éviter cela.
 ## Informations ajoutées au JSON
 
 Le JSON possède une information en plus : une liste de positions ou il y a des arbres.
-
-## Temps passé Nils
-
-- Structure : 8h
-- Modélisation du train : 3h30
-- Création des primitives + utilisation sur le train : 5h
-- Lecture du JSON + en ligne de commande : 2h
-- Grille : 1h
-- Camera TOP + Refactorisation camera : 2h
-- Refactorisation des coordonnées : 4h30
-- Fragmentation : 2h
-- Correction de bugs : 2h
-- Optimisation : 1h
-- Ajout des arbres : 1h30
-- Refactorisation drawShapeWithColor : 20min
-- Autres : ~10min
-  Total : 33h

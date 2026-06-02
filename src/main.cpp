@@ -12,9 +12,10 @@
 
 #include "nlohmann/json.hpp"
 #include "tools/shaders.hpp"
-#include "draw_scene.hpp"
+#include "draw/draw_scene.hpp"
+#include "texture/texture.hpp"
 #include "json_data.hpp"
-#include "camera.hpp"
+#include "camera/camera.hpp"
 
 using namespace glbasimac;
 using namespace STP3D;
@@ -366,7 +367,6 @@ int main(int argc, char** argv)
     ).string();
 
 
-
     //////////////////////////////////////
     /* Engine init */
     //////////////////////////////////////
@@ -378,8 +378,18 @@ int main(int argc, char** argv)
 	myEngine.initGL();
 	onWindowResized(window,WINDOW_WIDTH,WINDOW_HEIGHT);
 	CHECK_GL;
-
 	initScene();
+    
+
+    
+    //////////////////////////////////////
+    /* Texture loading */
+    //////////////////////////////////////
+
+
+
+    std::cout << texturesPath << "a\n";
+    createTextureFromImage("grass.jpg","grass");
 
 
     
@@ -401,10 +411,15 @@ int main(int argc, char** argv)
 		double startTime = glfwGetTime();
 
 		/* Render begins here */
-		glClearColor(0.f,0.0f,0.2f,0.0f);
+		glClearColor(0.f,0.0f,0.2f,0.0f); //sky color
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glEnable(GL_DEPTH_TEST);
+
+        /* Handle lighting */
+        if (myEngine.currentShader == 1) { //if phong shader is used
+            handleMainLighting(startTime);
+        }
 
         /* Camera position */
         myEngine.mvMatrixStack.loadIdentity();
@@ -446,6 +461,7 @@ int main(int argc, char** argv)
 		}
 	}
 
+    freeAllResources();
 	glfwTerminate();
 	return 0;
 }
