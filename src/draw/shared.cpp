@@ -1,5 +1,7 @@
 #include "shared.hpp"
 
+using namespace glbasimac;
+
 namespace Draw {
     //////////////////////////////////////
     /* Shared variables */
@@ -10,8 +12,6 @@ namespace Draw {
     float rr = 1;
 
     float cell_size = 10; //size of cells on X and Y, min 10 otherwise it break stuffs
-
-    GLBI_Engine myEngine;
     GLBI_Set_Of_Points somePointsFrame(3);
     GLBI_Set_Of_Points somePointsGrid(3);
 

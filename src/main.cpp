@@ -13,6 +13,7 @@
 #include "nlohmann/json.hpp"
 #include "tools/shaders.hpp"
 #include "draw_scene.hpp"
+#include "image_utils.hpp"
 #include "json_data.hpp"
 #include "camera.hpp"
 
@@ -366,7 +367,6 @@ int main(int argc, char** argv)
     ).string();
 
 
-
     //////////////////////////////////////
     /* Engine init */
     //////////////////////////////////////
@@ -378,8 +378,18 @@ int main(int argc, char** argv)
 	myEngine.initGL();
 	onWindowResized(window,WINDOW_WIDTH,WINDOW_HEIGHT);
 	CHECK_GL;
-
 	initScene();
+    
+
+    
+    //////////////////////////////////////
+    /* Texture loading */
+    //////////////////////////////////////
+
+
+
+    std::cout << texturesPath << "a\n";
+    createTextureFromImage("grass.jpg","grass");
 
 
     
@@ -451,6 +461,7 @@ int main(int argc, char** argv)
 		}
 	}
 
+    freeAllResources();
 	glfwTerminate();
 	return 0;
 }

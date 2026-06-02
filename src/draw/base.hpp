@@ -1,4 +1,5 @@
 #include "shared.hpp"
+#include "../image_utils.hpp"
 
 namespace Draw {
     void drawFrame();

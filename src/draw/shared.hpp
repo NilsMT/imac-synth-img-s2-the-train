@@ -1,10 +1,9 @@
 #pragma once
 
-#include "glbasimac/glbi_engine.hpp"
 #include "glbasimac/glbi_set_of_points.hpp"
 #include "glbasimac/glbi_convex_2D_shape.hpp"
 #include "tools/basic_mesh.hpp"
-#include "../json_data.hpp"
+#include "../global.hpp"
 
 using namespace glbasimac;
 
@@ -15,7 +14,6 @@ namespace Draw {
 
     extern float cell_size;
 
-    extern GLBI_Engine myEngine;
     extern GLBI_Set_Of_Points somePointsFrame;
     extern GLBI_Set_Of_Points somePointsGrid;
 
