@@ -155,6 +155,7 @@ namespace Draw {
     }
     
     void drawCubeRail(){
+
         float section_size = sr;
         // push	
         myEngine.mvMatrixStack.pushMatrix();
@@ -229,6 +230,7 @@ namespace Draw {
 
     void drawRailCurve(float orientation) {
         // TODO: orientate accordingly
+        float y_troncon=rr*2;
         float angleRadiant{};
         angleRadiant=deg2rad(orientation);
         myEngine.setFlatColor(.41f,.41f,.41f);
@@ -252,7 +254,7 @@ namespace Draw {
             myEngine.mvMatrixStack.pushMatrix();
                 STP3D::Vector3D CercleCoordTrans(
                     rayon * cos(angle),
-                    0,
+                    y_troncon+rr-0.05,
                     rayon * sin(angle)
                 );
                 myEngine.mvMatrixStack.addTranslation(CercleCoordTrans);
@@ -270,7 +272,7 @@ namespace Draw {
             myEngine.mvMatrixStack.pushMatrix();
                 STP3D::Vector3D CercleCoordTrans(
                     rayon2 * cos(angle),
-                    0,
+                    y_troncon+rr-0.05,
                     rayon2 * sin(angle)
                 );
                 myEngine.mvMatrixStack.addTranslation(CercleCoordTrans);
@@ -295,7 +297,7 @@ namespace Draw {
                     // BorderRadiusCoord.push_back(rayon * sin(angle));
                     STP3D::Vector3D TronconCoordTrans(
                         rayonTroncon * cos(angle),
-                        1,
+                        y_troncon/2,
                         rayonTroncon * sin(angle)
                     );
                     myEngine.mvMatrixStack.addTranslation(TronconCoordTrans);
