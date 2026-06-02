@@ -387,10 +387,7 @@ int main(int argc, char** argv)
     //////////////////////////////////////
 
 
-
-    std::cout << texturesPath << "a\n";
     createTextureFromImage("grass.jpg","grass");
-
 
     
     //////////////////////////////////////

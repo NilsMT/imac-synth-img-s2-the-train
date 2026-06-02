@@ -4,18 +4,18 @@ Projet initialisé sur la base du TD04 de synthèse d'image, et remaniée de man
 
 - [Sommaire](#sommaire)
 - [Lancement](#lancement)
-    - [Avec les extensions :](#avec-les-extensions-)
-    - [Avec la ligne de commande :](#avec-la-ligne-de-commande-)
+  - [Avec les extensions :](#avec-les-extensions-)
+  - [Avec la ligne de commande :](#avec-la-ligne-de-commande-)
 - [Structure](#structure)
 - [Guide des touches](#guide-des-touches)
 - [Listes des tâches](#listes-des-tâches)
 - [Listes des tâches annexes](#listes-des-tâches-annexes)
 - [Informations supplémentaires](#informations-supplémentaires)
-    - [Informations utiles](#informations-utiles)
-    - [Explication de la refactorisation des coordonnées](#explication-de-la-refactorisation-des-coordonnées)
-    - [Identification des bugs](#identification-des-bugs)
-    - [Optimisation du moteur de rendu](#optimisation-du-moteur-de-rendu)
-    - [Informations ajoutées au JSON](#informations-ajoutées-au-json)
+  - [Informations utiles](#informations-utiles)
+  - [Explication de la refactorisation des coordonnées](#explication-de-la-refactorisation-des-coordonnées)
+  - [Identification des bugs](#identification-des-bugs)
+  - [Optimisation du moteur de rendu](#optimisation-du-moteur-de-rendu)
+  - [Informations ajoutées au JSON](#informations-ajoutées-au-json)
 
 # Lancement
 
@@ -74,8 +74,8 @@ Exemple : `./main.exe ../data/path_1.json`.
 | Status | Catégorie      | Bonus | Description                           | Commentaire                  |
 | ------ | -------------- | ----- | ------------------------------------- | ---------------------------- |
 | ✅     | 📁Structure    |       | Créer la structure du projet          | Reprendre la base du TD04    |
-| ❌     | ⚒️Modélisation |       | Faire rail droite                     |                              |
-| ❌     | ⚒️Modélisation |       | Faire rail courbé                     |                              |
+| ✅     | ⚒️Modélisation |       | Faire rail droite                     |                              |
+| ✅     | ⚒️Modélisation |       | Faire rail courbé                     |                              |
 | ✅     | ⚒️Modélisation |       | Faire le Train                        |                              |
 | ✅     | ⚒️Modélisation |       | Faire la Gare                         |                              |
 | ✅     | 📝JSON         |       | Lire le JSON (JsonData)               | Serialisé en `JsonData`      |
@@ -89,7 +89,7 @@ Exemple : `./main.exe ../data/path_1.json`.
 | ✅     | 🖥️IHM          |       | Caméra ORBITAL                        | ZQSD + Scroll                |
 | ✅     | 🖥️IHM          |       | Touche pour toggle modes camera       | Touche C                     |
 | ❌     | 👁️Rendu        |       | Éclairage "réaliste" `*`              | Un soleil et phares du train |
-| ❌     | 👁️Rendu        |       | Texturé un truc                       | Avant du train OU le sol     |
+| ✅     | 👁️Rendu        |       | Texturé un truc                       | Avant du train OU le sol     |
 | ✅     | ⚒️Modélisation | ☑️    | Modéliser (+ placer) du décors        | Genre un arbre               |
 | ✅     | 📝JSON         | ☑️    | Ajouter des trucs dans le JSON        | Placement d'arbres           |
 | ❌     | 👁️Rendu        | ☑️    | Animer le train                       |                              |

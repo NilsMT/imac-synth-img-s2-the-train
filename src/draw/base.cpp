@@ -35,7 +35,9 @@ namespace Draw
         myEngine.mvMatrixStack.pushMatrix();
             moveOrigin(-gnd/2,0,-gnd/2);
             scaleOrigin(gnd,1.0,gnd);
+            startTextureRender("grass");
             drawShapeWithColor(rect, 128, 176, 77);
+            endTextureRender("grass");
             myEngine.mvMatrixStack.popMatrix();
     }
 

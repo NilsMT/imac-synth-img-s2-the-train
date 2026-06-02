@@ -44,7 +44,7 @@ namespace Draw {
         // // update
         // myEngine.updateMvMatrix();
         // drawRailStraight(210.);
-        drawRailCurve(0);
+        // drawRailCurve(0);
         // // pop
         // myEngine.mvMatrixStack.popMatrix();
         // // update
@@ -73,7 +73,7 @@ namespace Draw {
         if (isGridShown) {
             drawGrid((*json_data).size_grid);
         }
-
+        
         //ground according to railways size
         drawGround((*json_data).size_grid);
 
@@ -84,9 +84,9 @@ namespace Draw {
         drawTrees(&(json_data->trees));
 
         //draw path and train
-        // drawTrainAndPath(&(json_data->path),time);
+        drawTrainAndPath(&(json_data->path),time);
 
         //place the train station
-        // drawTrainStation(json_data->origin[0],json_data->origin[1]);
+        drawTrainStation(json_data->origin[0],json_data->origin[1]);
     }
 }
