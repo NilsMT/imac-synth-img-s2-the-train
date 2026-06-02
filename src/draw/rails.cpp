@@ -154,23 +154,23 @@ namespace Draw {
         myEngine.updateMvMatrix();
     }
     
-        void drawCubeRail(){
-            float section_size = sr;
-            // push	
-            myEngine.mvMatrixStack.pushMatrix();
-            // Vector3D translationRail3{POS_X_RAIL1,10,0};
-            // myEngine.mvMatrixStack.addTranslation(translationRail3);
-                // rotation
-                    // update
-                    scaleOrigin(section_size, section_size, section_size);
-                    myEngine.setFlatColor(.41f,.41f,.41f);
-                    myEngine.updateMvMatrix();
-                    cube->draw();
-            // pop
-            myEngine.mvMatrixStack.popMatrix();
-            // update
-            myEngine.updateMvMatrix();
-        }
+    void drawCubeRail(){
+        float section_size = sr;
+        // push	
+        myEngine.mvMatrixStack.pushMatrix();
+        // Vector3D translationRail3{POS_X_RAIL1,10,0};
+        // myEngine.mvMatrixStack.addTranslation(translationRail3);
+            // rotation
+                // update
+                scaleOrigin(section_size, section_size, section_size);
+                myEngine.setFlatColor(.41f,.41f,.41f);
+                myEngine.updateMvMatrix();
+                cube->draw();
+        // pop
+        myEngine.mvMatrixStack.popMatrix();
+        // update
+        myEngine.updateMvMatrix();
+    }
     
     void drawLittleRail(float orientation) {
         // TODO: orientate accordingly
@@ -241,25 +241,6 @@ namespace Draw {
             myEngine.mvMatrixStack.addTranslation({-5,0,-5});
             // update
             myEngine.updateMvMatrix();
-
-            // if(orientation<90){
-            //     int degre{15};
-            //     for(int i=0;i<3;i++){
-            //         drawLittleRail(degre);
-            //         degre+=30;
-            //     }
-            // }
-            // else if(orientation>90){
-            //     int degre{-15};
-            //     for(int i=0;i<3;i++){
-            //         drawLittleRail(degre);
-            //         degre-=30;
-            //     }
-            // }
-        // pop
-        // myEngine.mvMatrixStack.popMatrix();
-        // // update
-        // myEngine.updateMvMatrix();
         
         // ---------------------------------------- arc de cercle rail
         float rayon=3.;
@@ -314,7 +295,7 @@ namespace Draw {
                     // BorderRadiusCoord.push_back(rayon * sin(angle));
                     STP3D::Vector3D TronconCoordTrans(
                         rayonTroncon * cos(angle),
-                        0,
+                        1,
                         rayonTroncon * sin(angle)
                     );
                     myEngine.mvMatrixStack.addTranslation(TronconCoordTrans);
@@ -325,5 +306,10 @@ namespace Draw {
                 myEngine.mvMatrixStack.popMatrix();
             }
         myEngine.mvMatrixStack.popMatrix();
+
+        // pop
+        myEngine.mvMatrixStack.popMatrix();
+        // update
+        myEngine.updateMvMatrix();
     }
 }
