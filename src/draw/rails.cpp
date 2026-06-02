@@ -80,43 +80,25 @@ namespace Draw {
         // update
         myEngine.updateMvMatrix();
     }
-
-    void drawCubeRail(){
-        float section_size = sr;
-        // push	
-        myEngine.mvMatrixStack.pushMatrix();
-        // Vector3D translationRail3{POS_X_RAIL1,10,0};
-        // myEngine.mvMatrixStack.addTranslation(translationRail3);
-            // rotation
-                // update
-                scaleOrigin(section_size, section_size, section_size);
-                myEngine.setFlatColor(.41f,.41f,.41f);
-                myEngine.updateMvMatrix();
-                cube->draw();
-        // pop
-        myEngine.mvMatrixStack.popMatrix();
-        // update
-        myEngine.updateMvMatrix();
-    }
-
+    
     void drawRailStraight(float orientation) {
         float angleRadiant{};
         angleRadiant=M_PI*orientation/180;
         myEngine.setFlatColor(.41f,.41f,.41f);
-
+        
         myEngine.mvMatrixStack.pushMatrix();
-            // on se place au centre de la grille pour la rotation
-            myEngine.mvMatrixStack.addTranslation({5,0,5});
-            Vector3D axeRotation(0.,1,0.);
-            myEngine.mvMatrixStack.addRotation(angleRadiant,axeRotation);
-            myEngine.mvMatrixStack.addTranslation({-5,0,-5});
+        // on se place au centre de la grille pour la rotation
+        myEngine.mvMatrixStack.addTranslation({5,0,5});
+        Vector3D axeRotation(0.,1,0.);
+        myEngine.mvMatrixStack.addRotation(angleRadiant,axeRotation);
+        myEngine.mvMatrixStack.addTranslation({-5,0,-5});
         // update
         myEngine.updateMvMatrix();
-
+        
         // Premier PAVE
         // push	
         myEngine.mvMatrixStack.pushMatrix();
-            Vector3D translationRail1{POS_X_RAIL1,10+rr,0};
+        Vector3D translationRail1{POS_X_RAIL1,10+rr,0};
             myEngine.mvMatrixStack.addTranslation(translationRail1);
             // update
             myEngine.updateMvMatrix();
@@ -125,25 +107,25 @@ namespace Draw {
         myEngine.mvMatrixStack.popMatrix();
         // update
         myEngine.updateMvMatrix();
-
+        
         // Deuxieme PAVE
         // push	
         myEngine.mvMatrixStack.pushMatrix();
-            Vector3D translationRail2{POS_X_RAIL2,10+rr,0};
-            myEngine.mvMatrixStack.addTranslation(translationRail2);
-            // update
-            myEngine.updateMvMatrix();
-            pave.drawShape();
+        Vector3D translationRail2{POS_X_RAIL2,10+rr,0};
+        myEngine.mvMatrixStack.addTranslation(translationRail2);
+        // update
+        myEngine.updateMvMatrix();
+        pave.drawShape();
         // pop
         myEngine.mvMatrixStack.popMatrix();
         // update
         myEngine.updateMvMatrix();
-
+        
         // TRONCON
         // push	
         myEngine.mvMatrixStack.pushMatrix();
-            Vector3D translationTroncon1{2,10,sx+rr};
-            myEngine.mvMatrixStack.addTranslation(translationTroncon1);
+        Vector3D translationTroncon1{2,10,sx+rr};
+        myEngine.mvMatrixStack.addTranslation(translationTroncon1);
         // update
         myEngine.updateMvMatrix();
         drawTroncon();
@@ -156,8 +138,8 @@ namespace Draw {
             old_z=old_z+rr+2*sx+rr;
             // push	
             myEngine.mvMatrixStack.pushMatrix();
-                Vector3D translationTroncon2{2,10,old_z};
-                myEngine.mvMatrixStack.addTranslation(translationTroncon2);
+            Vector3D translationTroncon2{2,10,old_z};
+            myEngine.mvMatrixStack.addTranslation(translationTroncon2);
             // update
             myEngine.updateMvMatrix();
             drawTroncon();
@@ -171,8 +153,25 @@ namespace Draw {
         // update
         myEngine.updateMvMatrix();
     }
-
-
+    
+        void drawCubeRail(){
+            float section_size = sr;
+            // push	
+            myEngine.mvMatrixStack.pushMatrix();
+            // Vector3D translationRail3{POS_X_RAIL1,10,0};
+            // myEngine.mvMatrixStack.addTranslation(translationRail3);
+                // rotation
+                    // update
+                    scaleOrigin(section_size, section_size, section_size);
+                    myEngine.setFlatColor(.41f,.41f,.41f);
+                    myEngine.updateMvMatrix();
+                    cube->draw();
+            // pop
+            myEngine.mvMatrixStack.popMatrix();
+            // update
+            myEngine.updateMvMatrix();
+        }
+    
     void drawLittleRail(float orientation) {
         // TODO: orientate accordingly
         float angleRadiant{};
@@ -243,63 +242,149 @@ namespace Draw {
             // update
             myEngine.updateMvMatrix();
 
-        // Premier PAVE
-        // push	
-        myEngine.mvMatrixStack.pushMatrix();
-        Vector3D translationRail1{POS_X_RAIL1,10+rr,0};
-        myEngine.mvMatrixStack.addTranslation(translationRail1);
-        // update
-        myEngine.updateMvMatrix();
-        pave.drawShape();
+            // if(orientation<90){
+            //     int degre{15};
+            //     for(int i=0;i<3;i++){
+            //         drawLittleRail(degre);
+            //         degre+=30;
+            //     }
+            // }
+            // else if(orientation>90){
+            //     int degre{-15};
+            //     for(int i=0;i<3;i++){
+            //         drawLittleRail(degre);
+            //         degre-=30;
+            //     }
+            // }
         // pop
         myEngine.mvMatrixStack.popMatrix();
         // update
         myEngine.updateMvMatrix();
-
-        // Deuxieme PAVE
-        // push	
-        myEngine.mvMatrixStack.pushMatrix();
-        Vector3D translationRail2{POS_X_RAIL2,10+rr,0};
-        myEngine.mvMatrixStack.addTranslation(translationRail2);
-        // update
-        myEngine.updateMvMatrix();
-        pave.drawShape();
-        // pop
-        myEngine.mvMatrixStack.popMatrix();
-        // update
-        myEngine.updateMvMatrix();
-
-        // TRONCON
-        // push	
-        myEngine.mvMatrixStack.pushMatrix();
-            Vector3D translationTroncon1{2,10,sx+rr};
-            myEngine.mvMatrixStack.addTranslation(translationTroncon1);
-        // update
-        myEngine.updateMvMatrix();
-        drawTroncon();
-        // pop
-        myEngine.mvMatrixStack.popMatrix();
-        // update
-        myEngine.updateMvMatrix();
-        float old_z{sx+rr};
-        for(int i{0};i<4;i++){
-            old_z=old_z+rr+2*sx+rr;
-            // push	
+        
+        // ---------------------------------------- arc de cercle
+        float rayon=3.;
+                // Précision du cercle, plus ou moins lisse
+        int precision=50;
+        // std::vector<float> BorderRadiusCoord{};
+        // formule pour calculer les cordonnées de chaque point du cercle
+        // (2PI * point_actuel) / nb_points_total
+        for (int i = 0; i < precision ; i++)
+        {
+            float angle=M_PI/2*i/precision;
             myEngine.mvMatrixStack.pushMatrix();
-                Vector3D translationTroncon2{2,10,old_z};
-                myEngine.mvMatrixStack.addTranslation(translationTroncon2);
-            // update
-            myEngine.updateMvMatrix();
-            drawTroncon();
-            // pop
+                // BorderRadiusCoord.push_back(rayon * cos(angle));
+                // BorderRadiusCoord.push_back(rayon * sin(angle));
+                STP3D::Vector3D CercleCoordTrans(
+                    rayon * cos(angle),
+                    0,
+                    rayon * sin(angle)
+                );
+                myEngine.mvMatrixStack.addTranslation(CercleCoordTrans);
+                myEngine.updateMvMatrix();
+                drawCubeRail();
             myEngine.mvMatrixStack.popMatrix();
-            // update
             myEngine.updateMvMatrix();
         }
-        // pop
-        myEngine.mvMatrixStack.popMatrix();
-        // update
-        myEngine.updateMvMatrix();
+
+        // ---------------------------------------- troncon
+        float rayonTroncon=2.;
+        // Précision du cercle, plus ou moins lisse
+        int precisionTroncon=3;
+        // std::vector<float> BorderRadiusCoord{};
+        // formule pour calculer les cordonnées de chaque point du cercle
+        // (2PI * point_actuel) / nb_points_total
+        for (int i = 0; i < precisionTroncon ; i++)
+        {
+            float angle=M_PI/2*i/precisionTroncon;
+            myEngine.mvMatrixStack.pushMatrix();
+                // BorderRadiusCoord.push_back(rayon * cos(angle));
+                // BorderRadiusCoord.push_back(rayon * sin(angle));
+                STP3D::Vector3D TronconCoordTrans(
+                    rayonTroncon * cos(angle),
+                    0,
+                    rayonTroncon * sin(angle)
+                );
+                myEngine.mvMatrixStack.addTranslation(TronconCoordTrans);
+                Vector3D rotation(0.,0.,1.);
+                myEngine.mvMatrixStack.addRotation(i*M_PI/3,rotation);
+                myEngine.updateMvMatrix();
+                drawTroncon();
+            myEngine.mvMatrixStack.popMatrix();
+            myEngine.updateMvMatrix();
+        }
     }
-    
+
+    // void drawRailCurve(float orientation) {
+    //     // TODO: orientate accordingly
+    //     float angleRadiant{};
+    //     angleRadiant=deg2rad(orientation);
+    //     myEngine.setFlatColor(.41f,.41f,.41f);
+
+    //     myEngine.mvMatrixStack.pushMatrix();
+    //         // on se place au centre de la grille pour la rotation
+    //         myEngine.mvMatrixStack.addTranslation({5,0,5});
+    //         Vector3D axeRotation(0.,1,0.);
+    //         myEngine.mvMatrixStack.addRotation(angleRadiant,axeRotation);
+    //         myEngine.mvMatrixStack.addTranslation({-5,0,-5});
+    //         // update
+    //         myEngine.updateMvMatrix();
+
+    //     // Premier PAVE
+    //     // push	
+    //     myEngine.mvMatrixStack.pushMatrix();
+    //     Vector3D translationRail1{POS_X_RAIL1,10+rr,0};
+    //     myEngine.mvMatrixStack.addTranslation(translationRail1);
+    //     // update
+    //     myEngine.updateMvMatrix();
+    //     pave.drawShape();
+    //     // pop
+    //     myEngine.mvMatrixStack.popMatrix();
+    //     // update
+    //     myEngine.updateMvMatrix();
+
+    //     // Deuxieme PAVE
+    //     // push	
+    //     myEngine.mvMatrixStack.pushMatrix();
+    //     Vector3D translationRail2{POS_X_RAIL2,10+rr,0};
+    //     myEngine.mvMatrixStack.addTranslation(translationRail2);
+    //     // update
+    //     myEngine.updateMvMatrix();
+    //     pave.drawShape();
+    //     // pop
+    //     myEngine.mvMatrixStack.popMatrix();
+    //     // update
+    //     myEngine.updateMvMatrix();
+
+    //     // TRONCON
+    //     // push	
+    //     myEngine.mvMatrixStack.pushMatrix();
+    //         Vector3D translationTroncon1{2,10,sx+rr};
+    //         myEngine.mvMatrixStack.addTranslation(translationTroncon1);
+    //     // update
+    //     myEngine.updateMvMatrix();
+    //     drawTroncon();
+    //     // pop
+    //     myEngine.mvMatrixStack.popMatrix();
+    //     // update
+    //     myEngine.updateMvMatrix();
+    //     float old_z{sx+rr};
+    //     for(int i{0};i<4;i++){
+    //         old_z=old_z+rr+2*sx+rr;
+    //         // push	
+    //         myEngine.mvMatrixStack.pushMatrix();
+    //             Vector3D translationTroncon2{2,10,old_z};
+    //             myEngine.mvMatrixStack.addTranslation(translationTroncon2);
+    //         // update
+    //         myEngine.updateMvMatrix();
+    //         drawTroncon();
+    //         // pop
+    //         myEngine.mvMatrixStack.popMatrix();
+    //         // update
+    //         myEngine.updateMvMatrix();
+    //     }
+    //     // pop
+    //     myEngine.mvMatrixStack.popMatrix();
+    //     // update
+    //     myEngine.updateMvMatrix();
+    // }
 }

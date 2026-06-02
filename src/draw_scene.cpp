@@ -42,7 +42,7 @@ namespace Draw {
         // // update
         // myEngine.updateMvMatrix();
         // drawRailStraight(210.);
-        drawLittleRail(70.);
+        drawRailCurve(10);
         // // pop
         // myEngine.mvMatrixStack.popMatrix();
         // // update
