@@ -257,23 +257,18 @@ namespace Draw {
             //     }
             // }
         // pop
-        myEngine.mvMatrixStack.popMatrix();
-        // update
-        myEngine.updateMvMatrix();
+        // myEngine.mvMatrixStack.popMatrix();
+        // // update
+        // myEngine.updateMvMatrix();
         
-        // ---------------------------------------- arc de cercle
+        // ---------------------------------------- arc de cercle rail
         float rayon=3.;
-                // Précision du cercle, plus ou moins lisse
+        // Précision du cercle, plus ou moins lisse
         int precision=50;
-        // std::vector<float> BorderRadiusCoord{};
-        // formule pour calculer les cordonnées de chaque point du cercle
-        // (2PI * point_actuel) / nb_points_total
         for (int i = 0; i < precision ; i++)
         {
             float angle=M_PI/2*i/precision;
             myEngine.mvMatrixStack.pushMatrix();
-                // BorderRadiusCoord.push_back(rayon * cos(angle));
-                // BorderRadiusCoord.push_back(rayon * sin(angle));
                 STP3D::Vector3D CercleCoordTrans(
                     rayon * cos(angle),
                     0,
@@ -285,106 +280,50 @@ namespace Draw {
             myEngine.mvMatrixStack.popMatrix();
             myEngine.updateMvMatrix();
         }
-
+        float rayon2=7.;
+        // Précision du cercle, plus ou moins lisse
+        int precision2=150;
+        for (int i = 0; i < precision2 ; i++)
+        {
+            float angle=M_PI/2*i/precision2;
+            myEngine.mvMatrixStack.pushMatrix();
+                STP3D::Vector3D CercleCoordTrans(
+                    rayon2 * cos(angle),
+                    0,
+                    rayon2 * sin(angle)
+                );
+                myEngine.mvMatrixStack.addTranslation(CercleCoordTrans);
+                myEngine.updateMvMatrix();
+                drawCubeRail();
+            myEngine.mvMatrixStack.popMatrix();
+            myEngine.updateMvMatrix();
+        }
         // ---------------------------------------- troncon
         float rayonTroncon=2.;
         // Précision du cercle, plus ou moins lisse
         int precisionTroncon=3;
-        // std::vector<float> BorderRadiusCoord{};
-        // formule pour calculer les cordonnées de chaque point du cercle
-        // (2PI * point_actuel) / nb_points_total
-        for (int i = 0; i < precisionTroncon ; i++)
-        {
-            float angle=M_PI/2*i/precisionTroncon;
-            myEngine.mvMatrixStack.pushMatrix();
-                // BorderRadiusCoord.push_back(rayon * cos(angle));
-                // BorderRadiusCoord.push_back(rayon * sin(angle));
-                STP3D::Vector3D TronconCoordTrans(
-                    rayonTroncon * cos(angle),
-                    0,
-                    rayonTroncon * sin(angle)
-                );
-                myEngine.mvMatrixStack.addTranslation(TronconCoordTrans);
-                Vector3D rotation(0.,0.,1.);
-                myEngine.mvMatrixStack.addRotation(i*M_PI/3,rotation);
-                myEngine.updateMvMatrix();
-                drawTroncon();
-            myEngine.mvMatrixStack.popMatrix();
+        Vector3D rotation2(0.,1.,0.);
+        myEngine.mvMatrixStack.pushMatrix();
+            myEngine.mvMatrixStack.addRotation((-M_PI/12),rotation2);
             myEngine.updateMvMatrix();
-        }
+            for (int i = 0; i < precisionTroncon ; i++)
+            {
+                float angle=M_PI/2*i/precisionTroncon;
+                myEngine.mvMatrixStack.pushMatrix();
+                    // BorderRadiusCoord.push_back(rayon * cos(angle));
+                    // BorderRadiusCoord.push_back(rayon * sin(angle));
+                    STP3D::Vector3D TronconCoordTrans(
+                        rayonTroncon * cos(angle),
+                        0,
+                        rayonTroncon * sin(angle)
+                    );
+                    myEngine.mvMatrixStack.addTranslation(TronconCoordTrans);
+                    Vector3D rotation(0.,1.,0.);
+                    myEngine.mvMatrixStack.addRotation(i*(-M_PI/6),rotation);
+                    myEngine.updateMvMatrix();
+                    drawTroncon();
+                myEngine.mvMatrixStack.popMatrix();
+            }
+        myEngine.mvMatrixStack.popMatrix();
     }
-
-    // void drawRailCurve(float orientation) {
-    //     // TODO: orientate accordingly
-    //     float angleRadiant{};
-    //     angleRadiant=deg2rad(orientation);
-    //     myEngine.setFlatColor(.41f,.41f,.41f);
-
-    //     myEngine.mvMatrixStack.pushMatrix();
-    //         // on se place au centre de la grille pour la rotation
-    //         myEngine.mvMatrixStack.addTranslation({5,0,5});
-    //         Vector3D axeRotation(0.,1,0.);
-    //         myEngine.mvMatrixStack.addRotation(angleRadiant,axeRotation);
-    //         myEngine.mvMatrixStack.addTranslation({-5,0,-5});
-    //         // update
-    //         myEngine.updateMvMatrix();
-
-    //     // Premier PAVE
-    //     // push	
-    //     myEngine.mvMatrixStack.pushMatrix();
-    //     Vector3D translationRail1{POS_X_RAIL1,10+rr,0};
-    //     myEngine.mvMatrixStack.addTranslation(translationRail1);
-    //     // update
-    //     myEngine.updateMvMatrix();
-    //     pave.drawShape();
-    //     // pop
-    //     myEngine.mvMatrixStack.popMatrix();
-    //     // update
-    //     myEngine.updateMvMatrix();
-
-    //     // Deuxieme PAVE
-    //     // push	
-    //     myEngine.mvMatrixStack.pushMatrix();
-    //     Vector3D translationRail2{POS_X_RAIL2,10+rr,0};
-    //     myEngine.mvMatrixStack.addTranslation(translationRail2);
-    //     // update
-    //     myEngine.updateMvMatrix();
-    //     pave.drawShape();
-    //     // pop
-    //     myEngine.mvMatrixStack.popMatrix();
-    //     // update
-    //     myEngine.updateMvMatrix();
-
-    //     // TRONCON
-    //     // push	
-    //     myEngine.mvMatrixStack.pushMatrix();
-    //         Vector3D translationTroncon1{2,10,sx+rr};
-    //         myEngine.mvMatrixStack.addTranslation(translationTroncon1);
-    //     // update
-    //     myEngine.updateMvMatrix();
-    //     drawTroncon();
-    //     // pop
-    //     myEngine.mvMatrixStack.popMatrix();
-    //     // update
-    //     myEngine.updateMvMatrix();
-    //     float old_z{sx+rr};
-    //     for(int i{0};i<4;i++){
-    //         old_z=old_z+rr+2*sx+rr;
-    //         // push	
-    //         myEngine.mvMatrixStack.pushMatrix();
-    //             Vector3D translationTroncon2{2,10,old_z};
-    //             myEngine.mvMatrixStack.addTranslation(translationTroncon2);
-    //         // update
-    //         myEngine.updateMvMatrix();
-    //         drawTroncon();
-    //         // pop
-    //         myEngine.mvMatrixStack.popMatrix();
-    //         // update
-    //         myEngine.updateMvMatrix();
-    //     }
-    //     // pop
-    //     myEngine.mvMatrixStack.popMatrix();
-    //     // update
-    //     myEngine.updateMvMatrix();
-    // }
 }
