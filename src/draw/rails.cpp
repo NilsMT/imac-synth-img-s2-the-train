@@ -81,6 +81,24 @@ namespace Draw {
         myEngine.updateMvMatrix();
     }
 
+    void drawCubeRail(){
+        float section_size = sr;
+        // push	
+        myEngine.mvMatrixStack.pushMatrix();
+        // Vector3D translationRail3{POS_X_RAIL1,10,0};
+        // myEngine.mvMatrixStack.addTranslation(translationRail3);
+            // rotation
+                // update
+                scaleOrigin(section_size, section_size, section_size);
+                myEngine.setFlatColor(.41f,.41f,.41f);
+                myEngine.updateMvMatrix();
+                cube->draw();
+        // pop
+        myEngine.mvMatrixStack.popMatrix();
+        // update
+        myEngine.updateMvMatrix();
+    }
+
     void drawRailStraight(float orientation) {
         float angleRadiant{};
         angleRadiant=M_PI*orientation/180;
@@ -89,11 +107,141 @@ namespace Draw {
         myEngine.mvMatrixStack.pushMatrix();
             // on se place au centre de la grille pour la rotation
             myEngine.mvMatrixStack.addTranslation({5,0,5});
-            Vector3D railOrientation(0.,angleRadiant,0.);
-            myEngine.mvMatrixStack.addRotation(M_PI/2,railOrientation);
+            Vector3D axeRotation(0.,1,0.);
+            myEngine.mvMatrixStack.addRotation(angleRadiant,axeRotation);
             myEngine.mvMatrixStack.addTranslation({-5,0,-5});
         // update
         myEngine.updateMvMatrix();
+
+        // Premier PAVE
+        // push	
+        myEngine.mvMatrixStack.pushMatrix();
+            Vector3D translationRail1{POS_X_RAIL1,10+rr,0};
+            myEngine.mvMatrixStack.addTranslation(translationRail1);
+            // update
+            myEngine.updateMvMatrix();
+            pave.drawShape();
+        // pop
+        myEngine.mvMatrixStack.popMatrix();
+        // update
+        myEngine.updateMvMatrix();
+
+        // Deuxieme PAVE
+        // push	
+        myEngine.mvMatrixStack.pushMatrix();
+            Vector3D translationRail2{POS_X_RAIL2,10+rr,0};
+            myEngine.mvMatrixStack.addTranslation(translationRail2);
+            // update
+            myEngine.updateMvMatrix();
+            pave.drawShape();
+        // pop
+        myEngine.mvMatrixStack.popMatrix();
+        // update
+        myEngine.updateMvMatrix();
+
+        // TRONCON
+        // push	
+        myEngine.mvMatrixStack.pushMatrix();
+            Vector3D translationTroncon1{2,10,sx+rr};
+            myEngine.mvMatrixStack.addTranslation(translationTroncon1);
+        // update
+        myEngine.updateMvMatrix();
+        drawTroncon();
+        // pop
+        myEngine.mvMatrixStack.popMatrix();
+        // update
+        myEngine.updateMvMatrix();
+        float old_z{sx+rr};
+        for(int i{0};i<4;i++){
+            old_z=old_z+rr+2*sx+rr;
+            // push	
+            myEngine.mvMatrixStack.pushMatrix();
+                Vector3D translationTroncon2{2,10,old_z};
+                myEngine.mvMatrixStack.addTranslation(translationTroncon2);
+            // update
+            myEngine.updateMvMatrix();
+            drawTroncon();
+            // pop
+            myEngine.mvMatrixStack.popMatrix();
+            // update
+            myEngine.updateMvMatrix();
+        }
+        // pop
+        myEngine.mvMatrixStack.popMatrix();
+        // update
+        myEngine.updateMvMatrix();
+    }
+
+
+    void drawLittleRail(float orientation) {
+        // TODO: orientate accordingly
+        float angleRadiant{};
+        angleRadiant=deg2rad(orientation);
+        myEngine.setFlatColor(.41f,.41f,.41f);
+
+        myEngine.mvMatrixStack.pushMatrix();
+            // on se place au centre de la grille pour la rotation
+            myEngine.mvMatrixStack.addTranslation({5,0,5});
+            Vector3D axeRotation(0.,1,0.);
+            myEngine.mvMatrixStack.addRotation(angleRadiant,axeRotation);
+            myEngine.mvMatrixStack.addTranslation({-5,0,-5});
+            // update
+            myEngine.updateMvMatrix();
+
+        // Premier PAVE
+        // push	
+        myEngine.mvMatrixStack.pushMatrix();
+            Vector3D translationRail1{POS_X_RAIL1,10+rr+(sr/2),sx+rr};
+            myEngine.mvMatrixStack.addTranslation(translationRail1);
+            // update
+            myEngine.updateMvMatrix();
+            drawCubeRail();
+        // pop
+        myEngine.mvMatrixStack.popMatrix();
+        // update
+        myEngine.updateMvMatrix();
+
+        // Deuxieme PAVE
+        // push	
+        myEngine.mvMatrixStack.pushMatrix();
+            Vector3D translationRail2{POS_X_RAIL2,10+rr,0};
+            myEngine.mvMatrixStack.addTranslation(translationRail2);
+            // update
+            myEngine.updateMvMatrix();
+            pave.drawShape();
+        // pop
+        myEngine.mvMatrixStack.popMatrix();
+        // update
+        myEngine.updateMvMatrix();
+
+        // Troncon
+        myEngine.mvMatrixStack.pushMatrix();
+            Vector3D translationTroncon1{2,10,sx+rr};
+            myEngine.mvMatrixStack.addTranslation(translationTroncon1);
+            // update
+            myEngine.updateMvMatrix();
+            drawTroncon();
+        // pop
+        myEngine.mvMatrixStack.popMatrix();
+        // update
+        myEngine.updateMvMatrix();
+
+    }
+
+    void drawRailCurve(float orientation) {
+        // TODO: orientate accordingly
+        float angleRadiant{};
+        angleRadiant=deg2rad(orientation);
+        myEngine.setFlatColor(.41f,.41f,.41f);
+
+        myEngine.mvMatrixStack.pushMatrix();
+            // on se place au centre de la grille pour la rotation
+            myEngine.mvMatrixStack.addTranslation({5,0,5});
+            Vector3D axeRotation(0.,1,0.);
+            myEngine.mvMatrixStack.addRotation(angleRadiant,axeRotation);
+            myEngine.mvMatrixStack.addTranslation({-5,0,-5});
+            // update
+            myEngine.updateMvMatrix();
 
         // Premier PAVE
         // push	
@@ -152,10 +300,6 @@ namespace Draw {
         myEngine.mvMatrixStack.popMatrix();
         // update
         myEngine.updateMvMatrix();
-    }
-
-    void drawRailCurve(float orientation) {
-        // TODO: orientate accordingly
     }
     
 }

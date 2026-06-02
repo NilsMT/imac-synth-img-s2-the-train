@@ -41,7 +41,8 @@ namespace Draw {
         // myEngine.mvMatrixStack.addTranslation(translationRail);
         // // update
         // myEngine.updateMvMatrix();
-        drawRailStraight(10.);
+        // drawRailStraight(210.);
+        drawLittleRail(70.);
         // // pop
         // myEngine.mvMatrixStack.popMatrix();
         // // update
@@ -81,9 +82,9 @@ namespace Draw {
         drawTrees(&(json_data->trees));
 
         //draw path and train
-        drawTrainAndPath(&(json_data->path),time);
+        // drawTrainAndPath(&(json_data->path),time);
 
         //place the train station
-        drawTrainStation(json_data->origin[0],json_data->origin[1]);
+        // drawTrainStation(json_data->origin[0],json_data->origin[1]);
     }
 }
