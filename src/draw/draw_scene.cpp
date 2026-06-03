@@ -23,6 +23,14 @@ namespace Draw {
 
     void drawTrainAndPath(std::vector<std::vector<float>>* path,float time) {
         //TODO: place the rails according to the path
+        for (std::vector<float> pos : *path) {
+            myEngine.mvMatrixStack.pushMatrix();
+                moveOrigin(pos[0],0,pos[1]);
+                myEngine.updateMvMatrix();
+                drawRailStraight(0);
+            myEngine.mvMatrixStack.popMatrix();
+            myEngine.updateMvMatrix();
+        }
         //TODO: at the start of the path draw the train, unlike now
         drawTrain(time);
     }

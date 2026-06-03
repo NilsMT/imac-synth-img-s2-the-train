@@ -98,7 +98,7 @@ namespace Draw {
         // Premier PAVE
         // push	
         myEngine.mvMatrixStack.pushMatrix();
-        Vector3D translationRail1{POS_X_RAIL1,10+rr,0};
+        Vector3D translationRail1{POS_X_RAIL1,(rr*2),0};
             myEngine.mvMatrixStack.addTranslation(translationRail1);
             // update
             myEngine.updateMvMatrix();
@@ -111,7 +111,7 @@ namespace Draw {
         // Deuxieme PAVE
         // push	
         myEngine.mvMatrixStack.pushMatrix();
-        Vector3D translationRail2{POS_X_RAIL2,10+rr,0};
+        Vector3D translationRail2{POS_X_RAIL2,(rr*2),0};
         myEngine.mvMatrixStack.addTranslation(translationRail2);
         // update
         myEngine.updateMvMatrix();
@@ -124,7 +124,7 @@ namespace Draw {
         // TRONCON
         // push	
         myEngine.mvMatrixStack.pushMatrix();
-        Vector3D translationTroncon1{2,10,sx+rr};
+        Vector3D translationTroncon1{2,rr,sx+rr};
         myEngine.mvMatrixStack.addTranslation(translationTroncon1);
         // update
         myEngine.updateMvMatrix();
@@ -138,7 +138,7 @@ namespace Draw {
             old_z=old_z+rr+2*sx+rr;
             // push	
             myEngine.mvMatrixStack.pushMatrix();
-            Vector3D translationTroncon2{2,10,old_z};
+            Vector3D translationTroncon2{2,rr,old_z};
             myEngine.mvMatrixStack.addTranslation(translationTroncon2);
             // update
             myEngine.updateMvMatrix();
@@ -173,60 +173,6 @@ namespace Draw {
         myEngine.updateMvMatrix();
     }
     
-    void drawLittleRail(float orientation) {
-        // TODO: orientate accordingly
-        float angleRadiant{};
-        angleRadiant=deg2rad(orientation);
-        myEngine.setFlatColor(.41f,.41f,.41f);
-
-        myEngine.mvMatrixStack.pushMatrix();
-            // on se place au centre de la grille pour la rotation
-            myEngine.mvMatrixStack.addTranslation({5,0,5});
-            Vector3D axeRotation(0.,1,0.);
-            myEngine.mvMatrixStack.addRotation(angleRadiant,axeRotation);
-            myEngine.mvMatrixStack.addTranslation({-5,0,-5});
-            // update
-            myEngine.updateMvMatrix();
-
-        // Premier PAVE
-        // push	
-        myEngine.mvMatrixStack.pushMatrix();
-            Vector3D translationRail1{POS_X_RAIL1,10+rr+(sr/2),sx+rr};
-            myEngine.mvMatrixStack.addTranslation(translationRail1);
-            // update
-            myEngine.updateMvMatrix();
-            drawCubeRail();
-        // pop
-        myEngine.mvMatrixStack.popMatrix();
-        // update
-        myEngine.updateMvMatrix();
-
-        // Deuxieme PAVE
-        // push	
-        myEngine.mvMatrixStack.pushMatrix();
-            Vector3D translationRail2{POS_X_RAIL2,10+rr,0};
-            myEngine.mvMatrixStack.addTranslation(translationRail2);
-            // update
-            myEngine.updateMvMatrix();
-            pave.drawShape();
-        // pop
-        myEngine.mvMatrixStack.popMatrix();
-        // update
-        myEngine.updateMvMatrix();
-
-        // Troncon
-        myEngine.mvMatrixStack.pushMatrix();
-            Vector3D translationTroncon1{2,10,sx+rr};
-            myEngine.mvMatrixStack.addTranslation(translationTroncon1);
-            // update
-            myEngine.updateMvMatrix();
-            drawTroncon();
-        // pop
-        myEngine.mvMatrixStack.popMatrix();
-        // update
-        myEngine.updateMvMatrix();
-
-    }
 
     void drawRailCurve(float orientation) {
         // TODO: orientate accordingly
