@@ -6,9 +6,10 @@ namespace Draw {
     //////////////////////////////////////
 
     //1st layer
+    const float wheel_h = 1.0;
     const float wheel_support_l = 3.0; //size of wheel supports
     const float wheel_wedge_l = 0.25; //length of wheel wedges
-    const float wheel_guard_l = 0.75; //length of wheel guard
+    const float wheel_guard_l = wheel_h * 0.75; //length of wheel guard
     const float under_wedge_l = 2.5; //length of front under wedge
 
     //2nd layer
@@ -31,8 +32,13 @@ namespace Draw {
 
     //infos
     const float z_ratio = cell_size/body_l;
+    //wheel Z ratio to be = to 1 (maintain circle shape)
+    // x * r = 1, x = ? ==> x = 1/r
+    const float z_ratio_wh = 1/z_ratio;
+    const float r_h = z_ratio_wh/2;
     const float rails_l = cell_size - (2*3 + 2*sr); //distance between rails (excluded)
     const float rails_out_l = rails_l + 2*sr; //distance between rails (included)
+    const float rail_h = sr + (rr*2);
 
     //colors
     const Vector3D body_color{255, 128, 0};
@@ -69,13 +75,7 @@ namespace Draw {
 
 
     void drawTrainWheels() {
-        //wheel Z ratio to be = to 1 (maintain circle shape)
-        // x * r = 1, x = ? ==> x = 1/r
-        const float z_ratio_wh = 1/z_ratio;
-        const float r_h = z_ratio_wh/2;
-
         myEngine.mvMatrixStack.pushMatrix();
-
             // wheel 1
             myEngine.mvMatrixStack.pushMatrix();
                 moveOrigin(0, 0.5, r_h);
@@ -110,7 +110,7 @@ namespace Draw {
 
             // base
             myEngine.mvMatrixStack.pushMatrix();
-                moveOrigin((rails_l / 2) + sr, 0.75, wheel_support_l / 2);
+                moveOrigin((rails_l / 2) + sr, (r_h*2)*0.75, wheel_support_l / 2);
                 scaleOrigin(rails_l, 1, wheel_support_l);
                 drawShapeWithColor(cube, metal_color);
                 myEngine.mvMatrixStack.popMatrix();
@@ -264,7 +264,7 @@ namespace Draw {
             //////////////////////////////////
 
             myEngine.mvMatrixStack.pushMatrix();
-                moveOrigin(0, sr, 0);
+                moveOrigin(0, wheel_h, 0);
 
                 // main body
                 drawTrainMainBody();
@@ -286,7 +286,7 @@ namespace Draw {
             //////////////////////////////////
 
             myEngine.mvMatrixStack.pushMatrix();
-                moveOrigin(sr, sr + body_h, 0);
+                moveOrigin(sr, wheel_h + body_h, 0);
 
                 // wedge top
                 drawTrainWedgeTop(deg2rad(180));
