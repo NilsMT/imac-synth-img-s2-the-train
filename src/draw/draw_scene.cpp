@@ -21,15 +21,70 @@ namespace Draw {
         rect->createVAO();
     }
 
+    enum class Direction{
+        Vertical, // ↑↓
+        Horizontal, // ←→
+        CourbureDroite, // ↗
+        CourbureGauche, // ↘
+        Erreur
+    };
+
+    
+    Direction curveOrStraight(std::vector<std::vector<float>>* path, int index){
+        int nombreElement=(int)path->size(); //nombre d'éléments de path
+        if (index<=0||index>=nombreElement-1){
+            return Direction::Horizontal;
+        }
+
+        int previousIndex=index-1;
+        int currentIndex=index;
+        int nextIndex=index+1;
+
+        // Vérifie si ca tourne
+        if((*path)[nextIndex][0]!=(*path)[previousIndex][0] && (*path)[nextIndex][1]!=(*path)[previousIndex][1]){
+            // Maintenant ca tourne mais dans quel sens?
+
+            // si ca tourne à gauche alors x est plus petit
+            if((*path)[currentIndex][0]==(*path)[nextIndex][0]){
+                return Direction::CourbureGauche;
+            }
+
+            // si ca tourne à droite alors x est plus grand
+            if((*path)[currentIndex][0]==(*path)[previousIndex][0]){
+                return Direction::CourbureDroite;
+            }
+
+        }else if((*path)[currentIndex][0]==(*path)[previousIndex][0] && (*path)[currentIndex][0]==(*path)[nextIndex][0]){ // Vérifie si c'est Vertical en x 
+            return Direction::Vertical;
+        }else if((*path)[currentIndex][1]==(*path)[previousIndex][1] && (*path)[currentIndex][1]==(*path)[nextIndex][1])
+        {
+            return Direction::Horizontal;
+        }
+        // else if((*path)[currentIndex][1]!=(*path)[previousIndex][1] && (*path)[currentIndex][1]!=(*path)[nextIndex][1]){ // Vérifie si c'est Horizontal en y
+        //     return Direction::Horizontal;
+        // }
+
+
+
+        return Direction::Erreur;
+    }
+
     void drawTrainAndPath(std::vector<std::vector<float>>* path,float time) {
         //TODO: place the rails according to the path
+
+        int previousIndex{0};
+        int currentIndex{0};
+        int nextIndex{0};
         for (std::vector<float> pos : *path) {
+            previousIndex--;
+            nextIndex++;
             myEngine.mvMatrixStack.pushMatrix();
                 moveOrigin(pos[0],0,pos[1]);
                 myEngine.updateMvMatrix();
                 drawRailStraight(0);
             myEngine.mvMatrixStack.popMatrix();
             myEngine.updateMvMatrix();
+            currentIndex++;
         }
         //TODO: at the start of the path draw the train, unlike now
         drawTrain(time);

@@ -88,7 +88,7 @@ Exemple : `./main.exe ../data/path_1.json`.
 | ✅     | 🖥️IHM          |       | Caméra FPS                            | ZQSD + Mouvement souris      |
 | ✅     | 🖥️IHM          |       | Caméra ORBITAL                        | ZQSD + Scroll                |
 | ✅     | 🖥️IHM          |       | Touche pour toggle modes camera       | Touche C                     |
-| ❌     | 👁️Rendu        |       | Éclairage "réaliste" `*`              | Un soleil et phares du train |
+| ✅     | 👁️Rendu        |       | Éclairage "réaliste" `*`              | Un soleil et phares du train |
 | ✅     | 👁️Rendu        |       | Texturé un truc                       | Avant du train OU le sol     |
 | ✅     | ⚒️Modélisation | ☑️    | Modéliser (+ placer) du décors        | Genre un arbre               |
 | ✅     | 📝JSON         | ☑️    | Ajouter des trucs dans le JSON        | Placement d'arbres           |

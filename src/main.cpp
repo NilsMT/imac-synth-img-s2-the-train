@@ -39,7 +39,6 @@ bool isGridShown = false;
 /* Minimal time wanted between two images */
 static const double FRAMERATE_IN_SECONDS = 1. / 30.;
 
-
 //////////////////////////////////////
 /* Interactions (callbacks) */
 //////////////////////////////////////
@@ -300,7 +299,7 @@ int main(int argc, char** argv)
         return 1;
     }
 
-
+    
     //////////////////////////////////////
     /* GLFW initialisation */
     //////////////////////////////////////

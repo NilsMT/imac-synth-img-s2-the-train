@@ -12,16 +12,16 @@ void handleMainLighting(double time) {
         0.0f
     }, 0);
     // couleur light
-    Vector3D light_intensity(1,0.7,0.7);
-    myEngine.setLightIntensity(light_intensity);
+    Vector3D light_intensite(1,0.7,0.7);
+    myEngine.setLightIntensity(light_intensite);
 
-    Vector3D light_att(1,0,0);
-    myEngine.setAttenuationFactor(light_att);
+    Vector3D light_attenuation(1,0,0);
+    myEngine.setAttenuationFactor(light_attenuation);
 
     myEngine.setShininess(24.);
 
-    Vector3D reflect_col(1,1,1);
-    myEngine.setSpecularColor(reflect_col);
+    Vector3D reflet_couleur_objet(1,1,1);
+    myEngine.setSpecularColor(reflet_couleur_objet);
 
 };
 
