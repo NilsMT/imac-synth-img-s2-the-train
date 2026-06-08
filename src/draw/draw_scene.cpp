@@ -24,8 +24,10 @@ namespace Draw {
     enum class Direction{
         Vertical, // ↑↓
         Horizontal, // ←→
-        CourbureDroite, // ↗
-        CourbureGauche, // ↘
+        CourbureDroite1, 
+        CourbureGauche1, 
+        CourbureDroite2, 
+        CourbureGauche2, 
         Erreur
     };
 
@@ -44,14 +46,28 @@ namespace Draw {
         if((*path)[nextIndex][0]!=(*path)[previousIndex][0] && (*path)[nextIndex][1]!=(*path)[previousIndex][1]){
             // Maintenant ca tourne mais dans quel sens?
 
-            // si ca tourne à gauche alors x est plus petit
-            if((*path)[currentIndex][0]==(*path)[nextIndex][0]){
-                return Direction::CourbureGauche;
-            }
+            // // si ca tourne à gauche alors x est plus petit
+            // if((*path)[currentIndex][0]==(*path)[nextIndex][0]){
+            //     return Direction::CourbureGauche;
+            // }
 
+            // // si ca tourne à droite alors x est plus grand
+            // if((*path)[currentIndex][0]==(*path)[previousIndex][0]){
+            //     return Direction::CourbureDroite;
+            // }
             // si ca tourne à droite alors x est plus grand
-            if((*path)[currentIndex][0]==(*path)[previousIndex][0]){
-                return Direction::CourbureDroite;
+
+            if((*path)[currentIndex][0]>(*path)[nextIndex][0]){
+                return Direction::CourbureGauche1;
+            }
+            if((*path)[currentIndex][0]<(*path)[nextIndex][0]){
+                return Direction::CourbureDroite1;
+            }
+            if((*path)[currentIndex][1]>(*path)[nextIndex][1]){
+                return Direction::CourbureGauche2;
+            }
+            if((*path)[currentIndex][1]<(*path)[nextIndex][1]){
+                return Direction::CourbureDroite2;
             }
 
         }else if((*path)[currentIndex][0]==(*path)[previousIndex][0] && (*path)[currentIndex][0]==(*path)[nextIndex][0]){ // Vérifie si c'est Vertical en x 
@@ -59,7 +75,6 @@ namespace Draw {
         }else if((*path)[currentIndex][1]==(*path)[previousIndex][1] && (*path)[currentIndex][1]==(*path)[nextIndex][1]){
             return Direction::Vertical;
         }
-
 
 
 
@@ -102,7 +117,7 @@ namespace Draw {
                 else if(dir==Direction::Vertical){
                         drawRailStraight(90);
                 }
-                else if(dir==Direction::CourbureDroite || dir==Direction::CourbureGauche){
+                else if(dir==Direction::CourbureDroite1 || dir==Direction::CourbureGauche1 || dir==Direction::CourbureDroite2 || dir==Direction::CourbureGauche2){
                     // ternaire, valeur de previous index est index-1 si négatif alors previous index =0
                     int previousIndex=(index>0)?index-1:0;
                     
@@ -113,18 +128,30 @@ namespace Draw {
 
                     float angle = 0;
 
-                    if (dir==Direction::CourbureDroite) {
+                    if (dir==Direction::CourbureDroite1) {
                         if (vientDeGauche)angle=180;
                         else if (vientDeHaut)angle=270;
                         else if (vientDeDroite)angle=0;
                         else if (vientDeBas)angle=90;
                     } 
-                    else if (dir==Direction::CourbureGauche) {
+                    if (dir==Direction::CourbureDroite2) {
+                        if (vientDeGauche)angle=180;
+                        else if (vientDeHaut)angle=270;
+                        else if (vientDeDroite)angle=0;
+                        else if (vientDeBas)angle=90;
+                    } 
+                    else if (dir==Direction::CourbureGauche1) {
+                        if (vientDeGauche)angle=90;
+                        else if (vientDeHaut)angle=180;
+                        else if (vientDeDroite)angle=270;
+                        else if (vientDeBas)angle=0;
+                    }else if (dir==Direction::CourbureGauche2) {
                         if (vientDeGauche)angle=90;
                         else if (vientDeHaut)angle=180;
                         else if (vientDeDroite)angle=270;
                         else if (vientDeBas)angle=0;
                     }
+
 
                     drawRailCurve(angle);
                     
