@@ -28,7 +28,6 @@ const ImageData& loadImage(const std::string& path, const std::string& name) {
     return inserted.first->second;
 }
 
-// create an OpenGL texture from a previously loaded image
 void createTextureFromImage(const std::string& imageName, const std::string& textureName) {
     // If image is not already loaded, load it first
     auto imageIt = loadedImages.find(imageName);
@@ -45,21 +44,18 @@ void createTextureFromImage(const std::string& imageName, const std::string& tex
     loadedTextures.emplace(textureName, std::move(texture));
 }
 
-// attach texture
 void startTextureRender(const std::string& textureName) {
     myEngine.activateTexturing(true);
     auto& t = loadedTextures.at(textureName);
     t.attachTexture();
 }
 
-// detach texture
 void endTextureRender(const std::string& textureName) {
     auto& t = loadedTextures.at(textureName);
     t.detachTexture();
     myEngine.activateTexturing(false);
 }
 
-// free all loaded images and textures
 void freeAllResources() {
     loadedTextures.clear();
 

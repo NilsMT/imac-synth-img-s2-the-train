@@ -37,7 +37,9 @@ namespace Draw {
 
     extern float cell_size;
 
+    //set of point for the XYZ origin
     extern GLBI_Set_Of_Points somePointsFrame;
+    //set of point for the ground grid
     extern GLBI_Set_Of_Points somePointsGrid;
 
     extern IndexedMesh* sphere;

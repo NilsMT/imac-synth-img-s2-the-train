@@ -9,5 +9,8 @@ using namespace STP3D;
 #include "../json_data.hpp"
 using namespace Draw;
 
+//place the main light, aka the sun
 void handleMainLighting(double time);
+
+//place the train light at given coords (calculated to be the front of it)
 void handleTrainLighting(float x, float y,float z);
