@@ -55,10 +55,9 @@ namespace Draw {
             }
 
         }else if((*path)[currentIndex][0]==(*path)[previousIndex][0] && (*path)[currentIndex][0]==(*path)[nextIndex][0]){ // Vérifie si c'est Vertical en x 
-            return Direction::Vertical;
-        }else if((*path)[currentIndex][1]==(*path)[previousIndex][1] && (*path)[currentIndex][1]==(*path)[nextIndex][1])
-        {
             return Direction::Horizontal;
+        }else if((*path)[currentIndex][1]==(*path)[previousIndex][1] && (*path)[currentIndex][1]==(*path)[nextIndex][1]){
+            return Direction::Vertical;
         }
         // else if((*path)[currentIndex][1]!=(*path)[previousIndex][1] && (*path)[currentIndex][1]!=(*path)[nextIndex][1]){ // Vérifie si c'est Horizontal en y
         //     return Direction::Horizontal;
@@ -68,23 +67,52 @@ namespace Draw {
 
         return Direction::Erreur;
     }
+    // *********************** EXEMPLE ********************************
+    // void drawTree(float x, float y) {
+    //     myEngine.mvMatrixStack.pushMatrix();
+    //         moveOrigin(x*cell_size, 0, y*cell_size);
+    //         //trunk
+    //         myEngine.mvMatrixStack.pushMatrix();
+    //             moveOrigin(cell_size/2, trunk_height, cell_size/2);
+    //             rotateOrigin(deg2rad(90),1,0,0);
+    //             scaleOrigin(trunk_width, trunk_width, trunk_height);
+    //             drawShapeWithColor(cylinderCover, 112, 62, 20);
+    //             myEngine.mvMatrixStack.popMatrix();
 
+    //         //leaves
+    //         myEngine.mvMatrixStack.pushMatrix();
+    //             moveOrigin(cell_size/2, trunk_height + (leave_size/2), cell_size/2);
+    //             scaleOrigin(leave_size, leave_size, leave_size);
+    //             drawShapeWithColor(sphere, 11, 168, 6);
+    //             myEngine.mvMatrixStack.popMatrix();
+    //         myEngine.mvMatrixStack.popMatrix();
+    // };
+    // *********************** EXEMPLE ********************************
     void drawTrainAndPath(std::vector<std::vector<float>>* path,float time) {
         //TODO: place the rails according to the path
-
-        int previousIndex{0};
-        int currentIndex{0};
-        int nextIndex{0};
-        for (std::vector<float> pos : *path) {
-            previousIndex--;
-            nextIndex++;
-            myEngine.mvMatrixStack.pushMatrix();
-                moveOrigin(pos[0],0,pos[1]);
-                myEngine.updateMvMatrix();
-                drawRailStraight(0);
-            myEngine.mvMatrixStack.popMatrix();
-            myEngine.updateMvMatrix();
-            currentIndex++;
+        for (size_t i{0};i<path->size();i++) {
+            int index=static_cast<int>(i);
+            if(curveOrStraight(path,index)==Direction::Horizontal){
+                myEngine.mvMatrixStack.pushMatrix();
+                    moveOrigin((*path)[index][0]*cell_size, 0, (*path)[index][1]*cell_size);
+                    drawRailStraight(180);
+                myEngine.mvMatrixStack.popMatrix();
+            }else if(curveOrStraight(path,index)==Direction::Vertical){
+                myEngine.mvMatrixStack.pushMatrix();
+                    moveOrigin((*path)[index][0]*cell_size, 0, (*path)[index][1]*cell_size);
+                    drawRailStraight(90);
+                myEngine.mvMatrixStack.popMatrix();
+            }else if(curveOrStraight(path,index)==Direction::CourbureDroite){
+                myEngine.mvMatrixStack.pushMatrix();
+                    moveOrigin((*path)[index][0]*cell_size, 0, (*path)[index][1]*cell_size);
+                    drawRailCurve(180);
+                myEngine.mvMatrixStack.popMatrix();
+            }else if(curveOrStraight(path,index)==Direction::CourbureGauche){
+                myEngine.mvMatrixStack.pushMatrix();
+                    moveOrigin((*path)[index][0]*cell_size, 0, (*path)[index][1]*cell_size);
+                    drawRailCurve(0);
+                myEngine.mvMatrixStack.popMatrix();
+            }
         }
         //TODO: at the start of the path draw the train, unlike now
         drawTrain(time);
