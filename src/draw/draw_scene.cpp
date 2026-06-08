@@ -59,9 +59,7 @@ namespace Draw {
         }else if((*path)[currentIndex][1]==(*path)[previousIndex][1] && (*path)[currentIndex][1]==(*path)[nextIndex][1]){
             return Direction::Vertical;
         }
-        // else if((*path)[currentIndex][1]!=(*path)[previousIndex][1] && (*path)[currentIndex][1]!=(*path)[nextIndex][1]){ // Vérifie si c'est Horizontal en y
-        //     return Direction::Horizontal;
-        // }
+
 
 
 
@@ -92,27 +90,46 @@ namespace Draw {
         //TODO: place the rails according to the path
         for (size_t i{0};i<path->size();i++) {
             int index=static_cast<int>(i);
-            if(curveOrStraight(path,index)==Direction::Horizontal){
-                myEngine.mvMatrixStack.pushMatrix();
-                    moveOrigin((*path)[index][0]*cell_size, 0, (*path)[index][1]*cell_size);
-                    drawRailStraight(180);
-                myEngine.mvMatrixStack.popMatrix();
-            }else if(curveOrStraight(path,index)==Direction::Vertical){
-                myEngine.mvMatrixStack.pushMatrix();
-                    moveOrigin((*path)[index][0]*cell_size, 0, (*path)[index][1]*cell_size);
-                    drawRailStraight(90);
-                myEngine.mvMatrixStack.popMatrix();
-            }else if(curveOrStraight(path,index)==Direction::CourbureDroite){
-                myEngine.mvMatrixStack.pushMatrix();
-                    moveOrigin((*path)[index][0]*cell_size, 0, (*path)[index][1]*cell_size);
-                    drawRailCurve(180);
-                myEngine.mvMatrixStack.popMatrix();
-            }else if(curveOrStraight(path,index)==Direction::CourbureGauche){
-                myEngine.mvMatrixStack.pushMatrix();
-                    moveOrigin((*path)[index][0]*cell_size, 0, (*path)[index][1]*cell_size);
-                    drawRailCurve(0);
-                myEngine.mvMatrixStack.popMatrix();
-            }
+
+            Direction dir = curveOrStraight(path, index);
+
+            myEngine.mvMatrixStack.pushMatrix();
+                moveOrigin((*path)[index][0]*cell_size, 0, (*path)[index][1]*cell_size);
+
+                if(dir==Direction::Horizontal){
+                        drawRailStraight(180);
+                }
+                else if(dir==Direction::Vertical){
+                        drawRailStraight(90);
+                }
+                else if(dir==Direction::CourbureDroite || dir==Direction::CourbureGauche){
+                    // ternaire, valeur de previous index est index-1 si négatif alors previous index =0
+                    int previousIndex=(index>0)?index-1:0;
+                    
+                    bool vientDeGauche=((*path)[index][0]>(*path)[previousIndex][0]);
+                    bool vientDeDroite=((*path)[index][0]<(*path)[previousIndex][0]);
+                    bool vientDeHaut=((*path)[index][1]>(*path)[previousIndex][1]);
+                    bool vientDeBas=((*path)[index][1]<(*path)[previousIndex][1]);
+
+                    float angle = 0;
+
+                    if (dir==Direction::CourbureDroite) {
+                        if (vientDeGauche)angle=180;
+                        else if (vientDeHaut)angle=270;
+                        else if (vientDeDroite)angle=0;
+                        else if (vientDeBas)angle=90;
+                    } 
+                    else if (dir==Direction::CourbureGauche) {
+                        if (vientDeGauche)angle=90;
+                        else if (vientDeHaut)angle=180;
+                        else if (vientDeDroite)angle=270;
+                        else if (vientDeBas)angle=0;
+                    }
+
+                    drawRailCurve(angle);
+                    
+                }
+            myEngine.mvMatrixStack.popMatrix();
         }
         //TODO: at the start of the path draw the train, unlike now
         drawTrain(time);
@@ -125,35 +142,7 @@ namespace Draw {
     }
 
     void drawScene(float time, JsonData* json_data, bool isGridShown) {
-        glPointSize(10.0);
-
-        // // Premier RAIL
-        // // push	
-        // myEngine.mvMatrixStack.pushMatrix();
-        // Vector3D translationRail{POS_X_RAIL1,10,0};
-        // myEngine.mvMatrixStack.addTranslation(translationRail);
-        // // update
-        // myEngine.updateMvMatrix();
-        // drawRailStraight(210.);
-        // drawRailCurve(0);
-        // // pop
-        // myEngine.mvMatrixStack.popMatrix();
-        // // update
-        // myEngine.updateMvMatrix();
-
-        // // Deuxieme RAIL
-        // // push	
-        // myEngine.mvMatrixStack.pushMatrix();
-        // Vector3D translationRail{POS_X_RAIL2,10,0};
-        // myEngine.mvMatrixStack.addTranslation(translationRail);
-        // // update
-        // myEngine.updateMvMatrix();
-        // drawRailStraight(10.);
-        // // pop
-        // myEngine.mvMatrixStack.popMatrix();
-        // // update
-        // myEngine.updateMvMatrix();
-        
+        glPointSize(10.0);        
         ///////////////
         //base
 
