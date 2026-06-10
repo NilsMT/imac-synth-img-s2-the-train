@@ -18,144 +18,104 @@ namespace Draw {
         rect->createVAO();
     }
 
-    enum class Direction{
-        Vertical, // ↑↓
-        Horizontal, // ←→
-        CourbureDroite1, 
-        CourbureGauche1, 
-        CourbureDroite2, 
-        CourbureGauche2, 
-        Erreur
+    struct Vector2D {
+        float x;
+        float y;
+    };
+    Vector2D operator-(Vector2D const& a, Vector2D const& b) {
+        return Vector2D{a.x - b.x, a.y - b.y};
+    };
+    Vector2D operator+(Vector2D const& a, Vector2D const& b) {
+        return Vector2D{a.x + b.x, a.y + b.y};
     };
 
-    
-    Direction curveOrStraight(std::vector<std::vector<float>>* path, int index){
-        int nombreElement=(int)path->size(); //nombre d'éléments de path
-        if (index<=0||index>=nombreElement-1){
-            return Direction::Horizontal;
-        }
-
-        int previousIndex=index-1;
-        int currentIndex=index;
-        int nextIndex=index+1;
-
-        // Vérifie si ca tourne
-        if((*path)[nextIndex][0]!=(*path)[previousIndex][0] && (*path)[nextIndex][1]!=(*path)[previousIndex][1]){
-            // Maintenant ca tourne mais dans quel sens?
-
-            // // si ca tourne à gauche alors x est plus petit
-            // if((*path)[currentIndex][0]==(*path)[nextIndex][0]){
-            //     return Direction::CourbureGauche;
-            // }
-
-            // // si ca tourne à droite alors x est plus grand
-            // if((*path)[currentIndex][0]==(*path)[previousIndex][0]){
-            //     return Direction::CourbureDroite;
-            // }
-            // si ca tourne à droite alors x est plus grand
-
-            if((*path)[currentIndex][0]>(*path)[nextIndex][0]){
-                return Direction::CourbureGauche1;
-            }
-            if((*path)[currentIndex][0]<(*path)[nextIndex][0]){
-                return Direction::CourbureDroite1;
-            }
-            if((*path)[currentIndex][1]>(*path)[nextIndex][1]){
-                return Direction::CourbureGauche2;
-            }
-            if((*path)[currentIndex][1]<(*path)[nextIndex][1]){
-                return Direction::CourbureDroite2;
-            }
-
-        }else if((*path)[currentIndex][0]==(*path)[previousIndex][0] && (*path)[currentIndex][0]==(*path)[nextIndex][0]){ // Vérifie si c'est Vertical en x 
-            return Direction::Horizontal;
-        }else if((*path)[currentIndex][1]==(*path)[previousIndex][1] && (*path)[currentIndex][1]==(*path)[nextIndex][1]){
-            return Direction::Vertical;
-        }
-
-
-
-        return Direction::Erreur;
-    }
-    // *********************** EXEMPLE ********************************
-    // void drawTree(float x, float y) {
-    //     myEngine.mvMatrixStack.pushMatrix();
-    //         moveOrigin(x*cell_size, 0, y*cell_size);
-    //         //trunk
-    //         myEngine.mvMatrixStack.pushMatrix();
-    //             moveOrigin(cell_size/2, trunk_height, cell_size/2);
-    //             rotateOrigin(deg2rad(90),1,0,0);
-    //             scaleOrigin(trunk_width, trunk_width, trunk_height);
-    //             drawShapeWithColor(cylinderCover, 112, 62, 20);
-    //             myEngine.mvMatrixStack.popMatrix();
-
-    //         //leaves
-    //         myEngine.mvMatrixStack.pushMatrix();
-    //             moveOrigin(cell_size/2, trunk_height + (leave_size/2), cell_size/2);
-    //             scaleOrigin(leave_size, leave_size, leave_size);
-    //             drawShapeWithColor(sphere, 11, 168, 6);
-    //             myEngine.mvMatrixStack.popMatrix();
-    //         myEngine.mvMatrixStack.popMatrix();
-    // };
-    // *********************** EXEMPLE ********************************
     void drawTrainAndPath(std::vector<std::vector<float>>* path,float time) {
-        //TODO: place the rails according to the path
-        for (size_t i{0};i<path->size();i++) {
-            int index=static_cast<int>(i);
+        Vector2D from = {0,0};
+        Vector2D to = {0,0};
+        Vector2D diff = {0,0};
 
-            Direction dir = curveOrStraight(path, index);
-
+        for (int i = 0; i < path->size() ; i++) {
             myEngine.mvMatrixStack.pushMatrix();
-                moveOrigin((*path)[index][0]*cell_size, 0, (*path)[index][1]*cell_size);
+                //move
+                moveOrigin(path->at(i)[0] * cell_size, 0, path->at(i)[1] * cell_size);
 
-                if(dir==Direction::Horizontal){
-                        drawRailStraight(180);
+                //////////////////////////////// compute which to draw
+
+                //compute previous index
+                int pi = i - 1;
+                if (pi < 0) {
+                    pi = path->size() - 1;
                 }
-                else if(dir==Direction::Vertical){
+                //compute next index
+                int ni = i + 1;
+                if (ni == path->size()) {
+                    ni = 0;
+                }
+
+                //get list item
+                std::vector<float> previousItem = path->at(pi);
+                std::vector<float> currentItem = path->at(i);
+                std::vector<float> nextItem = path->at(ni);
+
+                //turn into vec 2
+                Vector2D previousVec = {previousItem[0],previousItem[1]};
+                Vector2D currentVec = {currentItem[0],currentItem[1]};
+                Vector2D nextVec = {nextItem[0],nextItem[1]};
+
+                //get directions
+                //math done here : 
+                //https://docs.google.com/spreadsheets/d/1QJlc2Z5o94UKLjpInkGRVyG_sochw3V4qGe0CShq4cE/edit?usp=sharing
+                from = currentVec - previousVec;
+                to = nextVec - currentVec;
+                diff = to - from;
+
+                // std::cout << " from x: " << from.x << " y: " << from.y << "\n";
+                // std::cout << " to x: " << to.x << " y: " << to.y << "\n";
+                // std::cout << " diff x: " << diff.x << " y: " << diff.y << "\n";
+                // std::cout << "===================\n";
+
+                //////////////////////////////// draw
+
+                if (diff.x == 0 && diff.y == 0) { //case we got one direction : rail straight
+                    if (to.x !=0) {
+                        //std::cout << "═\n";
                         drawRailStraight(90);
-                }
-                else if(dir==Direction::CourbureDroite1 || dir==Direction::CourbureGauche1 || dir==Direction::CourbureDroite2 || dir==Direction::CourbureGauche2){
-                    // ternaire, valeur de previous index est index-1 si négatif alors previous index =0
-                    int previousIndex=(index>0)?index-1:0;
-                    
-                    bool vientDeGauche=((*path)[index][0]>(*path)[previousIndex][0]);
-                    bool vientDeDroite=((*path)[index][0]<(*path)[previousIndex][0]);
-                    bool vientDeHaut=((*path)[index][1]>(*path)[previousIndex][1]);
-                    bool vientDeBas=((*path)[index][1]<(*path)[previousIndex][1]);
-
-                    float angle = 0;
-
-                    if (dir==Direction::CourbureDroite1) {
-                        if (vientDeGauche)angle=180;
-                        else if (vientDeHaut)angle=270;
-                        else if (vientDeDroite)angle=0;
-                        else if (vientDeBas)angle=90;
-                    } 
-                    if (dir==Direction::CourbureDroite2) {
-                        if (vientDeGauche)angle=180;
-                        else if (vientDeHaut)angle=270;
-                        else if (vientDeDroite)angle=0;
-                        else if (vientDeBas)angle=90;
-                    } 
-                    else if (dir==Direction::CourbureGauche1) {
-                        if (vientDeGauche)angle=90;
-                        else if (vientDeHaut)angle=180;
-                        else if (vientDeDroite)angle=270;
-                        else if (vientDeBas)angle=0;
-                    }else if (dir==Direction::CourbureGauche2) {
-                        if (vientDeGauche)angle=90;
-                        else if (vientDeHaut)angle=180;
-                        else if (vientDeDroite)angle=270;
-                        else if (vientDeBas)angle=0;
+                    } else if (to.y !=0) {
+                        //std::cout << "║\n";
+                        drawRailStraight(0);
+                    } else {
+                        std::cerr << "Erreur : rail droit infaisable\n";
+                        std::cout << " from x: " << from.x << " y: " << from.y << "\n";
+                        std::cout << " to x: " << to.x << " y: " << to.y << "\n";
+                        std::cout << " diff x: " << diff.x << " y: " << diff.y << "\n";
+                        std::cout << "===================\n";
+                    };
+                } else { //case we got two direction : rail turn
+                    if (diff.x == 1 && diff.y == 1) {
+                        //std::cout << "╝\n";
+                        drawRailCurve(180);
+                    } else if (diff.x == 1 && diff.y == -1) {
+                        //std::cout << "╗\n";
+                        drawRailCurve(270);
+                    } else if (diff.x == -1 && diff.y == 1) {
+                        //std::cout << "╚\n";
+                        drawRailCurve(90);
+                    } else if (diff.x == -1 && diff.y == -1) {
+                        //std::cout << "╔\n";
+                        drawRailCurve(0);
+                    } else {
+                        std::cerr << "Erreur : rail courbé infaisable\n";
+                        std::cout << " from x: " << from.x << " y: " << from.y << "\n";
+                        std::cout << " to x: " << to.x << " y: " << to.y << "\n";
+                        std::cout << " diff x: " << diff.x << " y: " << diff.y << "\n";
+                        std::cout << "===================\n";
                     }
-
-
-                    drawRailCurve(angle);
-                    
                 }
             myEngine.mvMatrixStack.popMatrix();
         }
         //TODO: at the start of the path draw the train, unlike now
+
+        
         drawTrain(time);
     }
 

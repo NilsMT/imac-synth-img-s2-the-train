@@ -29,8 +29,6 @@ namespace Draw {
             scaleOrigin(troncon_width, troncon_width, troncon_height);
             drawShapeWithColor(cylinderCover, 70, 30, 0);
         myEngine.mvMatrixStack.popMatrix();
-        // update
-        myEngine.updateMvMatrix();
     }
 
     void drawRailStraight(float orientation) {
@@ -57,8 +55,6 @@ namespace Draw {
                 scaleOrigin(sr, sr, cell_size);
                 cube->draw();
             myEngine.mvMatrixStack.popMatrix();
-            // update
-            myEngine.updateMvMatrix();
 
             // Deuxieme PAVE
             myEngine.mvMatrixStack.pushMatrix();
@@ -70,8 +66,6 @@ namespace Draw {
                 scaleOrigin(sr, sr, cell_size);
                 cube->draw();
             myEngine.mvMatrixStack.popMatrix();
-            // update
-            myEngine.updateMvMatrix();
 
             // TRONCON
             myEngine.mvMatrixStack.pushMatrix();
@@ -81,8 +75,6 @@ namespace Draw {
                 myEngine.updateMvMatrix();
                 drawTroncon();
             myEngine.mvMatrixStack.popMatrix();
-            // update
-            myEngine.updateMvMatrix();
 
             float old_z{sx + rr};
             for (int i = 0; i < 4; i++) {
@@ -95,12 +87,8 @@ namespace Draw {
                     myEngine.updateMvMatrix();
                     drawTroncon();
                 myEngine.mvMatrixStack.popMatrix();
-                // update
-                myEngine.updateMvMatrix();
             }
         myEngine.mvMatrixStack.popMatrix();
-        // update
-        myEngine.updateMvMatrix();
     }
 
     void drawCubeRail() {
@@ -116,8 +104,6 @@ namespace Draw {
             myEngine.updateMvMatrix();
             cube->draw();
         myEngine.mvMatrixStack.popMatrix();
-        // update
-        myEngine.updateMvMatrix();
     }
 
     void drawRailCurve(float orientation) {
@@ -152,7 +138,6 @@ namespace Draw {
                     myEngine.updateMvMatrix();
                     drawCubeRail();
                 myEngine.mvMatrixStack.popMatrix();
-                myEngine.updateMvMatrix();
             }
 
             float rayon2 = 7.;
@@ -170,7 +155,6 @@ namespace Draw {
                     myEngine.updateMvMatrix();
                     drawCubeRail();
                 myEngine.mvMatrixStack.popMatrix();
-                myEngine.updateMvMatrix();
             }
 
             // ---------------------------------------- troncon
@@ -202,7 +186,5 @@ namespace Draw {
 
         // pop
         myEngine.mvMatrixStack.popMatrix();
-        // update
-        myEngine.updateMvMatrix();
     }
 }
