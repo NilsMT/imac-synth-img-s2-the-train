@@ -18,15 +18,14 @@ namespace Draw {
         rect->createVAO();
     }
 
+    //vector 2 struct because somehow it doesnt exist anywhere
     struct Vector2D {
         float x;
         float y;
     };
+    //operator to substract 2 vectors
     Vector2D operator-(Vector2D const& a, Vector2D const& b) {
         return Vector2D{a.x - b.x, a.y - b.y};
-    };
-    Vector2D operator+(Vector2D const& a, Vector2D const& b) {
-        return Vector2D{a.x + b.x, a.y + b.y};
     };
 
     void drawTrainAndPath(std::vector<std::vector<float>>* path,float time) {
@@ -69,11 +68,6 @@ namespace Draw {
                 to = nextVec - currentVec;
                 diff = to - from;
 
-                // std::cout << " from x: " << from.x << " y: " << from.y << "\n";
-                // std::cout << " to x: " << to.x << " y: " << to.y << "\n";
-                // std::cout << " diff x: " << diff.x << " y: " << diff.y << "\n";
-                // std::cout << "===================\n";
-
                 //////////////////////////////// draw
 
                 if (diff.x == 0 && diff.y == 0) { //case we got one direction : rail straight
@@ -113,10 +107,20 @@ namespace Draw {
                 }
             myEngine.mvMatrixStack.popMatrix();
         }
-        //TODO: at the start of the path draw the train, unlike now
-
         
-        drawTrain(time);
+        //move train to start of path
+
+        if (path->size() <= 0) {
+            std::cerr << "Erreur : Pas de parcours\n";
+        } else {
+            myEngine.mvMatrixStack.pushMatrix();
+                //move to start of path
+                moveOrigin(path->at(0)[0] * cell_size, 0, path->at(0)[1] * cell_size);
+                //center train (spawn at x=0, need to move to center of cell)
+                moveOrigin((cell_size-rails_out_l)/2, (rr*2) + sr, 0);
+                drawTrain(time);
+                myEngine.mvMatrixStack.popMatrix();  
+        }
     }
 
     void drawTrees(std::vector<std::vector<float>>* trees) {
