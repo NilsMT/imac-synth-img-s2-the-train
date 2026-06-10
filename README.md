@@ -242,13 +242,17 @@ Nous avons donc ajouté des `.reInit()` dans ces fichiers pour éviter cela.
 
 ### Refactorisation des coordonnées
 
-La refactorisation des coordonnées a été effectuée pour plus de clarté. Le système
-de base utilisait un repère **Right-handed Z-up** (X+ derrière, Y+ droite, Z+ haut),
-peu adapté au contexte OpenGL, au profit d'un repère **Right-handed Y-up**
-(X+ droite, Y+ haut, Z+ avant), comme dans Minecraft, plus intuitif pour la
-navigation dans une scène 3D.
+Le système de coordonnées a été refactorisé pour mieux s'aligner avec les conventions
+OpenGL.
 
-Cependant, en raison d'une erreur lors de la refactorisation (Il ne fallait pas seulement "faire une rotation à 180°" du repère mais aussi inverser X), l'axe X s'est retrouvé inversé (X+ gauche au lieu de X+ droite), résultant en un repère légèrement non standard.
+L'ancien repère **Right-handed Z-up** (X+ derrière, Y+ droite, Z+ haut) a
+été remplacé par un repère **Right-handed Y-up** (X+ droite, Y+ haut, Z+ avant),
+similaire à celui de Minecraft et plus naturel pour la navigation en scène 3D.
+
+Toutefois, une erreur s'est glissée lors de la refactorisation : une simple rotation
+à 180° avec permutation de Y et Z ne suffit pas, il faut également inverser X.
+L'axe X s'est donc retrouvé inversé (X+ gauche au lieu de X+ droite), produisant
+un repère légèrement non standard.
 
 ![](./img/origins.png)
 
