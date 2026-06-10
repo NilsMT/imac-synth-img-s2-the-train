@@ -1,4 +1,6 @@
-Projet initialisé sur la base du TD04 de synthèse d'image, et remaniée de manière archaïque au niveau des `CMakeLists.txt` et de la structure des librairies
+![](./img/banner.png)
+
+Nils MOREAU--THOMAS - Yanis WONG
 
 # Sommaire
 
@@ -7,18 +9,27 @@ Projet initialisé sur la base du TD04 de synthèse d'image, et remaniée de man
     - [Avec les extensions :](#avec-les-extensions-)
     - [Avec la ligne de commande :](#avec-la-ligne-de-commande-)
 - [Structure](#structure)
-- [Guide des touches](#guide-des-touches)
-- [Listes des tâches](#listes-des-tâches)
-- [Documentations de certains trucs](#documentations-de-certains-trucs)
-    - [Texture](#texture)
-    - [Lighting](#lighting)
-    - [Draw](#draw)
-- [Informations supplémentaires](#informations-supplémentaires)
-    - [Informations utiles](#informations-utiles)
-    - [Explication de la refactorisation des coordonnées](#explication-de-la-refactorisation-des-coordonnées)
-    - [Identification des bugs](#identification-des-bugs)
-    - [Optimisation du moteur de rendu](#optimisation-du-moteur-de-rendu)
-    - [Informations ajoutées au JSON](#informations-ajoutées-au-json)
+    - [Explications sur la structure](#explications-sur-la-structure)
+- [Informations utiles](#informations-utiles)
+    - [Navigation](#navigation)
+    - [Documents et branches](#documents-et-branches)
+    - [Guide des touches](#guide-des-touches)
+    - [Listes des tâches](#listes-des-tâches)
+    - [Documentations du code](#documentations-du-code)
+        - [Fichiers Texture](#fichiers-texture)
+        - [Fichiers Lighting](#fichiers-lighting)
+        - [Dossier Draw](#dossier-draw)
+- [Rapport](#rapport)
+    - [Bugs et problèmes résolus](#bugs-et-problèmes-résolus)
+        - [Identification des bugs](#identification-des-bugs)
+        - [Problème d'optimisation du moteur de rendu](#problème-doptimisation-du-moteur-de-rendu)
+    - [Choix techniques](#choix-techniques)
+        - [Refactorisation des coordonnées](#refactorisation-des-coordonnées)
+        - [Informations ajoutées au JSON](#informations-ajoutées-au-json)
+    - [Difficultés](#difficultés)
+        - [Problèmes d'équipe](#problèmes-déquipe)
+        - [Problèmes du sujet](#problèmes-du-sujet)
+    - [Conclusion](#conclusion)
 
 # Lancement
 
@@ -39,17 +50,9 @@ cd bin && ./main.exe fichier/a/lire.json
 
 Exemple : `./main.exe ../data/path_1.json`.
 
-> Les commandes précédent l'exécution peuvent ne pas marcher ou être différentes selon l'ordinateur.
+> ℹ️ : Les commandes précédent l'exécution peuvent ne pas marcher ou être différentes selon l'ordinateur.
 
 # Structure
-
-Le projet est organisé autour de trois zones principales :
-
-- `assets/` : les ressources, notamment les shaders et les textures
-- `data/` : fichiers JSON de parcours et `DATADESC.md` qui décrit la structure des données
-- `docs/` : documents et diagrammes
-- `lib/` : librairies externes (GLFW, glad, glbasimac, nlohmann)
-- `src/` : code source
 
 ```
 ├───📁 assets : shaders & textures
@@ -69,6 +72,16 @@ Le projet est organisé autour de trois zones principales :
 └───📄 README.md : ce fichier
 ```
 
+## Explications sur la structure
+
+Le projet est organisé autour de trois zones principales :
+
+- `assets/` : les ressources, notamment les shaders et les textures
+- `data/` : fichiers JSON de parcours et `DATADESC.md` qui décrit la structure des données
+- `docs/` : documents et diagrammes
+- `lib/` : librairies externes (GLFW, glad, glbasimac, nlohmann)
+- `src/` : code source
+
 La structure est pensée pour séparer :
 
 - le code de rendu (`src/draw`),
@@ -77,7 +90,25 @@ La structure est pensée pour séparer :
 
 Cela rend plus facile l'évolution du projet (et sa maintenance)
 
-# Guide des touches
+Le projet initialisé sur la base du TD04 de synthèse d'image, et remaniée de manière archaïque au niveau des `CMakeLists.txt` et de la structure des librairies
+
+# Informations utiles
+
+## Navigation
+
+Il y a une extension pratique pour naviguer dans des endroits du code sur `VS Code` :<br>
+[Todo Tree](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree)<br>
+Avec `NOTE:` d'ajoutée dans le paramètre de l'extension [todo-tree.general.tags](vscode://settings/todo-tree.general.tags).
+
+Il est aussi recommandé d'utiliser l'`Outline` dans le panneau de droite de `VS Code`.
+
+## Documents et branches
+
+Il y a un document [DATADESC.md](./data/DATADESC.md) qui décrit les fichiers JSON et leurs visualisations.
+
+Il y a la branche [exp-nils](https://github.com/NilsMT/imac-synth-img-s2-the-train/tree/exp-nils) qui contient des tests de morceaux de codes réalisés par Nils, il contient actuellement presque toutes les tâches sauf les deux bonus
+
+## Guide des touches
 
 | Touche                                              | Action                                            | Note                |
 | --------------------------------------------------- | ------------------------------------------------- | ------------------- |
@@ -90,7 +121,7 @@ Cela rend plus facile l'évolution du projet (et sa maintenance)
 | <kbd>C</kbd>                                        | Changer le mode de la camera (orbitale, top, fps) |                     |
 | <kbd>G</kbd>                                        | Afficher/Masquer la grille                        |                     |
 
-# Listes des tâches
+## Listes des tâches
 
 > ☑️ = Bonus énuméré dans l'énoncé ♒ = Bonus supplémentaire
 > ✅ = Fait 🚧 = En cours ❌ = À faire
@@ -113,7 +144,7 @@ Cela rend plus facile l'évolution du projet (et sa maintenance)
 | ✅     | 🖥️IHM          |      | Caméra ORBITAL                        | ZQSD to rotate, Scroll to zoom           | 🔵Nils   |
 | ✅     | 🖥️IHM          |      | Touche pour toggle modes camera       | Touche C                                 | 🔵Nils   |
 | ✅     | 👁️Rendu        |      | Éclairage "flat"                      | Par défaut sur OpenGL                    | 🟢OpenGL |
-| ❌     | 👁️Rendu        |      | Éclairage "réaliste" `*`              | Un soleil et phares du train             | 🟠Yanis  |
+| ✅     | 👁️Rendu        |      | Éclairage "réaliste" `*`              | Un soleil et phares du train             | 🟠Yanis  |
 | ✅     | 👁️Rendu        |      | Texturé un truc                       | Avant du train OU le sol                 | 🟠Yanis  |
 | ✅     | 📁Structure    | ♒   | Refactorisation des coordonnées       | Voir Informations supplémentaires        | 🔵Nils   |
 | ✅     | 📁Structure    | ♒   | Correction des bugs                   | Voir Informations supplémentaires        | 🔵Nils   |
@@ -130,27 +161,27 @@ Cela rend plus facile l'évolution du projet (et sa maintenance)
 
 > `*` = D'après le PDF : _"vous devrez positionner une lumière directionnelle (orientée selon votre choix mais qui éclaire la scène comme un soleil), et une source de lumière ponctuelle au niveau de l’avant de votre train. Par ailleurs au moins un élément de votre application devra être texturé !"_
 
-> **Temps passé Nils**
+> **Temps passé par Nils**
 >
-> - Structure : 8h
+> - Structure : 12h
 > - Modélisation du train : 3h30
 > - Création des primitives + utilisation sur le train : 5h
 > - Lecture du JSON + en ligne de commande : 2h
 > - Grille : 1h
 > - Cameras : 3h
 > - Refactorisation des coordonnées : 4h30
-> - Fragmentation : 2h
-> - Correction de bugs : 2h
-> - Optimisation : 1h
+> - Correction de bugs du moteur de rendu : 2h
+> - Optimisation du moteur de rendu : 1h
 > - Ajout des arbres : 1h30
 > - Ajout du helper des textures : 4h
-> - Optimisation de la structure du projet : 2h
+> - Ajout des helper de lumières : 4h
+> - Expérimentation sur la visualisation du parcours avec les rails (branche [exp-nils](https://github.com/NilsMT/imac-synth-img-s2-the-train/tree/exp-nils)) : 2h
 >
-> Total : 39h30
+> Total : 45h30
 
-# Documentations de certains trucs
+## Documentations du code
 
-## Texture
+### Fichiers Texture
 
 Dans [texture.cpp](./src/texture/texture.cpp) il y a :
 
@@ -160,14 +191,14 @@ Dans [texture.cpp](./src/texture/texture.cpp) il y a :
 - Les fonctions `startTextureRender()` et `endTextureRender()` pour charger les textures
 - La fonction `freeAllResources()` qui libère la mémoire pour tout ce qui a été chargé (ce qui justifie l'existence de tout ça)
 
-## Lighting
+### Fichiers Lighting
 
 Dans [lighting.cpp](./src/lighting/lighting.cpp) il y a :
 
 - La fonction `handleMainLighting(double time)` qui créé le "soleil"
 - La fonction `handleTrainLighting(float x, float y,float z)` qui créé aux coordonnées données le phare du train
 
-## Draw
+### Dossier Draw
 
 Draw contient des fichiers de rendus intitulées par le nom de ce qui est dessiné
 Le tout est appelé dans [draw_scene.cpp](./src/draw/draw_scene.cpp)
@@ -178,26 +209,11 @@ Dans [shared.cpp](./src/draw/shared.cpp) il y a des fonctions utilitaires:
 
 - `moveOrigin(x, y, z)`, `rotateOrigin(angle, x, y, z)` et `scaleOrigin(x, y, z)` pour bouger, tourner et faire une homotétié sur le "curseur de dessin" (ç.à.d là ou on dessine une forme, comme un crayon ou un curseur turtle en `Python`)
 
-# Informations supplémentaires
+# Rapport
 
-## Informations utiles
+## Bugs et problèmes résolus
 
-Il y a une extension pratique pour naviguer dans des endroits du code sur `VS Code` :<br>
-[Todo Tree](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree)<br>
-Avec `NOTE:` d'ajoutée dans le paramètre de l'extension [todo-tree.general.tags](vscode://settings/todo-tree.general.tags).
-
-Il est aussi recommandé d'utiliser l'`Outline` dans le panneau de droite de `VS Code`.
-
-Il y a un document [DATADESC.md](./data/DATADESC.md) qui décrit les fichiers JSON et leurs visualisations.
-
-## Explication de la refactorisation des coordonnées
-
-La refactorisation des coordonnées a été effectué pour plus de clarté car le système était en **Right-handed Z-up**
-(X+ derrière, Y+ droite, Z+ haut), ce qui n'est pas standard, en **Right-handed Y-up** (X+ gauche, Y+ haut, Z+ avant).
-
-Comme dans Minecraft !
-
-## Identification des bugs
+### Identification des bugs
 
 Deux accès à des `std::vector` dans `glbasimac/tools/mesh.hpp` faisait crash le programme car il y avait un accès à des données inexistantes sur les ID de VBO (par le temps que la frame prend à s'exécuter) lors de la "vidange" du Buffer
 
@@ -217,11 +233,47 @@ Nous avons donc modifié `glbi_engine.cpp` pour avoir une variable de chemin poi
 >
 > Merci la documentation de filesystem.
 
-## Optimisation du moteur de rendu
+### Problème d'optimisation du moteur de rendu
 
 Les géométries et les points était initialisés de 0 dans `glbi_convex_2D_shape.cpp` et `glbi_set_of_points.cpp` ce qui faisait éventuellement crash et causait de la latence dans le programme.
 Nous avons donc ajouté des `.reInit()` dans ces fichiers pour éviter cela.
 
-## Informations ajoutées au JSON
+## Choix techniques
+
+### Refactorisation des coordonnées
+
+La refactorisation des coordonnées a été effectué pour plus de clarté car le système était en **Right-handed Z-up**
+(X+ derrière, Y+ droite, Z+ haut), ce qui n'est pas standard, en **Right-handed Y-up** (X+ gauche, Y+ haut, Z+ avant).
+
+Comme dans Minecraft !
+
+Ce travail était répétitif est fastidieux mais ce n'est qu'un changement de repère donc c'était rapide à faire.
+
+### Informations ajoutées au JSON
 
 Le JSON possède une information en plus : une liste de positions ou il y a des arbres.
+
+## Difficultés
+
+### Problèmes d'équipe
+
+Le niveau technique étant hétérogène au sein du binôme, la répartition des tâches
+a été déséquilibrée, une grande partie du travail ayant été prise en charge par
+un seul membre. Ce déséquilibre, couplé à un manque d'anticipation, d'organisation
+et d'investissement de la part de l'autre membre, a généré des tensions et ralenti
+la progression globale du projet.
+
+### Problèmes du sujet
+
+Le projet de base présentait de nombreux problèmes non documentés, comme les accès invalides aux VBO
+ou les chemins de shaders en relatif, rendant l'identification des bugs particulièrement difficile.
+De plus, la charge de travail est nettement supérieure aux autres
+projets du semestre, d'autant que les TD associés à cette matière ne disposaient
+d'aucune correction, ce qui a limité les possibilités d'apprentissage en amont.
+
+## Conclusion
+
+Ce projet a été particulièrement difficile à mener à terme. Le sujet manquait de
+clarté sur certains points et différait de ce à quoi nous étions habitués.
+Le déséquilibre d'organisation et de compétences au sein du binôme a constitué une
+difficulté supplémentaire tout au long du projet.
