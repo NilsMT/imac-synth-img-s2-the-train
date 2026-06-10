@@ -242,12 +242,15 @@ Nous avons donc ajouté des `.reInit()` dans ces fichiers pour éviter cela.
 
 ### Refactorisation des coordonnées
 
-La refactorisation des coordonnées a été effectué pour plus de clarté car le système était en **Right-handed Z-up**
-(X+ derrière, Y+ droite, Z+ haut), ce qui n'est pas standard, en **Right-handed Y-up** (X+ gauche, Y+ haut, Z+ avant).
+La refactorisation des coordonnées a été effectuée pour plus de clarté. Le système
+de base utilisait un repère **Right-handed Z-up** (X+ derrière, Y+ droite, Z+ haut),
+peu adapté au contexte OpenGL, au profit d'un repère **Right-handed Y-up**
+(X+ droite, Y+ haut, Z+ avant), comme dans Minecraft, plus intuitif pour la
+navigation dans une scène 3D.
 
-Comme dans Minecraft !
+Cependant, en raison d'une erreur lors de la refactorisation (Il ne fallait pas seulement "faire une rotation à 180°" du repère mais aussi inverser X), l'axe X s'est retrouvé inversé (X+ gauche au lieu de X+ droite), résultant en un repère légèrement non standard.
 
-Ce travail était répétitif est fastidieux mais ce n'est qu'un changement de repère donc c'était rapide à faire.
+![](./img/origins.png)
 
 ### Informations ajoutées au JSON
 
