@@ -103,9 +103,9 @@ Cela rend plus facile l'évolution du projet (et sa maintenance)
 | ✅     | ⚒️Modélisation |      | Faire le Train                        | + Faire triangle et cylindre fermé       | 🔵Nils   |
 | ✅     | ⚒️Modélisation |      | Faire la Gare                         |                                          | 🔵Nils   |
 | ✅     | 📝JSON         |      | Lire le JSON (JsonData)               | Serialisé en `JsonData`                  | 🔵Nils   |
-| 🚧     | 📝JSON         |      | Créer le parcours                     | Depuis `JsonData`                        | 🟠Yanis  |
+| ✅     | 📝JSON         |      | Créer le parcours                     | Depuis `JsonData`                        | 🟠Yanis  |
 | ✅     | 📝JSON         |      | Placer la gare                        |                                          | 🔵Nils   |
-| ❌     | 📝JSON         |      | Placer le train                       |                                          | 🟠Yanis  |
+| ✅     | 📝JSON         |      | Placer le train                       |                                          | 🟠Yanis  |
 | ✅     | 📝JSON         |      | Lancement avec JSON en argument       |                                          | 🔵Nils   |
 | ✅     | 🖥️IHM          |      | Touche pour quitter                   | Touche Échap                             | 🔵Nils   |
 | ✅     | 🖥️IHM          |      | Touche pour toggle modes d'éclairages | Touche F                                 | 🔵Nils   |
@@ -113,7 +113,7 @@ Cela rend plus facile l'évolution du projet (et sa maintenance)
 | ✅     | 🖥️IHM          |      | Caméra ORBITAL                        | ZQSD to rotate, Scroll to zoom           | 🔵Nils   |
 | ✅     | 🖥️IHM          |      | Touche pour toggle modes camera       | Touche C                                 | 🔵Nils   |
 | ✅     | 👁️Rendu        |      | Éclairage "flat"                      | Par défaut sur OpenGL                    | 🟢OpenGL |
-| ❌     | 👁️Rendu        |      | Éclairage "réaliste" `*`              | Un soleil et phares du train             | 🟠Yanis  |
+| ✅     | 👁️Rendu        |      | Éclairage "réaliste" `*`              | Un soleil et phares du train             | 🟠Yanis  |
 | ✅     | 👁️Rendu        |      | Texturé un truc                       | Avant du train OU le sol                 | 🟠Yanis  |
 | ✅     | 📁Structure    | ♒   | Refactorisation des coordonnées       | Voir Informations supplémentaires        | 🔵Nils   |
 | ✅     | 📁Structure    | ♒   | Correction des bugs                   | Voir Informations supplémentaires        | 🔵Nils   |
