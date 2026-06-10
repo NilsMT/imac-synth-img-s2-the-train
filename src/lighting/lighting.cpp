@@ -1,33 +1,49 @@
 #include "lighting.hpp"
 
+bool lightInitialized = false;
+
+void initMainLighting() {
+    Vector3D light_attenuation(0,0,0); // puissance
+    Vector3D color(1,1,0); // couleur
+
+    myEngine.setSpecularColor(color);
+    myEngine.setAttenuationFactor(light_attenuation);
+    myEngine.setShininess(0.0f);
+    myEngine.setLightIntensity(color, 0);
+};
+
+void initTrainLighting() {
+    Vector3D light_attenuation(1,0,0); // puissance
+    Vector3D color(1,0,0); // couleur
+
+    myEngine.setSpecularColor(color);
+    myEngine.setAttenuationFactor(light_attenuation);
+    myEngine.setShininess(0.0f);
+    myEngine.addALight({0,0,0,1}, color);
+};
+
+void initLights() {
+    //if light not placed yet AND we are on the shader that use lighting
+    if (!lightInitialized && myEngine.currentShader == 1) {
+        lightInitialized = true;
+        initMainLighting();
+        initTrainLighting();
+    }
+}
+
 void handleMainLighting(double time) {
-    //TODO: do the "sun" like lightning, maybe animate it with the time
-    const float angle{15.};
-    const float hauteur{10.};
-    Vector4D light_pos(0,20,0,0);
+    const float radius{10.0f};
+    const float height{25.0f};
+    const float speed{0.5};
+
     myEngine.setLightPosition({
-        sin(time) * angle,
-        hauteur,
-        cos(time) * angle,
+        (float)(sin(time * speed) * radius),
+        height,
+        (float)(cos(time * speed) * radius),
         0.0f
     }, 0);
-    // couleur light
-    Vector3D light_intensite(1,0.7,0.7);
-    myEngine.setLightIntensity(light_intensite);
-
-    Vector3D light_attenuation(1,0,0);
-    myEngine.setAttenuationFactor(light_attenuation);
-
-    myEngine.setShininess(24.);
-
-    Vector3D reflet_couleur_objet(1,1,1);
-    myEngine.setSpecularColor(reflet_couleur_objet);
-
 };
 
 void handleTrainLighting(float x, float y, float z) {
-    //TODO: place the train light at the given coords (it's the front of train)
-    Vector4D position(x,y,z,1.);
-    Vector3D couleur(1.,0.5,0.7);
-    myEngine.addALight(position,couleur);
+    myEngine.setLightPosition({x,y,z,1}, 1);
 }

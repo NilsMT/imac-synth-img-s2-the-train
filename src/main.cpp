@@ -162,6 +162,7 @@ void onKey(GLFWwindow* window, int key, int /*scancode*/, int action, int /*mods
 			if (is_pressed) {
                 if (myEngine.currentShader == 0) {
                     myEngine.switchToPhongShading();
+                    initLights();
                 } else {
 	                myEngine.switchToFlatShading();
                 }
@@ -382,11 +383,11 @@ int main(int argc, char** argv)
 
     
     //////////////////////////////////////
-    /* Texture loading */
+    /* Textures and Light loading */
     //////////////////////////////////////
 
-
     createTextureFromImage("grass.jpg","grass");
+    initLights();//this may do nothing if not starting on the right shader :
 
     
     //////////////////////////////////////
@@ -407,7 +408,7 @@ int main(int argc, char** argv)
 		double startTime = glfwGetTime();
 
 		/* Render begins here */
-		glClearColor(0.f,0.0f,0.2f,0.0f); //sky color
+		glClearColor(0.75f,0.75f,1.0f,0.0f); //sky color
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glEnable(GL_DEPTH_TEST);

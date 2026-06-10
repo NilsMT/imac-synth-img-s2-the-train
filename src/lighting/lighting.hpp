@@ -9,7 +9,19 @@ using namespace STP3D;
 #include "../json_data.hpp"
 using namespace Draw;
 
-//place the main light, aka the sun
+//true if lights got initialized
+extern bool lightInitialized;
+
+//initialize the main light, aka the sun
+void initMainLighting();
+
+//initialize the train light at given coords (calculated to be the front of it)
+void initTrainLighting();
+
+//initialize both lights (sun an train) if not already OR do nothing
+void initLights();
+
+//move the main light, aka the sun
 void handleMainLighting(double time);
 
 //place the train light at given coords (calculated to be the front of it)
