@@ -2,9 +2,6 @@
 
 namespace Draw {
     void initScene() {
-
-        initRail();
-
         sphere = basicSphere();
         sphere->createVAO();
 
