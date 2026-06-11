@@ -66,16 +66,16 @@ namespace Draw {
             pAfter.y=(*path)[nextIndex][1]-(*path)[currentIndex][1];
 
             if((pAfter.x-pBefore.x==-1) && (pAfter.y-pBefore.y==-1)){
-                // tourne à haut droite 
+                
                 return Direction::TourneHautDroite;
             }else if((pAfter.x-pBefore.x==1) && (pAfter.y-pBefore.y==-1)){
-                // tourne à haut gauche
+                
                 return Direction::TourneHautGauche;
             }else if((pAfter.x-pBefore.x==1) && (pAfter.y-pBefore.y==1)){
-                // tourne à bas gauche
+                
                 return Direction::TourneBasGauche;
             }else if((pAfter.x-pBefore.x==-1) && (pAfter.y-pBefore.y==1)){
-                // tourne à bas droit
+                
                 return Direction::TourneBasDroite;
             }
         }else if((*path)[currentIndex][0]==(*path)[previousIndex][0] && (*path)[currentIndex][0]==(*path)[nextIndex][0]){ // Vérifie si c'est Vertical en x 
