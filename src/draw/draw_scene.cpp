@@ -102,7 +102,7 @@ namespace Draw {
                     if(index==0){
                         myEngine.mvMatrixStack.pushMatrix();
                             moveOrigin((cell_size-rails_out_l)/2, (rr*2) + sr, 0);
-                            myEngine.mvMatrixStack.addRotation(90, axeRotationY); // ←→ donc 90°
+                            myEngine.mvMatrixStack.addRotation(0, axeRotationY);
                             drawTrain(time);
                         myEngine.mvMatrixStack.popMatrix();
                     }
@@ -112,7 +112,7 @@ namespace Draw {
                     if(index==0){
                         myEngine.mvMatrixStack.pushMatrix();
                             moveOrigin((cell_size-rails_out_l)/2, (rr*2) + sr, 0);
-                            myEngine.mvMatrixStack.addRotation(0, axeRotationY); // ↑↓ donc 0°
+                            myEngine.mvMatrixStack.addRotation(deg2rad(90), axeRotationY); 
                             drawTrain(time);
                         myEngine.mvMatrixStack.popMatrix();
                     }
@@ -123,17 +123,48 @@ namespace Draw {
                     float angle = 0;
 
                     if (dir==Direction::TourneHautDroite) {
+                        // DONE
+                        if(index==0){
+                            myEngine.mvMatrixStack.pushMatrix();
+                                moveOrigin(((cell_size-rails_out_l)/2)+2, (rr*2) + sr, -1);
+                                myEngine.mvMatrixStack.addRotation(deg2rad(-45), axeRotationY);
+                                drawTrain(time);
+                            myEngine.mvMatrixStack.popMatrix();
+                        }
                         angle = 0;
                     } 
                     else if (dir==Direction::TourneHautGauche) {
+                        // DONE
+                        if(index==0){
+                            myEngine.mvMatrixStack.pushMatrix();
+                                moveOrigin(((cell_size-rails_out_l)/2)+8, (rr*2) + sr, 5);
+                                myEngine.mvMatrixStack.addRotation(deg2rad(-135), axeRotationY);
+                                drawTrain(time);
+                            myEngine.mvMatrixStack.popMatrix();
+                        }
                         angle = 270;
                     } 
                     else if (dir==Direction::TourneBasDroite) {
-                        // I<-
+                        if(index==0){
+                            // DONE
+                            myEngine.mvMatrixStack.pushMatrix();
+                                moveOrigin(((cell_size-rails_out_l)/2)-5, (rr*2) + sr, 5);
+                                myEngine.mvMatrixStack.addRotation(deg2rad(45), axeRotationY);
+                                drawTrain(time);
+                            myEngine.mvMatrixStack.popMatrix();
+                        }
+
                         angle = 90;
                     }
                     else if (dir==Direction::TourneBasGauche) {
-
+                        // DONE
+                        if(index==0){
+                            myEngine.mvMatrixStack.pushMatrix();
+                                moveOrigin(((cell_size-rails_out_l)/2)+2, (rr*2) + sr, 11);
+                                myEngine.mvMatrixStack.addRotation(deg2rad(135), axeRotationY);
+                                drawTrain(time);
+                            myEngine.mvMatrixStack.popMatrix();
+                        }
                         angle = 180;
                     }
                     drawRailCurve(angle);
