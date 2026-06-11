@@ -24,83 +24,71 @@ namespace Draw {
     enum class Direction{
         Vertical, // ↑↓
         Horizontal, // ←→
-        CourbureDroite1, 
-        CourbureGauche1, 
-        CourbureDroite2, 
-        CourbureGauche2, 
+        TourneHautDroite, 
+        TourneHautGauche, 
+        TourneBasDroite, 
+        TourneBasGauche, 
         Erreur
     };
 
+    struct position{
+        int x;
+        int y;
+    };
     
     Direction curveOrStraight(std::vector<std::vector<float>>* path, int index){
         int nombreElement=(int)path->size(); //nombre d'éléments de path
-        if (index<=0||index>=nombreElement-1){
-            return Direction::Horizontal;
+        int previousIndex{};
+        int currentIndex{};
+        int nextIndex{};
+        if(index==0){
+            previousIndex=nombreElement-1;
+            currentIndex=index;
+            nextIndex=1;
+        }else if(index==nombreElement-1){
+            previousIndex=index-1;
+            currentIndex=index;
+            nextIndex=0;
+        }else{
+            previousIndex=index-1;
+            currentIndex=index;
+            nextIndex=index+1;
         }
-
-        int previousIndex=index-1;
-        int currentIndex=index;
-        int nextIndex=index+1;
 
         // Vérifie si ca tourne
         if((*path)[nextIndex][0]!=(*path)[previousIndex][0] && (*path)[nextIndex][1]!=(*path)[previousIndex][1]){
-            // Maintenant ca tourne mais dans quel sens?
+            // On sait que ca tourne maintenant on cherche à savoir dans quel sens
+            position pBefore;
+            position pAfter;
+            // tu récupère la différence (= de combien t'as bougé) depuis 
+            // celui d'avant à maintenant
+            pBefore.x=(*path)[currentIndex][0]-(*path)[previousIndex][0];
+            pBefore.y=(*path)[currentIndex][1]-(*path)[previousIndex][1];
+            // celui de maintenant à après
+            pAfter.x=(*path)[nextIndex][0]-(*path)[currentIndex][0];
+            pAfter.y=(*path)[nextIndex][1]-(*path)[currentIndex][1];
 
-            // // si ca tourne à gauche alors x est plus petit
-            // if((*path)[currentIndex][0]==(*path)[nextIndex][0]){
-            //     return Direction::CourbureGauche;
-            // }
-
-            // // si ca tourne à droite alors x est plus grand
-            // if((*path)[currentIndex][0]==(*path)[previousIndex][0]){
-            //     return Direction::CourbureDroite;
-            // }
-            // si ca tourne à droite alors x est plus grand
-
-            if((*path)[currentIndex][0]>(*path)[nextIndex][0]){
-                return Direction::CourbureGauche1;
+            if((pAfter.x-pBefore.x==-1) && (pAfter.y-pBefore.y==-1)){
+                // tourne à haut droite 
+                return Direction::TourneHautDroite;
+            }else if((pAfter.x-pBefore.x==1) && (pAfter.y-pBefore.y==-1)){
+                // tourne à haut gauche
+                return Direction::TourneHautGauche;
+            }else if((pAfter.x-pBefore.x==1) && (pAfter.y-pBefore.y==1)){
+                // tourne à bas gauche
+                return Direction::TourneBasGauche;
+            }else if((pAfter.x-pBefore.x==-1) && (pAfter.y-pBefore.y==1)){
+                // tourne à bas droit
+                return Direction::TourneBasDroite;
             }
-            if((*path)[currentIndex][0]<(*path)[nextIndex][0]){
-                return Direction::CourbureDroite1;
-            }
-            if((*path)[currentIndex][1]>(*path)[nextIndex][1]){
-                return Direction::CourbureGauche2;
-            }
-            if((*path)[currentIndex][1]<(*path)[nextIndex][1]){
-                return Direction::CourbureDroite2;
-            }
-
         }else if((*path)[currentIndex][0]==(*path)[previousIndex][0] && (*path)[currentIndex][0]==(*path)[nextIndex][0]){ // Vérifie si c'est Vertical en x 
             return Direction::Horizontal;
         }else if((*path)[currentIndex][1]==(*path)[previousIndex][1] && (*path)[currentIndex][1]==(*path)[nextIndex][1]){
             return Direction::Vertical;
         }
 
-
-
         return Direction::Erreur;
     }
-    // *********************** EXEMPLE ********************************
-    // void drawTree(float x, float y) {
-    //     myEngine.mvMatrixStack.pushMatrix();
-    //         moveOrigin(x*cell_size, 0, y*cell_size);
-    //         //trunk
-    //         myEngine.mvMatrixStack.pushMatrix();
-    //             moveOrigin(cell_size/2, trunk_height, cell_size/2);
-    //             rotateOrigin(deg2rad(90),1,0,0);
-    //             scaleOrigin(trunk_width, trunk_width, trunk_height);
-    //             drawShapeWithColor(cylinderCover, 112, 62, 20);
-    //             myEngine.mvMatrixStack.popMatrix();
-
-    //         //leaves
-    //         myEngine.mvMatrixStack.pushMatrix();
-    //             moveOrigin(cell_size/2, trunk_height + (leave_size/2), cell_size/2);
-    //             scaleOrigin(leave_size, leave_size, leave_size);
-    //             drawShapeWithColor(sphere, 11, 168, 6);
-    //             myEngine.mvMatrixStack.popMatrix();
-    //         myEngine.mvMatrixStack.popMatrix();
-    // };
-    // *********************** EXEMPLE ********************************
     void drawTrainAndPath(std::vector<std::vector<float>>* path,float time) {
         //TODO: place the rails according to the path
         for (size_t i{0};i<path->size();i++) {
@@ -117,44 +105,25 @@ namespace Draw {
                 else if(dir==Direction::Vertical){
                         drawRailStraight(90);
                 }
-                else if(dir==Direction::CourbureDroite1 || dir==Direction::CourbureGauche1 || dir==Direction::CourbureDroite2 || dir==Direction::CourbureGauche2){
-                    // ternaire, valeur de previous index est index-1 si négatif alors previous index =0
-                    int previousIndex=(index>0)?index-1:0;
-                    
-                    bool vientDeGauche=((*path)[index][0]>(*path)[previousIndex][0]);
-                    bool vientDeDroite=((*path)[index][0]<(*path)[previousIndex][0]);
-                    bool vientDeHaut=((*path)[index][1]>(*path)[previousIndex][1]);
-                    bool vientDeBas=((*path)[index][1]<(*path)[previousIndex][1]);
+                else if(dir==Direction::TourneHautDroite || dir==Direction::TourneHautGauche || dir==Direction::TourneBasDroite || dir==Direction::TourneBasGauche){
 
                     float angle = 0;
 
-                    if (dir==Direction::CourbureDroite1) {
-                        if (vientDeGauche)angle=180;
-                        else if (vientDeHaut)angle=270;
-                        else if (vientDeDroite)angle=0;
-                        else if (vientDeBas)angle=90;
+                    if (dir==Direction::TourneHautDroite) {
+                        angle = 0;
                     } 
-                    if (dir==Direction::CourbureDroite2) {
-                        if (vientDeGauche)angle=180;
-                        else if (vientDeHaut)angle=270;
-                        else if (vientDeDroite)angle=0;
-                        else if (vientDeBas)angle=90;
+                    else if (dir==Direction::TourneHautGauche) {
+                        angle = 270;
                     } 
-                    else if (dir==Direction::CourbureGauche1) {
-                        if (vientDeGauche)angle=90;
-                        else if (vientDeHaut)angle=180;
-                        else if (vientDeDroite)angle=270;
-                        else if (vientDeBas)angle=0;
-                    }else if (dir==Direction::CourbureGauche2) {
-                        if (vientDeGauche)angle=90;
-                        else if (vientDeHaut)angle=180;
-                        else if (vientDeDroite)angle=270;
-                        else if (vientDeBas)angle=0;
+                    else if (dir==Direction::TourneBasDroite) {
+                        // I<-
+                        angle = 90;
                     }
+                    else if (dir==Direction::TourneBasGauche) {
 
-
+                        angle = 180;
+                    }
                     drawRailCurve(angle);
-                    
                 }
             myEngine.mvMatrixStack.popMatrix();
         }
