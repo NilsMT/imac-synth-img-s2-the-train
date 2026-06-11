@@ -72,6 +72,8 @@ un repère légèrement non standard.
 
 ![](./img/origins.png)
 
+_Illustration faite sur Roblox Studio_
+
 ### Informations ajoutées au JSON
 
 Le JSON possède une information en plus : une liste de positions ou il y a des arbres.
@@ -82,9 +84,8 @@ Le JSON possède une information en plus : une liste de positions ou il y a des 
 
 Le niveau technique étant hétérogène au sein du binôme, la répartition des tâches
 a été déséquilibrée, une grande partie du travail ayant été prise en charge par
-un seul membre. Ce déséquilibre, couplé à un manque d'anticipation, d'organisation
-et d'investissement de la part de l'autre membre, a généré des tensions et ralenti
-la progression globale du projet.
+un seul membre. Ce déséquilibre, couplé à un manque d'anticipation et d'organisation de la part de l'autre membre,
+a généré des tensions et ralenti la progression globale du projet.
 
 ### Problèmes du sujet
 
