@@ -477,13 +477,15 @@ namespace STP3D {
 		wedge->addIndexBuffer(indexes,true);
 		return wedge;
 	}
-
+    
     IndexedMesh* basicCylinderWithCovers(float h,float radius,unsigned int div_round = 64,unsigned int div_height = 1);;
 
     inline IndexedMesh* basicCylinderWithCovers(float h, float radius, unsigned int div_round, unsigned int div_height) {
         //og sides + 2 centers (top and bot)
-        unsigned int nb_points_side = (div_round + 1) * (div_height + 1);
-        unsigned int nb_points = nb_points_side + 2; //+2 for top and bottom centers
+        unsigned int nb_side = (div_round + 1) * (div_height + 1);
+        unsigned int nb_top_rim = div_round + 1;
+        unsigned int nb_bot_rim = div_round + 1;
+        unsigned int nb_points = nb_side + nb_top_rim + nb_bot_rim + 2; //+2 for top and bottom centers
         unsigned int nb_prim_side = 2 * div_round * div_height;
         unsigned int nb_prim_caps = 2 * div_round; //div_round triangles per covers
         unsigned int nb_prim = nb_prim_side + nb_prim_caps;
@@ -493,82 +495,109 @@ namespace STP3D {
         float* coord = new float[nb_points * 3];
         float* normals = new float[nb_points * 3];
         float* uv = new float[nb_points * 2];
-        unsigned int* indexes = new unsigned int[3 * nb_prim];
+        unsigned int* indexes = new unsigned int[nb_prim * 3];
+
+        double incr_angle = 2.0 * M_PI / div_round;
 
         //sides
-        double angle = 0.0;
-        double height = 0.0;
-        double incr_angle = 2 * M_PI / div_round;
-        for (unsigned int j = 0; j <= div_height; j++, height += h / div_height) {
+        for (unsigned int j = 0; j <= div_height; j++) {
+            double angle = 0.0;
+            float z = h * j / (float)div_height;
             for (unsigned int i = 0; i <= div_round; i++, angle += incr_angle) {
-                double cos_pt = cos(angle);
-                double sin_pt = sin(angle);
-                unsigned int index = 3 * (j * (div_round + 1) + i);
-                coord[index] = radius * cos_pt;
-                coord[index + 1] = radius * sin_pt;
-                coord[index + 2] = height;
-
-                normals[index] = cos_pt;
-                normals[index + 1] = sin_pt;
-                normals[index + 2] = 0.0;
-
-                uv[2 * (j * (div_round + 1) + i)] = i / (float)div_round;
-                uv[2 * (j * (div_round + 1) + i) + 1] = j / (float)div_height;
+                double cos_a = cos(angle);
+                double sin_a = sin(angle);
+                unsigned int vi = j * (div_round + 1) + i;
+                coord[vi*3] = radius * cos_a;
+                coord[vi*3+1] = radius * sin_a;
+                coord[vi*3+2] = z;
+                normals[vi*3] = cos_a;
+                normals[vi*3+1] = sin_a;
+                normals[vi*3+2] = 0.0;
+                uv[vi*2] = i / (float)div_round;
+                uv[vi*2+1] = j / (float)div_height;
             }
         }
 
         //sides index
         for (unsigned int j = 0; j < div_height; j++) {
             for (unsigned int i = 0; i < div_round; i++) {
-                unsigned int base_index = j * div_round * 6 + 6 * i;
-                indexes[base_index] = j * (div_round + 1) + i;         // A
-                indexes[base_index + 1] = j * (div_round + 1) + (i + 1); // B
-                indexes[base_index + 2] = (j + 1) * (div_round + 1) + i; // C
-                indexes[base_index + 3] = (j + 1) * (div_round + 1) + i; // C
-                indexes[base_index + 4] = j * (div_round + 1) + (i + 1); // B
-                indexes[base_index + 5] = (j + 1) * (div_round + 1) + (i + 1); // D
+                unsigned int base = (j * div_round + i) * 6;
+                unsigned int A = j * (div_round + 1) + i;
+                unsigned int B = j * (div_round + 1) + i + 1;
+                unsigned int C = (j + 1) * (div_round + 1) + i;
+                unsigned int D = (j + 1) * (div_round + 1) + i + 1;
+                indexes[base] = A;
+                indexes[base+1] = B;
+                indexes[base+2] = C;
+                indexes[base+3] = C;
+                indexes[base+4] = B;
+                indexes[base+5] = D;
             }
         }
 
         /////bot and top cover
-        unsigned int center_top_index = nb_points_side;
-        unsigned int center_bottom_index = nb_points_side + 1;
+        unsigned int top_rim_base = nb_side;
+        unsigned int bot_rim_base = nb_side + nb_top_rim;
+
+        for (unsigned int i = 0; i <= div_round; i++) {
+            double angle = i * incr_angle;
+            double cos_a = cos(angle);
+            double sin_a = sin(angle);
+            unsigned int ti = top_rim_base + i;
+            coord[ti*3] = radius * cos_a;
+            coord[ti*3+1] = radius * sin_a;
+            coord[ti*3+2] = h;
+            normals[ti*3] = 0.0;
+            normals[ti*3+1] = 0.0;
+            normals[ti*3+2] = 1.0;
+            uv[ti*2] = 0.5f + 0.5f * cos_a;
+            uv[ti*2+1] = 0.5f + 0.5f * sin_a;
+            unsigned int bi = bot_rim_base + i;
+            coord[bi*3] = radius * cos_a;
+            coord[bi*3+1] = radius * sin_a;
+            coord[bi*3+2] = 0.0;
+            normals[bi*3] = 0.0;
+            normals[bi*3+1] = 0.0;
+            normals[bi*3+2] = -1.0;
+            uv[bi*2] = 0.5f + 0.5f * cos_a;
+            uv[bi*2+1] = 0.5f + 0.5f * sin_a;
+        }
 
         //top center
-        coord[3 * center_top_index] = 0.0;
-        coord[3 * center_top_index + 1] = 0.0;
-        coord[3 * center_top_index + 2] = h;
-        normals[3 * center_top_index] = 0.0;
-        normals[3 * center_top_index + 1] = 0.0;
-        normals[3 * center_top_index + 2] = 1.0;
-        uv[2 * center_top_index] = 0.5;
-        uv[2 * center_top_index + 1] = 0.5;
+        unsigned int center_top = nb_side + nb_top_rim + nb_bot_rim;
+        coord[center_top*3] = 0.0f;
+        coord[center_top*3+1] = 0.0f;
+        coord[center_top*3+2] = h;
+        normals[center_top*3] = 0.0f;
+        normals[center_top*3+1] = 0.0f;
+        normals[center_top*3+2] = 1.0f;
+        uv[center_top*2] = 0.5f;
+        uv[center_top*2+1] = 0.5f;
 
         //bot center
-        coord[3 * center_bottom_index] = 0.0;
-        coord[3 * center_bottom_index + 1] = 0.0;
-        coord[3 * center_bottom_index + 2] = 0.0;
-        normals[3 * center_bottom_index] = 0.0;
-        normals[3 * center_bottom_index + 1] = 0.0;
-        normals[3 * center_bottom_index + 2] = -1.0;
-        uv[2 * center_bottom_index] = 0.5;
-        uv[2 * center_bottom_index + 1] = 0.5;
+        unsigned int center_bot = center_top + 1;
+        coord[center_bot*3] = 0.0f;
+        coord[center_bot*3+1] = 0.0f;
+        coord[center_bot*3+2] = 0.0f;
+        normals[center_bot*3] = 0.0f;
+        normals[center_bot*3+1] = 0.0f;
+        normals[center_bot*3+2] = -1.0f;
+        uv[center_bot*2] = 0.5f;
+        uv[center_bot*2+1] = 0.5f;
 
         //top index
-        unsigned int side_prim_offset = 2 * div_round * div_height;
+        unsigned int idx_offset = nb_prim_side * 3;
         for (unsigned int i = 0; i < div_round; i++) {
-            unsigned int base_index = (side_prim_offset + i) * 3;
-            indexes[base_index] = center_top_index; //center
-            indexes[base_index + 1] = div_height * (div_round + 1) + i; //current
-            indexes[base_index + 2] = div_height * (div_round + 1) + (i + 1); //next
+            indexes[idx_offset++] = center_top;
+            indexes[idx_offset++] = top_rim_base + i;
+            indexes[idx_offset++] = top_rim_base + i + 1;
         }
 
         //bot index
         for (unsigned int i = 0; i < div_round; i++) {
-            unsigned int base_index = (side_prim_offset + div_round + i) * 3;
-            indexes[base_index] = center_bottom_index; //center
-            indexes[base_index + 1] = i; //current
-            indexes[base_index + 2] = (i + 1); //next
+            indexes[idx_offset++] = center_bot;
+            indexes[idx_offset++] = bot_rim_base + i + 1;
+            indexes[idx_offset++] = bot_rim_base + i;
         }
 
         cyl->addOneBuffer(0, 3, coord, "coordinates", false);

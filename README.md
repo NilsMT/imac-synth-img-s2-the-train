@@ -123,9 +123,9 @@ Il y a la branche [exp-nils](https://github.com/NilsMT/imac-synth-img-s2-the-tra
 | ✅     | ⚒️Modélisation |      | Faire le Train                        | + Faire triangle et cylindre fermé       | 🔵Nils   |
 | ✅     | ⚒️Modélisation |      | Faire la Gare                         |                                          | 🔵Nils   |
 | ✅     | 📝JSON         |      | Lire le JSON (JsonData)               | Serialisé en `JsonData`                  | 🔵Nils   |
-| 🚧     | 📝JSON         |      | Créer le parcours                     | Depuis `JsonData`                        | 🟠Yanis  |
+| ✅     | 📝JSON         |      | Créer le parcours                     | Depuis `JsonData`                        | 🟠Yanis  |
 | ✅     | 📝JSON         |      | Placer la gare                        |                                          | 🔵Nils   |
-| ❌     | 📝JSON         |      | Placer le train                       |                                          | 🟠Yanis  |
+| ✅     | 📝JSON         |      | Placer le train                       |                                          | 🟠Yanis  |
 | ✅     | 📝JSON         |      | Lancement avec JSON en argument       |                                          | 🔵Nils   |
 | ✅     | 🖥️IHM          |      | Touche pour quitter                   | Touche Échap                             | 🔵Nils   |
 | ✅     | 🖥️IHM          |      | Touche pour toggle modes d'éclairages | Touche F                                 | 🔵Nils   |
