@@ -3,5 +3,5 @@
 
 namespace Draw {
     extern const float rails_out_l;
-    void drawTrain(float time);  
+    void drawTrain(float time, float orientation);  
 }

@@ -211,9 +211,18 @@ namespace Draw {
     //////////////////////////////////////
     // Full Train
 
-    void drawTrain(float time) {
+    void drawTrain(float time, float orientation) {
         myEngine.mvMatrixStack.pushMatrix();
-            scaleOrigin(1, 1, z_ratio); //size Z so it fit grid cell size
+            //offset to cell center + at rail height
+            moveOrigin(cell_size/2, sr+ (rr * 2), cell_size/2);
+            //rotate to whatever it was
+            rotateOrigin(orientation,0,1,0);
+
+            //size Z so it fit grid cell size
+            scaleOrigin(1, 1, z_ratio);
+
+            //offset to center (because origin is on a corner of train)
+            moveOrigin(-rails_out_l / 2, 0,  -body_l/2);
              
             //////////////////////////////////
             // 1st layer
