@@ -129,7 +129,6 @@ Il y a la branche [exp-nils](https://github.com/NilsMT/imac-synth-img-s2-the-tra
 | Status | Catégorie      | En + | Description                           | Commentaire                              | Qui      |
 | ------ | -------------- | ---- | ------------------------------------- | ---------------------------------------- | -------- |
 | ✅     | 📁Structure    |      | Créer la structure du projet          | Reprendre la base du TD04                | 🔵Nils   |
-| ✅     | 📁Structure    |      | Fragmentation du draw_scene           |                                          | 🔵Nils   |
 | ✅     | ⚒️Modélisation |      | Faire les Rails                       | Faire Courbé et Droit                    | 🟠Yanis  |
 | ✅     | ⚒️Modélisation |      | Faire le Train                        | + Faire triangle et cylindre fermé       | 🔵Nils   |
 | ✅     | ⚒️Modélisation |      | Faire la Gare                         |                                          | 🔵Nils   |
@@ -142,16 +141,13 @@ Il y a la branche [exp-nils](https://github.com/NilsMT/imac-synth-img-s2-the-tra
 | ✅     | 🖥️IHM          |      | Touche pour toggle modes d'éclairages | Touche F                                 | 🔵Nils   |
 | ✅     | 🖥️IHM          |      | Caméra FPS                            | ZQSD to move where facing, Pan to rotate | 🔵Nils   |
 | ✅     | 🖥️IHM          |      | Caméra ORBITAL                        | ZQSD to rotate, Scroll to zoom           | 🔵Nils   |
-| ✅     | 🖥️IHM          |      | Touche pour toggle modes camera       | Touche C                                 | 🔵Nils   |
 | ✅     | 👁️Rendu        |      | Éclairage "flat"                      | Par défaut sur OpenGL                    | 🟢OpenGL |
 | ✅     | 👁️Rendu        |      | Éclairage "réaliste" `*`              | Un soleil et phares du train             | 🟠Yanis  |
-| ✅     | 👁️Rendu        |      | Texturé un truc                       | Avant du train OU le sol                 | 🟠Yanis  |
 | ✅     | 📁Structure    | ♒   | Refactorisation des coordonnées       | Voir Informations supplémentaires        | 🔵Nils   |
 | ✅     | 📁Structure    | ♒   | Correction des bugs                   | Voir Informations supplémentaires        | 🔵Nils   |
 | ✅     | 📁Structure    | ♒   | Optimisation du moteur de rendu       | Voir Informations supplémentaires        | 🔵Nils   |
 | ✅     | 🖥️IHM          | ♒   | Touche pour toggle modes de rendu     | Touche R                                 | 🔵Nils   |
 | ✅     | 🖥️IHM          | ♒   | Caméra TOP                            | ZQSD to move (X,Z), Scroll to zoom (Y)   | 🔵Nils   |
-| ✅     | 🖥️IHM          | ♒   | Touche pour toggle grille             | Touche G                                 | 🔵Nils   |
 | ✅     | ⚒️Modélisation | ♒   | Grille des cellules de rails          | Pour visualiser le placement             | 🔵Nils   |
 | ✅     | ⚒️Modélisation | ♒   | Primitives supplémentaires            | Triangle rectangle et cylindre fermé     | 🔵Nils   |
 | ✅     | ⚒️Modélisation | ☑️   | Modéliser (+ placer) du décors        | Genre un arbre                           | 🔵Nils   |
@@ -174,7 +170,7 @@ Il y a la branche [exp-nils](https://github.com/NilsMT/imac-synth-img-s2-the-tra
 > - Optimisation du moteur de rendu : 1h
 > - Ajout des arbres : 1h30
 > - Ajout du helper des textures : 4h
-> - Ajout des helper de lumières : 4h
+> - Ajout du helper des lumières : 4h
 > - Expérimentation sur la visualisation du parcours avec les rails (branche [exp-nils](https://github.com/NilsMT/imac-synth-img-s2-the-train/tree/exp-nils)) : 2h
 >
 > Total : 45h30
