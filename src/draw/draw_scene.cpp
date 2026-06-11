@@ -88,6 +88,8 @@ namespace Draw {
     }
     void drawTrainAndPath(std::vector<std::vector<float>>* path,float time) {
         //TODO: place the rails according to the path
+        STP3D::Vector3D axeRotationY(0,1,0);
+        STP3D::Vector3D axeRotationX(1,0,0);
         for (size_t i{0};i<path->size();i++) {
             int index=static_cast<int>(i);
 
@@ -97,10 +99,24 @@ namespace Draw {
                 moveOrigin((*path)[index][0]*cell_size, 0, (*path)[index][1]*cell_size);
 
                 if(dir==Direction::Horizontal){
-                        drawRailStraight(180);
+                    if(index==0){
+                        myEngine.mvMatrixStack.pushMatrix();
+                            moveOrigin((cell_size-rails_out_l)/2, (rr*2) + sr, 0);
+                            myEngine.mvMatrixStack.addRotation(90, axeRotationY); // ←→ donc 90°
+                            drawTrain(time);
+                        myEngine.mvMatrixStack.popMatrix();
+                    }
+                    drawRailStraight(180);
                 }
                 else if(dir==Direction::Vertical){
-                        drawRailStraight(90);
+                    if(index==0){
+                        myEngine.mvMatrixStack.pushMatrix();
+                            moveOrigin((cell_size-rails_out_l)/2, (rr*2) + sr, 0);
+                            myEngine.mvMatrixStack.addRotation(0, axeRotationY); // ↑↓ donc 0°
+                            drawTrain(time);
+                        myEngine.mvMatrixStack.popMatrix();
+                    }
+                    drawRailStraight(90);
                 }
                 else if(dir==Direction::TourneHautDroite || dir==Direction::TourneHautGauche || dir==Direction::TourneBasDroite || dir==Direction::TourneBasGauche){
 
@@ -123,9 +139,9 @@ namespace Draw {
                     drawRailCurve(angle);
                 }
             myEngine.mvMatrixStack.popMatrix();
+            
         }
         //TODO: at the start of the path draw the train, unlike now
-        drawTrain(time);
     }
 
     void drawTrees(std::vector<std::vector<float>>* trees) {

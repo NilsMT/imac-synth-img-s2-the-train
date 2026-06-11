@@ -302,5 +302,7 @@ namespace Draw {
 
                 myEngine.mvMatrixStack.popMatrix();
             myEngine.mvMatrixStack.popMatrix();
+            const float rails_l = cell_size - (2*3 + 2*sr);
+            const float rails_out_l = rails_l + 2*sr;
     }
 }
