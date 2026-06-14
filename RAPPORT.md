@@ -2,6 +2,8 @@
 
 Nils MOREAU--THOMAS - Yanis WONG
 
+[Lien du dépôt GitHub](https://github.com/NilsMT/imac-synth-img-s2-the-train/)
+
 # Rapport
 
 ## Répartitions des tâches
