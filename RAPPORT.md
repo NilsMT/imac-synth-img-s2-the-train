@@ -29,6 +29,24 @@ Nils a effectué ces tâches :
 - Placer la gare
 - Faire une grille pour visualiser les placements
 
+## Captures d'écrans
+
+Éclairage flat
+
+![](./img/flat.png)
+
+Éclairage "réaliste" avec 2 lumières (à l'avant du train et le "soleil")
+
+![](./img/phong.png)
+
+Camera additionnelle (vue de haut) et placement du train sur les rails courbés
+
+![](./img/top%20camera.png)
+
+Rendu additionnelle (vue en fil de fer)
+
+![](./img/wireframe.png)
+
 ## Bugs et problèmes résolus
 
 ### Identification des bugs
